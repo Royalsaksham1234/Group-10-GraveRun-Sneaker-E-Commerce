@@ -29,20 +29,19 @@ public class GraveRunSignup extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        Graverun = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        signup = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        button1 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,11 +50,11 @@ public class GraveRunSignup extends javax.swing.JFrame {
         jPanel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
         jPanel2.setLayout(null);
 
-        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel1.setText("        GRAVERUN");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(526, 62, 221, 49);
+        Graverun.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
+        Graverun.setForeground(new java.awt.Color(204, 204, 204));
+        Graverun.setText("        GRAVERUN");
+        jPanel2.add(Graverun);
+        Graverun.setBounds(526, 62, 221, 49);
 
         jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("Already have an account?");
@@ -67,11 +66,11 @@ public class GraveRunSignup extends javax.swing.JFrame {
         jPanel2.add(jLabel3);
         jLabel3.setBounds(712, 621, 54, 16);
 
-        jLabel7.setFont(new java.awt.Font("Myanmar Text", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("SIGN UP");
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(600, 160, 101, 46);
+        signup.setFont(new java.awt.Font("Myanmar Text", 1, 24)); // NOI18N
+        signup.setForeground(new java.awt.Color(255, 255, 255));
+        signup.setText("SIGN UP");
+        jPanel2.add(signup);
+        signup.setBounds(600, 160, 101, 46);
 
         jTextField1.setBackground(new java.awt.Color(0, 0, 0));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -104,33 +103,6 @@ public class GraveRunSignup extends javax.swing.JFrame {
         jPanel2.add(jSeparator6);
         jSeparator6.setBounds(710, 637, 40, 3);
 
-        jPanel1.setBackground(new java.awt.Color(204, 0, 0));
-        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
-
-        jLabel8.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText(" CREATE ACCOUNT ");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel1);
-        jPanel1.setBounds(580, 560, 160, 50);
-
         jTextField2.setBackground(new java.awt.Color(0, 0, 0));
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(204, 204, 204));
@@ -148,6 +120,17 @@ public class GraveRunSignup extends javax.swing.JFrame {
         jTextField3.addActionListener(this::jTextField3ActionPerformed);
         jPanel2.add(jTextField3);
         jTextField3.setBounds(560, 460, 260, 25);
+
+        button1.setActionCommand("CREATE ACCOUNT ");
+        button1.setBackground(new java.awt.Color(204, 0, 0));
+        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        button1.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setLabel("CREATE ACCOUNT ");
+        button1.addActionListener(this::button1ActionPerformed);
+        jPanel2.add(button1);
+        button1.setBounds(590, 560, 140, 50);
+        button1.getAccessibleContext().setAccessibleName("CREATE ACCOUNT ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,6 +164,10 @@ public class GraveRunSignup extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,12 +194,10 @@ public class GraveRunSignup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel Graverun;
+    private java.awt.Button button1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -222,5 +207,7 @@ public class GraveRunSignup extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel signup;
     // End of variables declaration//GEN-END:variables
+
 }
