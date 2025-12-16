@@ -31,17 +31,13 @@ public class GraveRunLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         GRAVERUN = new javax.swing.JLabel();
         LOGIN = new javax.swing.JLabel();
-        line3 = new javax.swing.JSeparator();
-        line4 = new javax.swing.JSeparator();
         Password = new javax.swing.JTextField();
         Email = new javax.swing.JTextField();
         forgetpassword = new javax.swing.JLabel();
         newtograverun = new javax.swing.JLabel();
-        createaccount = new javax.swing.JLabel();
-        login2 = new javax.swing.JPanel();
-        Login1 = new javax.swing.JLabel();
-        line1 = new javax.swing.JSeparator();
         line2 = new javax.swing.JSeparator();
+        button1 = new java.awt.Button();
+        button2 = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,28 +46,25 @@ public class GraveRunLogin extends javax.swing.JFrame {
 
         GRAVERUN.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
         GRAVERUN.setForeground(new java.awt.Color(204, 204, 204));
-        GRAVERUN.setText("     GRAVERUN");
+        GRAVERUN.setText("  GRAVERUN");
+        GRAVERUN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 0, 0)));
 
         LOGIN.setFont(new java.awt.Font("Myanmar Text", 1, 24)); // NOI18N
         LOGIN.setForeground(new java.awt.Color(255, 255, 255));
         LOGIN.setText(" LOG IN ");
 
-        line3.setForeground(new java.awt.Color(204, 204, 204));
-
-        line4.setForeground(new java.awt.Color(204, 204, 204));
-
         Password.setBackground(new java.awt.Color(0, 0, 0));
         Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Password.setForeground(new java.awt.Color(204, 204, 204));
         Password.setText("Password");
-        Password.setBorder(null);
+        Password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
         Password.addActionListener(this::PasswordActionPerformed);
 
         Email.setBackground(new java.awt.Color(0, 0, 0));
         Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Email.setForeground(new java.awt.Color(204, 204, 204));
         Email.setText("Email");
-        Email.setBorder(null);
+        Email.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
         Email.addActionListener(this::EmailActionPerformed);
 
         forgetpassword.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -81,30 +74,18 @@ public class GraveRunLogin extends javax.swing.JFrame {
         newtograverun.setForeground(new java.awt.Color(204, 204, 204));
         newtograverun.setText("New to GraveRun?");
 
-        createaccount.setForeground(new java.awt.Color(255, 255, 255));
-        createaccount.setText("Create Account.");
-
-        login2.setBackground(new java.awt.Color(204, 0, 0));
-        login2.setBorder(new javax.swing.border.MatteBorder(null));
-
-        Login1.setFont(new java.awt.Font("Microsoft YaHei UI Light", 1, 14)); // NOI18N
-        Login1.setForeground(new java.awt.Color(255, 255, 255));
-        Login1.setText("              LOGIN ");
-
-        javax.swing.GroupLayout login2Layout = new javax.swing.GroupLayout(login2);
-        login2.setLayout(login2Layout);
-        login2Layout.setHorizontalGroup(
-            login2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Login1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-        );
-        login2Layout.setVerticalGroup(
-            login2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Login1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-        );
-
-        line1.setForeground(new java.awt.Color(204, 0, 0));
-
         line2.setForeground(new java.awt.Color(204, 0, 0));
+
+        button1.setBackground(new java.awt.Color(0, 0, 0));
+        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        button1.setForeground(new java.awt.Color(255, 255, 255));
+        button1.setLabel("Create account ");
+        button1.addActionListener(this::button1ActionPerformed);
+
+        button2.setBackground(new java.awt.Color(204, 0, 0));
+        button2.setForeground(new java.awt.Color(255, 255, 255));
+        button2.setLabel("LOGIN");
+        button2.addActionListener(this::button2ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -113,90 +94,56 @@ public class GraveRunLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(520, 520, 520)
-                        .addComponent(login2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(513, 513, 513)
-                        .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(506, 506, 506)
+                        .addComponent(newtograverun)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(line2)
+                            .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(569, 569, 569)
+                        .addComponent(forgetpassword)))
+                .addGap(0, 595, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(606, 606, 606)
                         .addComponent(LOGIN, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(506, 506, 506)
-                                    .addComponent(newtograverun)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(createaccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(line2)))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(547, 547, 547)
-                                    .addComponent(forgetpassword)))
-                            .addGap(74, 74, 74))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(496, 496, 496)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(513, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(497, Short.MAX_VALUE)
-                    .addComponent(line3, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(507, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(498, Short.MAX_VALUE)
-                    .addComponent(line4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(512, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(547, Short.MAX_VALUE)
-                    .addComponent(line1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(587, 587, 587)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(557, 557, 557)
+                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(523, 523, 523)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(557, 557, 557)
+                        .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(44, 44, 44)
                 .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(65, 65, 65)
                 .addComponent(LOGIN)
-                .addGap(85, 85, 85)
+                .addGap(67, 67, 67)
                 .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88)
+                .addGap(64, 64, 64)
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
-                .addComponent(login2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(forgetpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newtograverun, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(createaccount)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(line2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(111, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(312, Short.MAX_VALUE)
-                    .addComponent(line3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(397, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(417, Short.MAX_VALUE)
-                    .addComponent(line4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(291, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(96, 96, 96)
-                    .addComponent(line1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(601, Short.MAX_VALUE)))
+                    .addComponent(newtograverun, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(line2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -227,6 +174,14 @@ public class GraveRunLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailActionPerformed
 
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button1ActionPerformed
+
+    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_button2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,16 +211,12 @@ public class GraveRunLogin extends javax.swing.JFrame {
     private javax.swing.JTextField Email;
     private javax.swing.JLabel GRAVERUN;
     private javax.swing.JLabel LOGIN;
-    private javax.swing.JLabel Login1;
     private javax.swing.JTextField Password;
-    private javax.swing.JLabel createaccount;
+    private java.awt.Button button1;
+    private java.awt.Button button2;
     private javax.swing.JLabel forgetpassword;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator line1;
     private javax.swing.JSeparator line2;
-    private javax.swing.JSeparator line3;
-    private javax.swing.JSeparator line4;
-    private javax.swing.JPanel login2;
     private javax.swing.JLabel newtograverun;
     // End of variables declaration//GEN-END:variables
 }
