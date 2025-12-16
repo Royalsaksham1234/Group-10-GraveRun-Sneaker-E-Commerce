@@ -18,8 +18,4 @@ public interface Database {
     int executeUpdate(Connection conn,String query);
 }
 
-/**
- *
- * @author srsro
- */
 
