@@ -21,6 +21,10 @@ public class UserData {
         this.password = password;
     }
 
+    public UserData(int userId, String username, String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }

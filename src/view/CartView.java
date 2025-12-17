@@ -83,6 +83,24 @@ private void loadprofile() {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        productlabel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        buyNow1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        productlabel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        buyNow2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        productlabel4 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        buyNow3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         Pop.setBorder(null);
         Pop.setBorderPainted(false);
@@ -116,6 +134,7 @@ private void loadprofile() {
         setMinimumSize(new java.awt.Dimension(1280, 720));
 
         jPanel1.setBackground(new java.awt.Color(106, 14, 14));
+        jPanel1.setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -157,7 +176,7 @@ private void loadprofile() {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 781, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 767, Short.MAX_VALUE)
                 .addComponent(Profile, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -177,6 +196,9 @@ private void loadprofile() {
                         .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(6, 6, 1113, 105);
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -238,26 +260,101 @@ private void loadprofile() {
                 .addGap(5, 5, 5))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 438, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(6, 696, 1127, 110);
+
+        productlabel2.setBackground(new java.awt.Color(73, 17, 17));
+        productlabel2.setLayout(null);
+
+        jLabel8.setText("jLabel1");
+        productlabel2.add(jLabel8);
+        jLabel8.setBounds(10, 20, 230, 87);
+
+        jLabel9.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel9.setText("jLabel2");
+        productlabel2.add(jLabel9);
+        jLabel9.setBounds(10, 110, 38, 16);
+
+        jLabel10.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel10.setText("jLabel3");
+        productlabel2.add(jLabel10);
+        jLabel10.setBounds(10, 130, 38, 16);
+
+        buyNow1.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow1.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow1.setText("Buy now");
+        productlabel2.add(buyNow1);
+        buyNow1.setBounds(180, 120, 78, 17);
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+        productlabel2.add(jButton2);
+        jButton2.setBounds(250, 0, 21, 17);
+
+        jPanel1.add(productlabel2);
+        productlabel2.setBounds(810, 160, 265, 151);
+
+        productlabel3.setBackground(new java.awt.Color(73, 17, 17));
+        productlabel3.setLayout(null);
+
+        jLabel11.setText("jLabel1");
+        productlabel3.add(jLabel11);
+        jLabel11.setBounds(10, 20, 230, 87);
+
+        jLabel12.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel12.setText("jLabel2");
+        productlabel3.add(jLabel12);
+        jLabel12.setBounds(10, 110, 38, 16);
+
+        jLabel13.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel13.setText("jLabel3");
+        productlabel3.add(jLabel13);
+        jLabel13.setBounds(10, 130, 38, 16);
+
+        buyNow2.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow2.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow2.setText("Buy now");
+        productlabel3.add(buyNow2);
+        buyNow2.setBounds(180, 120, 78, 17);
+
+        jButton3.setText("jButton2");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        productlabel3.add(jButton3);
+        jButton3.setBounds(250, 0, 21, 17);
+
+        jPanel1.add(productlabel3);
+        productlabel3.setBounds(50, 160, 265, 151);
+
+        productlabel4.setBackground(new java.awt.Color(73, 17, 17));
+        productlabel4.setLayout(null);
+
+        jLabel14.setText("jLabel1");
+        productlabel4.add(jLabel14);
+        jLabel14.setBounds(10, 20, 230, 87);
+
+        jLabel15.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel15.setText("jLabel2");
+        productlabel4.add(jLabel15);
+        jLabel15.setBounds(10, 110, 38, 16);
+
+        jLabel16.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel16.setText("jLabel3");
+        productlabel4.add(jLabel16);
+        jLabel16.setBounds(10, 130, 38, 16);
+
+        buyNow3.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow3.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow3.setText("Buy now");
+        productlabel4.add(buyNow3);
+        buyNow3.setBounds(180, 120, 78, 17);
+
+        jButton4.setText("jButton2");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+        productlabel4.add(jButton4);
+        jButton4.setBounds(250, 0, 21, 17);
+
+        jPanel1.add(productlabel4);
+        productlabel4.setBounds(440, 160, 265, 151);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -302,6 +399,18 @@ Pop.show(Profile, 0, Profile.getHeight());
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -333,16 +442,34 @@ Pop.show(Profile, 0, Profile.getHeight());
     private javax.swing.JMenuItem Order;
     private javax.swing.JPopupMenu Pop;
     private javax.swing.JButton Profile;
+    private javax.swing.JButton buyNow1;
+    private javax.swing.JButton buyNow2;
+    private javax.swing.JButton buyNow3;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel productlabel2;
+    private javax.swing.JPanel productlabel3;
+    private javax.swing.JPanel productlabel4;
     // End of variables declaration//GEN-END:variables
 }

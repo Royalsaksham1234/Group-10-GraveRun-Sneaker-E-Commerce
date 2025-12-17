@@ -6,7 +6,7 @@
 package dao;
 /**
  *
- * @author Srsro
+ * @author srsro
  */
 
 import database.MySqlConnection;

@@ -4,6 +4,12 @@
  */
 package view;
 
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 /**
  *
  * @author srsro
@@ -56,25 +62,25 @@ public class dashboard extends javax.swing.JFrame {
         shoeName = new javax.swing.JLabel();
         price = new javax.swing.JLabel();
         buyNow2 = new javax.swing.JButton();
-        favourite = new javax.swing.JButton();
+        favourite2 = new javax.swing.JButton();
         productlabel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         buyNow1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        favourite1 = new javax.swing.JButton();
         productlabel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         buyNow3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        favourite3 = new javax.swing.JButton();
         productlevel4 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         buynow4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        favourite4 = new javax.swing.JButton();
         logo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -236,10 +242,10 @@ public class dashboard extends javax.swing.JFrame {
         productLabel1.add(buyNow2);
         buyNow2.setBounds(180, 120, 78, 17);
 
-        favourite.setText("jButton2");
-        favourite.addActionListener(this::favouriteActionPerformed);
-        productLabel1.add(favourite);
-        favourite.setBounds(250, 0, 21, 17);
+        favourite2.setText("jButton2");
+        favourite2.addActionListener(this::favourite2ActionPerformed);
+        productLabel1.add(favourite2);
+        favourite2.setBounds(250, 0, 21, 17);
 
         backgroundPanel.add(productLabel1);
         productLabel1.setBounds(340, 390, 265, 151);
@@ -267,10 +273,10 @@ public class dashboard extends javax.swing.JFrame {
         productlabel2.add(buyNow1);
         buyNow1.setBounds(180, 120, 78, 17);
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        productlabel2.add(jButton2);
-        jButton2.setBounds(250, 0, 21, 17);
+        favourite1.setText("jButton2");
+        favourite1.addActionListener(this::favourite1ActionPerformed);
+        productlabel2.add(favourite1);
+        favourite1.setBounds(250, 0, 21, 17);
 
         backgroundPanel.add(productlabel2);
         productlabel2.setBounds(20, 390, 265, 151);
@@ -298,10 +304,10 @@ public class dashboard extends javax.swing.JFrame {
         productlabel3.add(buyNow3);
         buyNow3.setBounds(180, 120, 78, 17);
 
-        jButton4.setText("jButton2");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
-        productlabel3.add(jButton4);
-        jButton4.setBounds(250, 0, 21, 17);
+        favourite3.setText("jButton2");
+        favourite3.addActionListener(this::favourite3ActionPerformed);
+        productlabel3.add(favourite3);
+        favourite3.setBounds(250, 0, 21, 17);
 
         backgroundPanel.add(productlabel3);
         productlabel3.setBounds(670, 390, 265, 151);
@@ -329,10 +335,10 @@ public class dashboard extends javax.swing.JFrame {
         productlevel4.add(buynow4);
         buynow4.setBounds(180, 120, 78, 17);
 
-        jButton6.setText("jButton2");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
-        productlevel4.add(jButton6);
-        jButton6.setBounds(250, 0, 21, 17);
+        favourite4.setText("jButton2");
+        favourite4.addActionListener(this::favourite4ActionPerformed);
+        productlevel4.add(favourite4);
+        favourite4.setBounds(250, 0, 21, 17);
 
         backgroundPanel.add(productlevel4);
         productlevel4.setBounds(990, 390, 265, 151);
@@ -361,21 +367,21 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buynowActionPerformed
 
-    private void favouriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favouriteActionPerformed
+    private void favourite2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_favouriteActionPerformed
+    }//GEN-LAST:event_favourite2ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void favourite1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_favourite1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void favourite3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_favourite3ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void favourite4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_favourite4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -418,10 +424,10 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton buynow;
     private javax.swing.JButton buynow4;
     private javax.swing.JButton categories;
-    private javax.swing.JButton favourite;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton favourite1;
+    private javax.swing.JButton favourite2;
+    private javax.swing.JButton favourite3;
+    private javax.swing.JButton favourite4;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -457,6 +463,145 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
+    public void AddbtnSearchListener(ActionListener listener) {
+     btnSearch.addActionListener(listener);
+    }
 
+    public JTextField getTxtSearch() {
+        return txtSearch;
+    }
+
+    // Authentication buttons
+    public void AddloginListener(ActionListener listener) {
+         login.addActionListener(listener);
+    }
+
+    public void AddSignupListener(ActionListener listener) {
+        signup.addActionListener(listener);
+    }
+
+    // Banner and navigation
+    public void  AddgetBuynowListener(ActionListener listener) {
+         buynow.addActionListener (listener);
+    }
+
+    public void getLogoListener(ActionListener listener) {
+         logo.addActionListener (listener);
+    }
+
+    public void getCategoriesListener(ActionListener listener) {
+        categories.addActionListener(listener);
+    }
+
+    // Product panels
+    public JPanel getProductlabel2() {
+        return productlabel2;
+    }
+
+    public JPanel getProductLabel1() {
+        return productLabel1;
+    }
+
+    public JPanel getProductlabel3() {
+        return productlabel3;
+    }
+
+    public JPanel getProductlevel4() {
+        return productlevel4;
+    }
+
+    // Product image labels
+    public JLabel getjLabel6() {
+        return jLabel6;
+    }
+
+    public JLabel getShoeImg() {
+        return shoeImg;
+    }
+
+    public JLabel getjLabel11() {
+        return jLabel11;
+    }
+
+    public JLabel getjLabel14() {
+        return jLabel14;
+    }
+
+    // Product name labels
+    public JLabel getjLabel9() {
+        return jLabel9;
+    }
+
+    public JLabel getShoeName() {
+        return shoeName;
+    }
+
+    public JLabel getjLabel12() {
+        return jLabel12;
+    }
+
+    public JLabel getjLabel15() {
+        return jLabel15;
+    }
+
+    // Product price labels
+    public JLabel getjLabel10() {
+        return jLabel10;
+    }
+
+    public JLabel getPrice() {
+        return price;
+    }
+
+    public JLabel getjLabel13() {
+        return jLabel13;
+    }
+
+    public JLabel getjLabel16() {
+        return jLabel16;
+    }
+
+    // Buy Now buttons
+    public void  getBuyNow1Listener(ActionListener listener) {
+         buyNow1.addActionListener (listener);
+    }
+
+    public void  getBuyNow2Listener(ActionListener listener) {
+         buyNow2.addActionListener (listener);
+    }
+
+    public void  getBuyNow3Listener(ActionListener listener) {
+         buyNow3.addActionListener (listener);
+    }
+
+    public void  getBuyNow4Listener(ActionListener listener) {
+         buynow4.addActionListener (listener);
+    }
+
+    // Favorite buttons
+    public void getFavourite1Listener(ActionListener listener) {
+         favourite1.addActionListener (listener);
+    }
+
+   public void getFavourite2Listener(ActionListener listener) {
+         favourite2.addActionListener (listener);
+    }
+
+    public void getFavourite3Listener(ActionListener listener) {
+         favourite3.addActionListener (listener);
+    }
+
+    public void getFavourite4Listener(ActionListener listener) {
+         favourite4.addActionListener (listener);
+    }
+
+    // Banner panel and labels (optional)
+    public JPanel getBannerPanel() {
+        return bannerPanel;
+    }
+
+    public JLabel getBestSellers() {
+        return bestSellers;
+    }
 
 }
