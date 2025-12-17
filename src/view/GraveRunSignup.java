@@ -17,8 +17,18 @@ public class GraveRunSignup extends javax.swing.JFrame {
      */
     public GraveRunSignup() {
         initComponents();
-        
      
+    Username.setText("Username");
+        emailField1.setText("Email");
+    
+    passwordField.setEchoChar((char) 0); 
+    passwordField.setText("Password");
+    
+    passwordField.setFont(new java.awt.Font("Rockwell", 0, 18));   
+    ConfirmP.setEchoChar((char) 0); 
+    ConfirmP.setText("Confirm Password");
+    
+    ConfirmP.setFont(new java.awt.Font("Rockwell", 0, 18));  
     }
       
     /**
@@ -33,87 +43,38 @@ public class GraveRunSignup extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         Graverun = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        signup = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
-        password = new javax.swing.JTextField();
-        button1 = new java.awt.Button();
         emailField1 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
-        button2 = new java.awt.Button();
-        jPanel3 = new javax.swing.JPanel();
-        Graverun1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        signup1 = new javax.swing.JLabel();
-        jSeparator7 = new javax.swing.JSeparator();
-        password1 = new javax.swing.JTextField();
-        button5 = new java.awt.Button();
-        emailField2 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        passwordField = new javax.swing.JPasswordField();
+        ConfirmP = new javax.swing.JPasswordField();
+        Username = new javax.swing.JTextField();
+        Login = new javax.swing.JButton();
+        Sign = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setForeground(new java.awt.Color(204, 204, 204));
         jPanel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jPanel2.setLayout(null);
 
-        Graverun.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        Graverun.setForeground(new java.awt.Color(204, 204, 204));
+        Graverun.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 48)); // NOI18N
+        Graverun.setForeground(new java.awt.Color(255, 255, 255));
         Graverun.setText("  GRAVERUN");
-        Graverun.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 0, 0)));
-        jPanel2.add(Graverun);
-        Graverun.setBounds(560, 60, 180, 49);
 
-        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Already have an account?");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(570, 610, 135, 44);
-
-        signup.setFont(new java.awt.Font("Myanmar Text", 1, 24)); // NOI18N
-        signup.setForeground(new java.awt.Color(255, 255, 255));
-        signup.setText("SIGN UP");
-        jPanel2.add(signup);
-        signup.setBounds(600, 160, 101, 46);
 
         jSeparator6.setForeground(new java.awt.Color(255, 51, 0));
         jSeparator6.setAlignmentX(2.0F);
         jSeparator6.setAlignmentY(2.0F);
-        jPanel2.add(jSeparator6);
-        jSeparator6.setBounds(710, 644, 40, 3);
-
-        password.setBackground(new java.awt.Color(0, 0, 0));
-        password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        password.setForeground(new java.awt.Color(204, 204, 204));
-        password.setText("Password");
-        password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
-        password.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                passwordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                passwordFocusLost(evt);
-            }
-        });
-        password.addActionListener(this::passwordActionPerformed);
-        jPanel2.add(password);
-        password.setBounds(550, 380, 257, 30);
-
-        button1.setActionCommand("CREATE ACCOUNT ");
-        button1.setBackground(new java.awt.Color(204, 0, 0));
-        button1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        button1.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        button1.setForeground(new java.awt.Color(255, 255, 255));
-        button1.setLabel("CREATE ACCOUNT ");
-        button1.addActionListener(this::button1ActionPerformed);
-        jPanel2.add(button1);
-        button1.setBounds(580, 560, 150, 50);
 
         emailField1.setBackground(new java.awt.Color(0, 0, 0));
-        emailField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailField1.setForeground(new java.awt.Color(204, 204, 204));
+        emailField1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        emailField1.setForeground(new java.awt.Color(255, 255, 255));
         emailField1.setText("Email");
-        emailField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
+        emailField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         emailField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 emailField1FocusGained(evt);
@@ -123,205 +84,258 @@ public class GraveRunSignup extends javax.swing.JFrame {
             }
         });
         emailField1.addActionListener(this::emailField1ActionPerformed);
-        jPanel2.add(emailField1);
-        emailField1.setBounds(550, 290, 257, 30);
 
-        jTextField1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setText("Confirm Password");
-        jTextField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 153, 153)));
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(550, 462, 260, 30);
-
-        button2.setBackground(new java.awt.Color(204, 0, 0));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setLabel("LOGIN");
-        jPanel2.add(button2);
-        button2.setBounds(710, 620, 51, 20);
-
-        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel3.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 14)); // NOI18N
-        jPanel3.setLayout(null);
-
-        Graverun1.setFont(new java.awt.Font("Bookman Old Style", 1, 24)); // NOI18N
-        Graverun1.setForeground(new java.awt.Color(204, 204, 204));
-        Graverun1.setText("  GRAVERUN");
-        Graverun1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 0, 0)));
-        jPanel3.add(Graverun1);
-        Graverun1.setBounds(560, 60, 180, 49);
-
-        jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("Already have an account?");
-        jPanel3.add(jLabel4);
-        jLabel4.setBounds(570, 610, 135, 44);
-
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("LOGIN");
-        jPanel3.add(jLabel5);
-        jLabel5.setBounds(710, 620, 54, 16);
-
-        signup1.setFont(new java.awt.Font("Myanmar Text", 1, 24)); // NOI18N
-        signup1.setForeground(new java.awt.Color(255, 255, 255));
-        signup1.setText("SIGN UP");
-        jPanel3.add(signup1);
-        signup1.setBounds(600, 160, 101, 46);
-
-        jSeparator7.setForeground(new java.awt.Color(255, 51, 0));
-        jSeparator7.setAlignmentX(2.0F);
-        jSeparator7.setAlignmentY(2.0F);
-        jPanel3.add(jSeparator7);
-        jSeparator7.setBounds(710, 637, 40, 3);
-
-        password1.setBackground(new java.awt.Color(0, 0, 0));
-        password1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        password1.setForeground(new java.awt.Color(204, 204, 204));
-        password1.setText("Password");
-        password1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
-        password1.addFocusListener(new java.awt.event.FocusAdapter() {
+        passwordField.setBackground(new java.awt.Color(0, 0, 0));
+        passwordField.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 18)); // NOI18N
+        passwordField.setForeground(new java.awt.Color(255, 255, 255));
+        passwordField.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                password1FocusGained(evt);
+                passwordFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                password1FocusLost(evt);
+                passwordFieldFocusLost(evt);
             }
         });
-        password1.addActionListener(this::password1ActionPerformed);
-        jPanel3.add(password1);
-        password1.setBounds(550, 380, 257, 30);
+        passwordField.addActionListener(this::passwordFieldActionPerformed);
 
-        button5.setActionCommand("CREATE ACCOUNT ");
-        button5.setBackground(new java.awt.Color(204, 0, 0));
-        button5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        button5.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        button5.setForeground(new java.awt.Color(255, 255, 255));
-        button5.setLabel("CREATE ACCOUNT ");
-        button5.addActionListener(this::button5ActionPerformed);
-        jPanel3.add(button5);
-        button5.setBounds(580, 560, 150, 50);
-
-        emailField2.setBackground(new java.awt.Color(0, 0, 0));
-        emailField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailField2.setForeground(new java.awt.Color(204, 204, 204));
-        emailField2.setText("Email");
-        emailField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
-        emailField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        ConfirmP.setBackground(new java.awt.Color(0, 0, 0));
+        ConfirmP.setForeground(new java.awt.Color(255, 255, 255));
+        ConfirmP.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        ConfirmP.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                emailField2FocusGained(evt);
+                ConfirmPFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                emailField2FocusLost(evt);
+                ConfirmPFocusLost(evt);
             }
         });
-        emailField2.addActionListener(this::emailField2ActionPerformed);
-        jPanel3.add(emailField2);
-        emailField2.setBounds(550, 290, 257, 30);
 
-        jTextField2.setBackground(new java.awt.Color(0, 0, 0));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField2.setText("Confirm Password");
-        jTextField2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 153, 153)));
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-        jPanel3.add(jTextField2);
-        jTextField2.setBounds(550, 462, 260, 30);
+        Username.setBackground(new java.awt.Color(0, 0, 0));
+        Username.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        Username.setForeground(new java.awt.Color(255, 255, 255));
+        Username.setText("Username");
+        Username.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        Username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                UsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                UsernameFocusLost(evt);
+            }
+        });
+
+        Login.setBackground(new java.awt.Color(153, 0, 0));
+        Login.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        Login.setForeground(new java.awt.Color(255, 255, 255));
+        Login.setText("LOGIN");
+        Login.addActionListener(this::LoginActionPerformed);
+
+        Sign.setBackground(new java.awt.Color(153, 0, 0));
+        Sign.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        Sign.setForeground(new java.awt.Color(255, 255, 255));
+        Sign.setText("SIGN UP");
+        Sign.addActionListener(this::SignActionPerformed);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("RUN BEYOND THE GRAVE");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(798, 798, 798)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Graverun))))
+                .addContainerGap(142, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Sign, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ConfirmP, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(emailField1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(327, 327, 327))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(387, 387, 387))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(Graverun, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(51, 51, 51)
+                .addComponent(Username, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(emailField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(ConfirmP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Sign, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1270, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
-
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button1ActionPerformed
-
-    private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
-        // TODO add your handling code here:
-        if(password.getText().equals("Email")){
-            password.setText(" ");
-        }
-    }//GEN-LAST:event_passwordFocusGained
-
-    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
-        // TODO add your handling code here:
-         if(password.getText().equals("Email")){
-            password.setText(" "
-                    + "");
-        }
-    }//GEN-LAST:event_passwordFocusLost
-
     private void emailField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailField1FocusGained
-        // TODO add your handling code here:
+
+    if (emailField1.getText().equals("Email")) {
+        emailField1.setText("");
+        
+    }
+ // TODO add your handling code here:
     }//GEN-LAST:event_emailField1FocusGained
 
     private void emailField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailField1FocusLost
-        // TODO add your handling code here:
+    if (emailField1.getText().trim().isEmpty()) {
+        emailField1.setText("Email");
+        
+    }  // TODO add your handling code here:
     }//GEN-LAST:event_emailField1FocusLost
 
     private void emailField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailField1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_passwordFieldActionPerformed
 
-    private void password1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password1FocusGained
+    private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
+    String currentText = String.valueOf(passwordField.getPassword());
+    if (currentText.equals("Password")) {
+        passwordField.setText("");
+       
+        passwordField.setEchoChar('•');  // Hide input (bullet)
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldFocusGained
 
-    private void password1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password1FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password1FocusLost
+    private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
+    String currentText = String.valueOf(passwordField.getPassword());
+    if (currentText.trim().isEmpty()) {
+        passwordField.setText("Password");
+        
+        passwordField.setEchoChar((char) 0); 
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldFocusLost
 
-    private void password1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_password1ActionPerformed
+    private void ConfirmPFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ConfirmPFocusGained
+        String currentText = String.valueOf(ConfirmP.getPassword());
+    if (currentText.equals("Confirm Password")) {
+        ConfirmP.setText("");
+         
+        ConfirmP.setEchoChar('•'); 
+    }     // TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmPFocusGained
 
-    private void button5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button5ActionPerformed
+    private void ConfirmPFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ConfirmPFocusLost
+        String currentText = String.valueOf(ConfirmP.getPassword());
+    if (currentText.trim().isEmpty()) {
+        ConfirmP.setText("Confirm Password");
+         
+        ConfirmP.setEchoChar((char) 0); 
+    }// TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmPFocusLost
 
-    private void emailField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailField2FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailField2FocusGained
+    private void UsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsernameFocusGained
+        if (Username.getText().equals("Username")) {
+        Username.setText("");
+        
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_UsernameFocusGained
 
-    private void emailField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailField2FocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailField2FocusLost
+    private void UsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_UsernameFocusLost
+        if (Username.getText().trim().isEmpty()) {
+        Username.setText("Username");
 
-    private void emailField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailField2ActionPerformed
+    }     // TODO add your handling code here:
+    }//GEN-LAST:event_UsernameFocusLost
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+new GraveRunNewLogin().setVisible(true);  
+    this.dispose();                        
+   // TODO add your handling code here:
+    }//GEN-LAST:event_LoginActionPerformed
+
+    private void SignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignActionPerformed
+String username = Username.getText().trim();
+    String email = emailField1.getText().trim();
+    String password = String.valueOf(passwordField.getPassword()).trim();
+    String confirmPassword = String.valueOf(ConfirmP.getPassword()).trim();
+    if (username.equals("Username") || username.isEmpty() ||
+        email.equals("Email") || email.isEmpty() ||
+        password.equals("Password") || password.isEmpty() ||
+        confirmPassword.equals("Confirm Password") || confirmPassword.isEmpty()) {
+        
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Please fill in all fields!", 
+            "Missing Information", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+        return; }
+if (!password.equals(confirmPassword)) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Passwords do not match!", 
+            "Error", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+if (!email.contains("@") || !email.contains(".")) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Please enter a valid email address!", 
+            "Invalid Email", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+javax.swing.JOptionPane.showMessageDialog(this, 
+        "Account created successfully!\nWelcome, " + username + "!", 
+        "Success", 
+        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+new dashboard().setVisible(true);
+this.dispose();//TODO add your handling code here:
+    }//GEN-LAST:event_SignActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,26 +363,17 @@ public class GraveRunSignup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField ConfirmP;
     private javax.swing.JLabel Graverun;
-    private javax.swing.JLabel Graverun1;
-    private java.awt.Button button1;
-    private java.awt.Button button2;
-    private java.awt.Button button5;
+    private javax.swing.JButton Login;
+    private javax.swing.JButton Sign;
+    private javax.swing.JTextField Username;
     private javax.swing.JTextField emailField1;
-    private javax.swing.JTextField emailField2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField password;
-    private javax.swing.JTextField password1;
-    private javax.swing.JLabel signup;
-    private javax.swing.JLabel signup1;
+    private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 
 }
