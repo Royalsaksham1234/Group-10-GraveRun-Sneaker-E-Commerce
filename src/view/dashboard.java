@@ -29,7 +29,6 @@ public class dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        logo = new javax.swing.JLabel();
         motto1 = new javax.swing.JLabel();
         motto2 = new javax.swing.JLabel();
         searchPanel = new javax.swing.JPanel();
@@ -46,12 +45,37 @@ public class dashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         buynow = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        bestSellers = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        productLabel1 = new javax.swing.JPanel();
+        shoeImg = new javax.swing.JLabel();
+        shoeName = new javax.swing.JLabel();
+        price = new javax.swing.JLabel();
+        buyNow2 = new javax.swing.JButton();
+        favourite = new javax.swing.JButton();
+        productlabel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        buyNow1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        productlabel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        buyNow3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        productlevel4 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        buynow4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        logo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(11, 11, 11));
@@ -59,11 +83,6 @@ public class dashboard extends javax.swing.JFrame {
 
         backgroundPanel.setBackground(new java.awt.Color(11, 11, 11));
         backgroundPanel.setLayout(null);
-
-        logo.setForeground(new java.awt.Color(242, 242, 242));
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png_1_185x85.png"))); // NOI18N
-        backgroundPanel.add(logo);
-        logo.setBounds(0, -10, 130, 120);
 
         motto1.setFont(new java.awt.Font("Constantia", 1, 18)); // NOI18N
         motto1.setForeground(new java.awt.Color(242, 242, 242));
@@ -162,11 +181,11 @@ public class dashboard extends javax.swing.JFrame {
         backgroundPanel.add(bannerPanel);
         bannerPanel.setBounds(100, 110, 930, 210);
 
-        jLabel6.setFont(new java.awt.Font("Segoe Print", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Best Sellers");
-        backgroundPanel.add(jLabel6);
-        jLabel6.setBounds(70, 340, 130, 30);
+        bestSellers.setFont(new java.awt.Font("Segoe Print", 0, 18)); // NOI18N
+        bestSellers.setForeground(new java.awt.Color(255, 255, 255));
+        bestSellers.setText("Best Sellers");
+        backgroundPanel.add(bestSellers);
+        bestSellers.setBounds(70, 340, 130, 30);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(189, 189, 189));
@@ -180,12 +199,149 @@ public class dashboard extends javax.swing.JFrame {
         backgroundPanel.add(jLabel8);
         jLabel8.setBounds(510, 300, 20, 40);
 
-        jPanel1.add(jLabel9);
+        jPanel2.setLayout(null);
 
-        backgroundPanel.add(jPanel1);
-        jPanel1.setBounds(60, 380, 265, 151);
+        jButton7.setText("Help!");
+        jButton7.addActionListener(this::jButton7ActionPerformed);
+        jPanel2.add(jButton7);
+        jButton7.setBounds(10, 10, 170, 20);
+
+        jLabel17.setText("jLabel17");
+        jPanel2.add(jLabel17);
+        jLabel17.setBounds(20, 30, 140, 60);
+
         backgroundPanel.add(jPanel2);
         jPanel2.setBounds(0, 620, 1280, 100);
+
+        productLabel1.setBackground(new java.awt.Color(73, 17, 17));
+        productLabel1.setLayout(null);
+
+        shoeImg.setText("jLabel1");
+        productLabel1.add(shoeImg);
+        shoeImg.setBounds(10, 20, 230, 87);
+
+        shoeName.setForeground(new java.awt.Color(255, 250, 250));
+        shoeName.setText("jLabel2");
+        productLabel1.add(shoeName);
+        shoeName.setBounds(10, 110, 38, 16);
+
+        price.setForeground(new java.awt.Color(255, 250, 250));
+        price.setText("jLabel3");
+        productLabel1.add(price);
+        price.setBounds(10, 130, 38, 16);
+
+        buyNow2.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow2.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow2.setText("Buy now");
+        productLabel1.add(buyNow2);
+        buyNow2.setBounds(180, 120, 78, 17);
+
+        favourite.setText("jButton2");
+        favourite.addActionListener(this::favouriteActionPerformed);
+        productLabel1.add(favourite);
+        favourite.setBounds(250, 0, 21, 17);
+
+        backgroundPanel.add(productLabel1);
+        productLabel1.setBounds(340, 390, 265, 151);
+
+        productlabel2.setBackground(new java.awt.Color(73, 17, 17));
+        productlabel2.setLayout(null);
+
+        jLabel6.setText("jLabel1");
+        productlabel2.add(jLabel6);
+        jLabel6.setBounds(10, 20, 230, 87);
+
+        jLabel9.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel9.setText("jLabel2");
+        productlabel2.add(jLabel9);
+        jLabel9.setBounds(10, 110, 38, 16);
+
+        jLabel10.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel10.setText("jLabel3");
+        productlabel2.add(jLabel10);
+        jLabel10.setBounds(10, 130, 38, 16);
+
+        buyNow1.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow1.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow1.setText("Buy now");
+        productlabel2.add(buyNow1);
+        buyNow1.setBounds(180, 120, 78, 17);
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+        productlabel2.add(jButton2);
+        jButton2.setBounds(250, 0, 21, 17);
+
+        backgroundPanel.add(productlabel2);
+        productlabel2.setBounds(20, 390, 265, 151);
+
+        productlabel3.setBackground(new java.awt.Color(73, 17, 17));
+        productlabel3.setLayout(null);
+
+        jLabel11.setText("jLabel1");
+        productlabel3.add(jLabel11);
+        jLabel11.setBounds(10, 20, 230, 87);
+
+        jLabel12.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel12.setText("jLabel2");
+        productlabel3.add(jLabel12);
+        jLabel12.setBounds(10, 110, 38, 16);
+
+        jLabel13.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel13.setText("jLabel3");
+        productlabel3.add(jLabel13);
+        jLabel13.setBounds(10, 130, 38, 16);
+
+        buyNow3.setBackground(new java.awt.Color(29, 21, 21));
+        buyNow3.setForeground(new java.awt.Color(255, 255, 255));
+        buyNow3.setText("Buy now");
+        productlabel3.add(buyNow3);
+        buyNow3.setBounds(180, 120, 78, 17);
+
+        jButton4.setText("jButton2");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+        productlabel3.add(jButton4);
+        jButton4.setBounds(250, 0, 21, 17);
+
+        backgroundPanel.add(productlabel3);
+        productlabel3.setBounds(670, 390, 265, 151);
+
+        productlevel4.setBackground(new java.awt.Color(73, 17, 17));
+        productlevel4.setLayout(null);
+
+        jLabel14.setText("jLabel1");
+        productlevel4.add(jLabel14);
+        jLabel14.setBounds(10, 20, 230, 87);
+
+        jLabel15.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel15.setText("jLabel2");
+        productlevel4.add(jLabel15);
+        jLabel15.setBounds(10, 110, 38, 16);
+
+        jLabel16.setForeground(new java.awt.Color(255, 250, 250));
+        jLabel16.setText("jLabel3");
+        productlevel4.add(jLabel16);
+        jLabel16.setBounds(10, 130, 38, 16);
+
+        buynow4.setBackground(new java.awt.Color(29, 21, 21));
+        buynow4.setForeground(new java.awt.Color(255, 255, 255));
+        buynow4.setText("Buy now");
+        productlevel4.add(buynow4);
+        buynow4.setBounds(180, 120, 78, 17);
+
+        jButton6.setText("jButton2");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
+        productlevel4.add(jButton6);
+        jButton6.setBounds(250, 0, 21, 17);
+
+        backgroundPanel.add(productlevel4);
+        productlevel4.setBounds(990, 390, 265, 151);
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png_1_185x85.png"))); // NOI18N
+        logo.setBorder(null);
+        logo.setBorderPainted(false);
+        backgroundPanel.add(logo);
+        logo.setBounds(40, 10, 100, 80);
 
         getContentPane().add(backgroundPanel);
         backgroundPanel.setBounds(0, 0, 1280, 720);
@@ -204,6 +360,26 @@ public class dashboard extends javax.swing.JFrame {
     private void buynowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buynowActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buynowActionPerformed
+
+    private void favouriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favouriteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_favouriteActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,10 +410,28 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Banner;
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JPanel bannerPanel;
+    private javax.swing.JLabel bestSellers;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton buyNow1;
+    private javax.swing.JButton buyNow2;
+    private javax.swing.JButton buyNow3;
     private javax.swing.JButton buynow;
+    private javax.swing.JButton buynow4;
     private javax.swing.JButton categories;
+    private javax.swing.JButton favourite;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -246,14 +440,23 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton login;
-    private javax.swing.JLabel logo;
+    private javax.swing.JButton logo;
     private javax.swing.JLabel motto1;
     private javax.swing.JLabel motto2;
+    private javax.swing.JLabel price;
+    private javax.swing.JPanel productLabel1;
+    private javax.swing.JPanel productlabel2;
+    private javax.swing.JPanel productlabel3;
+    private javax.swing.JPanel productlevel4;
     private javax.swing.JPanel searchPanel;
+    private javax.swing.JLabel shoeImg;
+    private javax.swing.JLabel shoeName;
     private javax.swing.JButton signup;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+
+
 }
