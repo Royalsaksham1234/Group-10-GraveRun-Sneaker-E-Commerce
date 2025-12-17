@@ -181,7 +181,7 @@ public class dashboard extends javax.swing.JFrame {
         backgroundPanel.add(bannerPanel);
         bannerPanel.setBounds(100, 110, 930, 210);
 
-        bestSellers.setFont(new java.awt.Font("Segoe Print", 0, 18)); // NOI18N
+        bestSellers.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bestSellers.setForeground(new java.awt.Color(255, 255, 255));
         bestSellers.setText("Best Sellers");
         backgroundPanel.add(bestSellers);

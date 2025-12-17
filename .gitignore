@@ -1,13 +1,7 @@
-# NetBeans build folders
-/build/
-/dist/
+src/database
+nbproject/private
+build/
 
-# Compiled Java files
-*.class
 
-# NetBeans private config (machine-specific)
-nbproject/private/
 
-# OS junk
-.DS_Store
-Thumbs.db
+
