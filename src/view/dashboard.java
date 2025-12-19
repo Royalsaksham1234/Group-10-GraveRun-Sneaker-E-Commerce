@@ -124,12 +124,12 @@ public class dashboard extends javax.swing.JFrame {
         login.setText("login");
         login.setBorderPainted(false);
         backgroundPanel.add(login);
-        login.setBounds(1050, 20, 90, 30);
+        login.setBounds(1060, 20, 90, 30);
 
         signup.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         signup.setText("signup");
         backgroundPanel.add(signup);
-        signup.setBounds(1160, 20, 90, 30);
+        signup.setBounds(1170, 20, 90, 30);
 
         bannerPanel.setBackground(new java.awt.Color(60, 10, 10));
         bannerPanel.setLayout(null);
