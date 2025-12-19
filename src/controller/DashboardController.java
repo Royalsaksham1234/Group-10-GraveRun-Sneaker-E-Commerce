@@ -1,442 +1,548 @@
 package controller;
 
-import dao.*;
+import view.dashboard;
+import dao.productDAO;
+import dao.productDAOImpl;
+import dao.favoriteDAO;
+import dao.favoriteDAOImpl;
+import dao.userDAO;
+import dao.userDAOImpl;
+import java.awt.HeadlessException;
 import model.ProductModel;
 import model.UserData;
 import util.SessionManager;
-import view.dashboard;
-import view.GraveRunNewLogin;
-import view.GraveRunSignup;
-
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
-
-/**
- * Controller for Dashboard view
- */
 public class DashboardController {
     private dashboard view;
-    private ProductDao productDAO;
-    private UserDao userDAO;
-    private FavoriteDAO favoriteDAO;
-    private List<ProductModel> allBestSellers; // Store 8 products
-    private List<ProductModel> displayedProducts; // Display 4 products
+    private productDAO productDao;
+    private favoriteDAO favoriteDao;
+    private userDAO userDao;
     
-    public DashboardController(dashboard view) {
-        this.view = view;
-        this.productDAO = new ProductDAOImpl();
-        this.userDAO = new UserDao();
-        this.favoriteDAO = new FavoriteDAOImpl();
-        
+    // Store product data for buttons
+    private ProductModel product1, product2, product3, product4;
+    
+    public DashboardController() {
+        this.productDao = new productDAOImpl();
+        this.favoriteDao = new favoriteDAOImpl();
+        this.userDao = new userDAOImpl();
+        this.view = new dashboard();
         initController();
+        loadProducts();
     }
     
-    /**
-     * Initialize controller - set up event listeners and load data
-     */
     private void initController() {
-        // Check if user is logged in and update UI accordingly
-        updateUIBasedOnLoginStatus();
+        // Remove existing login/signup button texts since user is already logged in
+        updateAuthButtons();
         
-        // Load best selling products on startup
-        loadBestSellingProducts();
+        // Set welcome message
+        UserData currentUser = SessionManager.getCurrentUser();
+        if (currentUser != null) {
+            view.getLogin().setText("Profile");
+            view.getSignup().setText("Logout");
+        }
         
-        // Set up event listeners
+        // Setup event listeners
         setupEventListeners();
+        
+        // Make product panels clickable
+        setupProductPanelListeners();
     }
     
-    /**
-     * Update UI based on whether user is logged in or not
-     */
-    private void updateUIBasedOnLoginStatus() {
+    private void updateAuthButtons() {
         if (SessionManager.isLoggedIn()) {
             UserData currentUser = SessionManager.getCurrentUser();
-            System.out.println("Welcome back, " + currentUser.getUsername() + "!");
-            // UI updates will be handled in login/signup listeners
+            view.getLogin().setText("Profile");
+            view.getSignup().setText("Logout");
         }
     }
     
-    /**
-     * Load best selling products from database
-     */
-    private void loadBestSellingProducts() {
-        // Load 8 best selling products
-        allBestSellers = productDAO.getBestSellingProducts(8);
-        
-        if (allBestSellers.isEmpty()) {
-            JOptionPane.showMessageDialog(view, 
-                "No products available in the database.", 
-                "No Products", 
-                JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        
-        // Display first 4 products
-        displayedProducts = allBestSellers.subList(0, Math.min(4, allBestSellers.size()));
-        displayProducts(displayedProducts);
-    }
-    
-    /**
-     * Display products on the dashboard
-     */
-    private void displayProducts(List<ProductModel> products) {
-        // Get product panels from view
-        JPanel[] productPanels = {
-            view.getProductlabel2(),
-            view.getProductLabel1(),
-            view.getProductlabel3(),
-            view.getProductlevel4()
-        };
-        
-        // Product components arrays
-        JLabel[] imageLabels = {
-            view.getjLabel6(),
-            view.getShoeImg(),
-            view.getjLabel11(),
-            view.getjLabel14()
-        };
-        
-        JLabel[] nameLabels = {
-            view.getjLabel9(),
-            view.getShoeName(),
-            view.getjLabel12(),
-            view.getjLabel15()
-        };
-        
-        JLabel[] priceLabels = {
-            view.getjLabel10(),
-            view.getPrice(),
-            view.getjLabel13(),
-            view.getjLabel16()
-        };
-        
-        // Display products
-        for (int i = 0; i < products.size() && i < 4; i++) {
-            ProductModel product = products.get(i);
+    private void loadProducts() {
+        try {
+            // Get featured products
+            List<ProductModel> featuredProducts = productDao.getFeaturedProducts();
             
-            // Set product name
-            nameLabels[i].setText(product.getName());
-            
-            // Set product price
-            priceLabels[i].setText("Rs. " + String.format("%.2f", product.getPrice()));
-            
-            // Set product image
-            try {
-                ImageIcon icon = new ImageIcon(getClass().getResource(product.getImagePath()));
-                Image image = icon.getImage().getScaledInstance(230, 87, Image.SCALE_SMOOTH);
-                imageLabels[i].setIcon(new ImageIcon(image));
-            } catch (Exception e) {
-                imageLabels[i].setText("No Image");
-                System.err.println("Error loading image: " + e.getMessage());
+            // Display first 4 products
+            if (featuredProducts.size() >= 4) {
+                product1 = featuredProducts.get(0);
+                product2 = featuredProducts.get(1);
+                product3 = featuredProducts.get(2);
+                product4 = featuredProducts.get(3);
+                
+                // Update product 1
+                if (view.getShoeImg() != null) {
+                    // Set image if available
+                    // view.getShoeImg().setIcon(new ImageIcon(product1.getImageUrl()));
+                }
+                if (view.getShoeName() != null) {
+                    view.getShoeName().setText(product1.getName());
+                }
+                if (view.getPrice() != null) {
+                    view.getPrice().setText("$" + product1.getPrice().toString());
+                }
+                
+                // Update product 2
+                if (view.getjLabel6() != null) {
+                    // view.getjLabel6().setIcon(new ImageIcon(product2.getImageUrl()));
+                }
+                if (view.getjLabel9() != null) {
+                    view.getjLabel9().setText(product2.getName());
+                }
+                if (view.getjLabel10() != null) {
+                    view.getjLabel10().setText("$" + product2.getPrice().toString());
+                }
+                
+                // Update product 3
+                if (view.getjLabel11() != null) {
+                    // view.getjLabel11().setIcon(new ImageIcon(product3.getImageUrl()));
+                }
+                if (view.getjLabel12() != null) {
+                    view.getjLabel12().setText(product3.getName());
+                }
+                if (view.getjLabel13() != null) {
+                    view.getjLabel13().setText("$" + product3.getPrice().toString());
+                }
+                
+                // Update product 4
+                if (view.getjLabel14() != null) {
+                    // view.getjLabel14().setIcon(new ImageIcon(product4.getImageUrl()));
+                }
+                if (view.getjLabel15() != null) {
+                    view.getjLabel15().setText(product4.getName());
+                }
+                if (view.getjLabel16() != null) {
+                    view.getjLabel16().setText("$" + product4.getPrice().toString());
+                }
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view,
+                "Error loading products: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
     
-    /**
-     * Set up all event listeners
-     */
     private void setupEventListeners() {
         // Search button listener
-        view.AddbtnSearchListener(e -> handleSearch());
+        view.AddbtnSearchListener((ActionEvent e) -> {
+            handleSearch();
+        });
         
-        // Login button listener
-        view.AddloginListener(e -> handleLogin());
+        // Login/Profile button
+        view.AddloginListener((ActionEvent e) -> {
+            handleProfile();
+        });
         
-        // Signup button listener
-        view.AddSignupListener(e -> handleSignup());
+        // Signup/Logout button
+        view.AddSignupListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handleLogout();
+            }
+        });
         
-        // Banner "Buy Now" button listener
-        view.AddgetBuynowListener(e -> handleBannerBuyNow());
+        // Banner Buy Now button
+        view.AddgetBuynowListener((ActionEvent e) -> {
+            handleBannerBuyNow();
+        });
         
-        // Logo button listener (return to dashboard)
-        view.getLogoListener(e -> refreshDashboard());
+        // Categories button
+        view.getCategoriesListener((ActionEvent e) -> {
+            showCategories();
+        });
         
-        // Buy Now button listeners with product index
-        view.getBuyNow1Listener(e -> handleBuyNow(0));
-        view.getBuyNow2Listener(e -> handleBuyNow(1));
-        view.getBuyNow3Listener(e -> handleBuyNow(2));
-        view.getBuyNow4Listener(e -> handleBuyNow(3));
+        // Logo button
+        view.getLogoListener((ActionEvent e) -> {
+            refreshDashboard();
+        });
         
-        // Favorite button listeners with product index
-        view.getFavourite1Listener(e -> handleAddToFavorites(0));
-        view.getFavourite2Listener(e -> handleAddToFavorites(1));
-        view.getFavourite3Listener(e -> handleAddToFavorites(2));
-        view.getFavourite4Listener(e -> handleAddToFavorites(3));
+        // Product Buy Now buttons
+        view.getBuyNow1Listener((ActionEvent e) -> {
+            handleBuyNow(product1);
+        });
+        
+        view.getBuyNow2Listener((ActionEvent e) -> {
+            handleBuyNow(product2);
+        });
+        
+        view.getBuyNow3Listener((ActionEvent e) -> {
+            handleBuyNow(product3);
+        });
+        
+        view.getBuyNow4Listener((ActionEvent e) -> {
+            handleBuyNow(product4);
+        });
+        
+        // Favorite buttons
+        view.getFavourite1Listener((ActionEvent e) -> {
+            handleFavorite(product1);
+        });
+        
+        view.getFavourite2Listener((ActionEvent e) -> {
+            handleFavorite(product2);
+        });
+        
+        view.getFavourite3Listener((ActionEvent e) -> {
+            handleFavorite(product3);
+        });
+        
+        view.getFavourite4Listener((ActionEvent e) -> {
+            handleFavorite(product4);
+        });
     }
     
-    /**
-     * Handle search functionality
-     */
-    private void handleSearch() {
-        String searchQuery = view.getTxtSearch().getText().trim();
+    private void setupProductPanelListeners() {
+        // Make product panels clickable for details
+        if (view.getProductLabel1() != null) {
+            view.getProductLabel1().addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showProductDetails(product1);
+                }
+            });
+        }
         
-        // Ignore default placeholder text
-        if (searchQuery.isEmpty() || searchQuery.equals("Search sneakers, brands or collections… ")) {
-            JOptionPane.showMessageDialog(view, 
-                "Please enter a search term.", 
-                "Empty Search", 
+        if (view.getProductlabel2() != null) {
+            view.getProductlabel2().addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showProductDetails(product2);
+                }
+            });
+        }
+        
+        if (view.getProductlabel3() != null) {
+            view.getProductlabel3().addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showProductDetails(product3);
+                }
+            });
+        }
+        
+        if (view.getProductlevel4() != null) {
+            view.getProductlevel4().addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    showProductDetails(product4);
+                }
+            });
+        }
+    }
+    
+    // === IMPLEMENTED METHODS ===
+    
+    private void handleSearch() {
+        String searchTerm = view.getTxtSearch().getText().trim();
+        
+        if (searchTerm.isEmpty() || searchTerm.equals("Search sneakers, brands or collections…")) {
+            JOptionPane.showMessageDialog(view,
+                "Please enter a search term!",
+                "Search Error",
                 JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        // Search products
-        List<ProductModel> searchResults = productDAO.searchProducts(searchQuery);
-        
-        // Show search results
-        if (searchResults.isEmpty()) {
-            JOptionPane.showMessageDialog(view,
-                "No products found matching: " + searchQuery,
-                "No Results",
-                JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            // TODO: Create and show SearchDialog
-            StringBuilder results = new StringBuilder("Found " + searchResults.size() + " products:\n\n");
-            for (ProductModel product : searchResults) {
-                results.append(product.getName()).append(" - Rs. ").append(product.getPrice()).append("\n");
+        try {
+            List<ProductModel> searchResults = productDao.searchProducts(searchTerm);
+            
+            if (searchResults.isEmpty()) {
+                JOptionPane.showMessageDialog(view,
+                    "No products found for: " + searchTerm,
+                    "Search Results",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // You could implement a search results view here
+                JOptionPane.showMessageDialog(view,
+                    "Found " + searchResults.size() + " products for: " + searchTerm,
+                    "Search Results",
+                    JOptionPane.INFORMATION_MESSAGE);
+                
+                // Show first product details
+                if (!searchResults.isEmpty()) {
+                    showProductDetails(searchResults.get(0));
+                }
             }
-            JOptionPane.showMessageDialog(view, results.toString(), "Search Results", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(view,
+                "Error searching products: " + e.getMessage(),
+                "Search Error",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
     
-    /**
-     * Handle login button click
-     */
-    private void handleLogin() {
+    private void handleProfile() {
         if (SessionManager.isLoggedIn()) {
-            // If already logged in, show profile
             UserData currentUser = SessionManager.getCurrentUser();
-            JOptionPane.showMessageDialog(view,
-                "Logged in as: " + currentUser.getUsername() + "\n" +
-                "Email: " + currentUser.getEmail() + "\n" +
-                "User ID: " + currentUser.getUserId(),
-                "User Profile",
-                JOptionPane.INFORMATION_MESSAGE);
+            showUserProfile(currentUser);
         } else {
-            // Open login window
-            GraveRunNewLogin loginFrame = new GraveRunNewLogin();
-            
-            // Pass controller reference to login frame (if method exists)
-            try {
-                loginFrame.getClass().getMethod("setDashboardController", DashboardController.class)
-                    .invoke(loginFrame, this);
-            } catch (Exception e) {
-                // Method doesn't exist yet, login will work in standalone mode
-                System.out.println("Note: setDashboardController method not found in GraveRunNewLogin");
-            }
-            
-            loginFrame.setVisible(true);
-            loginFrame.setLocationRelativeTo(view);
-            
-            // Optional: Hide dashboard while login is open
-            // view.setVisible(false);
+            // Navigate to login
+            navigateToLogin();
         }
     }
     
-    /**
-     * Handle signup button click
-     */
-    private void handleSignup() {
+    private void handleLogout() {
         if (SessionManager.isLoggedIn()) {
-            // If logged in, this button becomes logout
             int confirm = JOptionPane.showConfirmDialog(view,
                 "Are you sure you want to logout?",
-                "Logout Confirmation",
+                "Confirm Logout",
                 JOptionPane.YES_NO_OPTION);
             
             if (confirm == JOptionPane.YES_OPTION) {
-                SessionManager.clearSession();
-                updateUIBasedOnLoginStatus();
-                JOptionPane.showMessageDialog(view,
-                    "Logged out successfully!",
-                    "Logout",
-                    JOptionPane.INFORMATION_MESSAGE);
-                refreshDashboard();
+                SessionManager.logout();
+                view.dispose();
+                navigateToLogin();
             }
         } else {
-            // Open signup window
-            GraveRunSignup signupFrame = new GraveRunSignup();
-            
-            // Pass controller reference to signup frame (if method exists)
-            try {
-                signupFrame.getClass().getMethod("setDashboardController", DashboardController.class)
-                    .invoke(signupFrame, this);
-            } catch (Exception e) {
-                // Method doesn't exist yet, signup will work in standalone mode
-                System.out.println("Note: setDashboardController method not found in GraveRunSignup");
-            }
-            
-            signupFrame.setVisible(true);
-            signupFrame.setLocationRelativeTo(view);
-            
-            // Optional: Hide dashboard while signup is open
-            // view.setVisible(false);
+            // Navigate to signup
+            navigateToSignup();
         }
     }
     
-    /**
-     * Handle Buy Now button click by product index
-     */
-    private void handleBuyNow(int productIndex) {
-        if (displayedProducts == null || productIndex >= displayedProducts.size()) {
-            JOptionPane.showMessageDialog(view,
-                "Product not available.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        ProductModel product = displayedProducts.get(productIndex);
-        
-        if (!SessionManager.isLoggedIn()) {
-            JOptionPane.showMessageDialog(view,
-                "Please login to purchase products.",
-                "Login Required",
-                JOptionPane.WARNING_MESSAGE);
-            handleLogin(); // Open login dialog
-            return;
-        }
-        
-        if (product.getStock() <= 0) {
-            JOptionPane.showMessageDialog(view,
-                "Sorry, this product is out of stock.",
-                "Out of Stock",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        // Navigate to checkout
-        // TODO: Create and open CheckoutFrame
-        System.out.println("Navigating to checkout for: " + product.getName());
-        System.out.println("Product ID: " + product.getProductId());
-        System.out.println("Price: Rs. " + product.getPrice());
-        
-        // For now, show message
-        JOptionPane.showMessageDialog(view,
-            "Checkout feature will be implemented.\n" +
-            "Product: " + product.getName() + "\n" +
-            "Price: Rs. " + product.getPrice(),
-            "Checkout",
-            JOptionPane.INFORMATION_MESSAGE);
-        
-        // When CheckoutFrame is ready, use:
-        // CheckoutFrame checkoutFrame = new CheckoutFrame(product.getProductId(), product.getPrice());
-        // checkoutFrame.setVisible(true);
-    }
-    
-    /**
-     * Handle banner Buy Now button click
-     */
     private void handleBannerBuyNow() {
-        // Get the featured product (first best seller)
-        if (displayedProducts != null && !displayedProducts.isEmpty()) {
-            handleBuyNow(0);
-        } else {
-            JOptionPane.showMessageDialog(view,
-                "Featured product not available.",
-                "Product Unavailable",
-                JOptionPane.WARNING_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(view,
+            "Banner product coming soon!",
+            "Featured Product",
+            JOptionPane.INFORMATION_MESSAGE);
     }
     
-    /**
-     * Handle Add to Favorites button click by product index
-     */
-    private void handleAddToFavorites(int productIndex) {
-        if (displayedProducts == null || productIndex >= displayedProducts.size()) {
-            JOptionPane.showMessageDialog(view,
-                "Product not available.",
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    private void showCategories() {
+        String[] categories = {"All", "Running", "Basketball", "Casual", "Lifestyle"};
+        String selected = (String) JOptionPane.showInputDialog(view,
+            "Select a category:",
+            "Categories",
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            categories,
+            categories[0]);
         
-        ProductModel product = displayedProducts.get(productIndex);
-        
-        if (!SessionManager.isLoggedIn()) {
-            JOptionPane.showMessageDialog(view,
-                "Please login to add products to favorites.",
-                "Login Required",
-                JOptionPane.WARNING_MESSAGE);
-            handleLogin(); // Open login dialog
-            return;
-        }
-        
-        UserData currentUser = SessionManager.getCurrentUser();
-        
-        // Check if already in favorites
-        if (favoriteDAO.isFavorite(currentUser.getUserId(), product.getProductId())) {
-            // Remove from favorites
-            if (favoriteDAO.removeFromFavorites(currentUser.getUserId(), product.getProductId())) {
+        if (selected != null) {
+            try {
+                List<ProductModel> products;
+                if (selected.equals("All")) {
+                    products = productDao.getAllProducts();
+                } else {
+                    products = productDao.getProductsByCategory(selected);
+                }
+                
+                if (products.isEmpty()) {
+                    JOptionPane.showMessageDialog(view,
+                        "No products found in " + selected + " category",
+                        "Category Results",
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(view,
+                        "Found " + products.size() + " products in " + selected + " category",
+                        "Category Results",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(view,
-                    "Removed from favorites!",
-                    "Favorites",
-                    JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            // Add to favorites
-            if (favoriteDAO.addToFavorites(currentUser.getUserId(), product.getProductId())) {
-                JOptionPane.showMessageDialog(view,
-                    "Added to favorites!",
-                    "Favorites",
-                    JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(view,
-                    "Failed to add to favorites.",
+                    "Error loading category: " + e.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
-    /**
-     * Open product detail page
-     */
-    private void openProductDetail(ProductModel product) {
-        // TODO: Create and open ProductDetailFrame
-        System.out.println("Opening product detail for: " + product.getName());
+    private void refreshDashboard() {
+        loadProducts();
+        JOptionPane.showMessageDialog(view,
+            "Dashboard refreshed!",
+            "Refresh",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void handleBuyNow(ProductModel product) {
+        if (product == null) {
+            JOptionPane.showMessageDialog(view,
+                "Product not available!",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (!SessionManager.isLoggedIn()) {
+            int option = JOptionPane.showConfirmDialog(view,
+                "You need to login to purchase. Login now?",
+                "Login Required",
+                JOptionPane.YES_NO_OPTION);
+            
+            if (option == JOptionPane.YES_OPTION) {
+                navigateToLogin();
+            }
+            return;
+        }
+        
+        if (!product.isInStock()) {
+            JOptionPane.showMessageDialog(view,
+                product.getName() + " is out of stock!",
+                "Stock Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Show product details with purchase option
+        showProductDetails(product);
+    }
+    
+    private void handleFavorite(ProductModel product) {
+        if (product == null) return;
+        
+        if (!SessionManager.isLoggedIn()) {
+            int option = JOptionPane.showConfirmDialog(view,
+                "You need to login to add favorites. Login now?",
+                "Login Required",
+                JOptionPane.YES_NO_OPTION);
+            
+            if (option == JOptionPane.YES_OPTION) {
+                navigateToLogin();
+            }
+            return;
+        }
+        
+        try {
+            int userId = SessionManager.getCurrentUserId();
+            boolean isFavorite = favoriteDao.isFavorite(userId, product.getProductId());
+            
+            if (isFavorite) {
+                // Remove from favorites
+                if (favoriteDao.removeFromFavorites(userId, product.getProductId())) {
+                    JOptionPane.showMessageDialog(view,
+                        "Removed " + product.getName() + " from favorites",
+                        "Favorites",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                // Add to favorites
+                if (favoriteDao.addToFavorites(userId, product.getProductId())) {
+                    JOptionPane.showMessageDialog(view,
+                        "Added " + product.getName() + " to favorites",
+                        "Favorites",
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view,
+                "Error updating favorites: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // === HELPER METHODS ===
+    
+    private void showProductDetails(ProductModel product) {
+        if (product == null) return;
+        
+        String message = "Product: " + product.getName() + "\n" +
+                        "Brand: " + product.getBrand() + "\n" +
+                        "Price: $" + product.getPrice() + "\n" +
+                        "Category: " + product.getCategory() + "\n" +
+                        "In Stock: " + (product.isInStock() ? "Yes" : "No") + "\n" +
+                        "Description: " + product.getDescription();
+        
+        if (SessionManager.isLoggedIn()) {
+            Object[] options = {"Add to Cart", "View Details", "Cancel"};
+            int choice = JOptionPane.showOptionDialog(view,
+                message,
+                "Product Details",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]);
+            
+            if (choice == 0) {
+                // Add to cart
+                addToCart(product);
+            } else if (choice == 1) {
+                // Show more details
+                showFullProductDetails(product);
+            }
+        } else {
+            JOptionPane.showMessageDialog(view,
+                message,
+                "Product Details",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    private void addToCart(ProductModel product) {
+        if (!product.isInStock()) {
+            JOptionPane.showMessageDialog(view,
+                product.getName() + " is out of stock!",
+                "Cart Error",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // You would implement cart logic here
+        JOptionPane.showMessageDialog(view,
+            "Added " + product.getName() + " to cart!\nPrice: $" + product.getPrice(),
+            "Cart",
+            JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void showFullProductDetails(ProductModel product) {
+        String details = "=== PRODUCT DETAILS ===\n\n" +
+                        "Name: " + product.getName() + "\n" +
+                        "Brand: " + product.getBrand() + "\n" +
+                        "Category: " + product.getCategory() + "\n" +
+                        "Price: NRs" + product.getPrice() + "\n" +
+                        "Size: " + (product.getSize() != null ? product.getSize() : "Various") + "\n" +
+                        "Color: " + (product.getColor() != null ? product.getColor() : "Multiple") + "\n" +
+                        "Stock: " + product.getStockQuantity() + " units\n" +
+                        "Status: " + (product.isInStock() ? "In Stock" : "Out of Stock") + "\n\n" +
+                        "Description:\n" + product.getDescription();
         
         JOptionPane.showMessageDialog(view,
-            "Product Detail Page will be implemented.\n\n" +
-            "Product: " + product.getName() + "\n" +
-            "Brand: " + product.getBrand() + "\n" +
-            "Category: " + product.getCategory() + "\n" +
-            "Price: Rs. " + product.getPrice() + "\n" +
-            "Stock: " + product.getStock() + "\n\n" +
-            "Description: " + product.getDescription(),
-            "Product Details",
+            details,
+            "Full Product Details - " + product.getName(),
             JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void showUserProfile(UserData user) {
+        String profile = "=== USER PROFILE ===\n\n" +
+                        "Username: " + user.getUsername() + "\n" +
+                        "Email: " + user.getEmail() + "\n" +
+                        "Full Name: " + (user.getFullName() != null ? user.getFullName() : "Not set") + "\n" +
+                        "Phone: " + (user.getPhone() != null ? user.getPhone() : "Not set") + "\n" +
+                        "Address: " + (user.getAddress() != null ? user.getAddress() : "Not set") + "\n" +
+                        "Member Since: " + (user.getCreatedAt() != null ? user.getCreatedAt().toString() : "Recently");
         
-        // When ProductDetailFrame is ready, use:
-        // ProductDetailFrame detailFrame = new ProductDetailFrame(product);
-        // detailFrame.setVisible(true);
-        // view.dispose(); // Close dashboard if needed
+        JOptionPane.showMessageDialog(view,
+            profile,
+            "My Profile",
+            JOptionPane.INFORMATION_MESSAGE);
     }
     
-    /**
-     * Refresh dashboard
-     */
-    private void refreshDashboard() {
-        loadBestSellingProducts();
-        updateUIBasedOnLoginStatus();
+    private void navigateToLogin() {
+        view.dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            view.GraveRunNewLogin loginView = new view.GraveRunNewLogin();
+            // You would pass the controller here
+            loginView.setVisible(true);
+        });
     }
     
-    /**
-     * Public method to refresh dashboard from external classes (e.g., after login)
-     * Call this from GraveRunNewLogin after successful login
-     */
-    public void onLoginSuccess() {
-        updateUIBasedOnLoginStatus();
-        refreshDashboard();
-        view.setVisible(true); // Show dashboard again if it was hidden
+    private void navigateToSignup() {
+        view.dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            view.GraveRunSignup signupView = new view.GraveRunSignup();
+            signupView.setVisible(true);
+        });
     }
     
-    /**
-     * Get the dashboard view
-     * Useful if login/signup needs to close the dashboard temporarily
-     */
-    public dashboard getView() {
-        return view;
+    public void showDashboard() {
+        view.setVisible(true);
+        view.setLocationRelativeTo(null); // Center window
     }
 }

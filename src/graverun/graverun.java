@@ -1,43 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package graverun;
 
+import controller.GraveRunLoginController;
+import controller.DashboardController;
+import dao.userDAO;
+import dao.userDAOImpl;
+import view.GraveRunNewLogin;
+import util.SessionManager;
 
-/**
- *
- * @author srsro
- */
 public class graverun {
-
-    /**
-     *
-     * @param args */
-   
-   
-
-public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
-            }
+    public static void main(String[] args) {
+        try {
+            // Initialize session manager
+            SessionManager.initialize();
+            
+            // Initialize DAO
+            userDAOImpl userDao = new userDAOImpl();
+            
+            // Initialize view
+            GraveRunNewLogin loginView = new GraveRunNewLogin();
+            
+            // Initialize controller
+            GraveRunLoginController loginController = new GraveRunLoginController(loginView, userDao);
+            
+            // Show login view
+            loginView.setVisible(true);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null,
+                "Failed to start application: " + e.getMessage(),
+                "Startup Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
-    } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-        logger.log(java.util.logging.Level.SEVERE, null, ex);
     }
-    //</editor-fold>
-
-    /* Create and display the form with controller */
-
-    
-    
-}
 }
