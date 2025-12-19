@@ -264,6 +264,7 @@ public class dashboard extends javax.swing.JFrame {
         buyNow1.setBackground(new java.awt.Color(29, 21, 21));
         buyNow1.setForeground(new java.awt.Color(255, 255, 255));
         buyNow1.setText("Buy now");
+        buyNow1.addActionListener(this::buyNow1ActionPerformed);
         productlabel2.add(buyNow1);
         buyNow1.setBounds(180, 120, 78, 17);
 
@@ -380,6 +381,10 @@ public class dashboard extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void buyNow1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyNow1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buyNow1ActionPerformed
 
     /**
      * @param args the command line arguments
