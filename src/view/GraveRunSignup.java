@@ -4,6 +4,8 @@
  */
 package view;
 
+import controller.DashboardController;
+
 /**
  *
  * @author Samsung
@@ -301,7 +303,7 @@ new GraveRunNewLogin().setVisible(true);
     }//GEN-LAST:event_LoginActionPerformed
 
     private void SignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignActionPerformed
-String username = Username.getText().trim();
+    String username = Username.getText().trim();
     String email = emailField1.getText().trim();
     String password = String.valueOf(passwordField.getPassword()).trim();
     String confirmPassword = String.valueOf(ConfirmP.getPassword()).trim();
@@ -315,26 +317,26 @@ String username = Username.getText().trim();
             "Missing Information", 
             javax.swing.JOptionPane.WARNING_MESSAGE);
         return; }
-if (!password.equals(confirmPassword)) {
+    if (!password.equals(confirmPassword)) {
         javax.swing.JOptionPane.showMessageDialog(this, 
             "Passwords do not match!", 
             "Error", 
             javax.swing.JOptionPane.ERROR_MESSAGE);
         return;
     }
-if (!email.contains("@") || !email.contains(".")) {
+    if (!email.contains("@") || !email.contains(".")) {
         javax.swing.JOptionPane.showMessageDialog(this, 
             "Please enter a valid email address!", 
             "Invalid Email", 
             javax.swing.JOptionPane.WARNING_MESSAGE);
         return;
     }
-javax.swing.JOptionPane.showMessageDialog(this, 
+    javax.swing.JOptionPane.showMessageDialog(this, 
         "Account created successfully!\nWelcome, " + username + "!", 
         "Success", 
         javax.swing.JOptionPane.INFORMATION_MESSAGE);
-new dashboard().setVisible(true);
-this.dispose();//TODO add your handling code here:
+    new dashboard().setVisible(true);
+    this.dispose();//TODO add your handling code here:
     }//GEN-LAST:event_SignActionPerformed
 
     /**
@@ -376,4 +378,53 @@ this.dispose();//TODO add your handling code here:
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 
+    public void setDashboardController(DashboardController aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+// Add these methods to GraveRunSignup.java
+
+public String getUsername() {
+    return Username.getText().trim();
+}
+
+public String getEmail() {
+    return emailField1.getText().trim();
+}
+
+public char[] getPassword() {
+    return passwordField.getPassword();
+}
+
+public char[] getConfirmPassword() {
+    return ConfirmP.getPassword();
+}
+
+public void clearPasswordFields() {
+    passwordField.setText("");
+    ConfirmP.setText("");
+}
+
+public void clearAllFields() {
+    Username.setText("Username");
+    emailField1.setText("Email");
+    clearPasswordFields();
+}
+
+public void addSignUpActionListener(java.awt.event.ActionListener listener) {
+    Sign.addActionListener(listener);
+}
+
+public void addLoginActionListener(java.awt.event.ActionListener listener) {
+    Login.addActionListener(listener);
+}
+
+public void setErrorLabel(String message) {
+    Graverun.setText(message);
+    Graverun.setForeground(new java.awt.Color(255, 0, 0));
+}
+
+public void setSuccessLabel(String message) {
+    Graverun.setText(message);
+    Graverun.setForeground(new java.awt.Color(0, 153, 0));
+}
 }
