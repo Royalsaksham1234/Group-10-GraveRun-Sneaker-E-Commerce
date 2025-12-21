@@ -4,14 +4,6 @@
  */
 package view;
 
-import controller.DashboardController;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-
-/**
- *
- * @author Samsung
- */
 public class GraveRunNewLogin extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GraveRunNewLogin.class.getName());
@@ -346,77 +338,5 @@ this.dispose(); //TODO add your handling code here:
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
-
-    public void setDashboardController(DashboardController aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    // Data handling methods
-public String getEmail() {
-    return emailField1.getText().trim();
 }
 
-public void setEmail(String email) {
-    emailField1.setText(email);
-}
-
-public char[] getPassword() {
-    return passwordField.getPassword();
-}
-
-public char[] getConfirmPassword() {
-    return ConfirmP.getPassword();
-}
-
-public void clearPasswordFields() {
-    passwordField.setText("");
-    ConfirmP.setText("");
-}
-
-public void clearAllFields() {
-    emailField1.setText("");
-    clearPasswordFields();
-}
-
-
-// UI state management methods
-public void setLoginButtonEnabled(boolean enabled) {
-    Login.setEnabled(enabled);
-}
-
-public void setSignButtonEnabled(boolean enabled) {
-    Sign.setEnabled(enabled);
-}
-
-public void setErrorLabel(String message) {
-    Graverun.setText(message);
-    Graverun.setForeground(Color.RED);
-}
-
-public void setSuccessLabel(String message) {
-    Graverun.setText(message);
-    Graverun.setForeground(new Color(0, 153, 0)); // Green color
-}
-
-public void clearLabel() {
-    Graverun.setText("");
-}
-
-// Focus methods
-public void requestEmailFocus() {
-    emailField1.requestFocusInWindow();
-}
-
-public void requestPasswordFocus() {
-    passwordField.requestFocusInWindow();
-}
-
-// Action listener setup methods
-public void addLoginActionListener(ActionListener listener) {
-    Login.addActionListener(listener);
-}
-
-public void addSignUpActionListener(ActionListener listener) {
-    Sign.addActionListener(listener);
-}
-
-}

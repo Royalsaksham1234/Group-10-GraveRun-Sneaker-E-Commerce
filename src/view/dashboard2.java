@@ -75,7 +75,6 @@ public class dashboard2 extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         buynow4 = new javax.swing.JButton();
         favourite4 = new javax.swing.JButton();
-        logo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -331,12 +330,6 @@ public class dashboard2 extends javax.swing.JFrame {
         backgroundPanel.add(productlevel4);
         productlevel4.setBounds(990, 390, 265, 151);
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png_1_185x85.png"))); // NOI18N
-        logo.setBorder(null);
-        logo.setBorderPainted(false);
-        backgroundPanel.add(logo);
-        logo.setBounds(40, 10, 100, 80);
-
         jButton1.setText("jButton1");
         jButton1.addActionListener(this::jButton1ActionPerformed);
         backgroundPanel.add(jButton1);
@@ -468,7 +461,6 @@ public class dashboard2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton logo;
     private javax.swing.JLabel motto1;
     private javax.swing.JLabel motto2;
     private java.awt.PopupMenu popupMenu1;
