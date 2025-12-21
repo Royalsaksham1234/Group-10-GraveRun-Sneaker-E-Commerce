@@ -365,7 +365,7 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchActionPerformed
 
     private void buynowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buynowActionPerformed
-        // TODO add your handling code here:
+           // TODO add your handling code here:
     }//GEN-LAST:event_buynowActionPerformed
 
     private void favourite2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite2ActionPerformed
@@ -389,7 +389,8 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // TODO add your handling code here:
+       
+                // TODO add your handling code here:
     }//GEN-LAST:event_loginActionPerformed
 
     /**
@@ -472,7 +473,7 @@ public class dashboard extends javax.swing.JFrame {
      btnSearch.addActionListener(listener);
     }
 
-    public JTextField getTxtSearch() {
+    public javax.swing.JTextField getTxtSearch() {
         return txtSearch;
     }
 
@@ -499,70 +500,70 @@ public class dashboard extends javax.swing.JFrame {
     }
 
     // Product panels
-    public JPanel getProductlabel2() {
+    public javax.swing.JPanel getProductlabel2() {
         return productlabel2;
     }
 
-    public JPanel getProductLabel1() {
+    public javax.swing.JPanel getProductLabel1() {
         return productLabel1;
     }
 
-    public JPanel getProductlabel3() {
+    public javax.swing.JPanel getProductlabel3() {
         return productlabel3;
     }
 
-    public JPanel getProductlevel4() {
+    public javax.swing.JPanel getProductlevel4() {
         return productlevel4;
     }
 
     // Product image labels
-    public JLabel getjLabel6() {
+    public javax.swing.JLabel getjLabel6() {
         return jLabel6;
     }
 
-    public JLabel getShoeImg() {
+    public javax.swing.JLabel getShoeImg() {
         return shoeImg;
     }
 
-    public JLabel getjLabel11() {
+    public javax.swing.JLabel getjLabel11() {
         return jLabel11;
     }
 
-    public JLabel getjLabel14() {
+    public javax.swing.JLabel getjLabel14() {
         return jLabel14;
     }
 
     // Product name labels
-    public JLabel getjLabel9() {
+    public javax.swing.JLabel getjLabel9() {
         return jLabel9;
     }
 
-    public JLabel getShoeName() {
+    public javax.swing.JLabel getShoeName() {
         return shoeName;
     }
 
-    public JLabel getjLabel12() {
+    public javax.swing.JLabel getjLabel12() {
         return jLabel12;
     }
 
-    public JLabel getjLabel15() {
+    public javax.swing.JLabel getjLabel15() {
         return jLabel15;
     }
 
     // Product price labels
-    public JLabel getjLabel10() {
+    public javax.swing.JLabel getjLabel10() {
         return jLabel10;
     }
 
-    public JLabel getPrice() {
+    public javax.swing.JLabel getPrice() {
         return price;
     }
 
-    public JLabel getjLabel13() {
+    public javax.swing.JLabel getjLabel13() {
         return jLabel13;
     }
 
-    public JLabel getjLabel16() {
+    public javax.swing.JLabel getjLabel16() {
         return jLabel16;
     }
 
