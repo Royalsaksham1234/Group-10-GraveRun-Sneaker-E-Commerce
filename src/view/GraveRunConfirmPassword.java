@@ -3,21 +3,148 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import dao.UserDao; 
+import javax.swing.*;
 /**
  *
  * @author Samsung
  */
 public class GraveRunConfirmPassword extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GraveRunConfirmPassword.class.getName());
-
+     private String userEmail;   
     /**
      * Creates new form GraveRunConfirmPassword
+     * @param email
      */
-    public GraveRunConfirmPassword() {
+public GraveRunConfirmPassword(String email) {
+        this.userEmail = email; 
         initComponents();
+
+        // --- Button action ---
+        Confirmpassword.addActionListener(evt -> {
+            String newPwd = Password.getText().trim();
+            String confirmPwd = confirmpassword.getText().trim();
+
+            if (newPwd.isEmpty() || newPwd.equals("Password") ||
+                confirmPwd.isEmpty() || confirmPwd.equals("Confirm Password")) {
+                JOptionPane.showMessageDialog(this, "Please enter and confirm your new password.");
+            } else if (!newPwd.equals(confirmPwd)) {
+                JOptionPane.showMessageDialog(this, "Passwords do not match.");
+            } else {
+                UserDao userDao = new UserDao();
+                boolean updated = userDao.updatePassword(userEmail, newPwd);
+
+                if (updated) {
+                    JOptionPane.showMessageDialog(this, "Password reset successful!");
+                    dispose();
+                    new GraveRunLogin().setVisible(true); // back to login
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error updating password. Try again.");
+                }
+            }
+        });
     }
+
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
+        jPanel1 = new javax.swing.JPanel();
+        GRAVERUN = new javax.swing.JLabel();
+        Password = new javax.swing.JTextField();
+        logan = new javax.swing.JLabel();
+        confirmpassword = new javax.swing.JTextField();
+        Confirmpassword = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        GRAVERUN.setFont(new java.awt.Font("Bookman Old Style", 1, 24));
+        GRAVERUN.setForeground(new java.awt.Color(204, 204, 204));
+        GRAVERUN.setText("  GRAVERUN");
+        GRAVERUN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(153, 0, 0)));
+
+        Password.setBackground(new java.awt.Color(0, 0, 0));
+        Password.setFont(new java.awt.Font("Segoe UI", 0, 18));
+        Password.setForeground(new java.awt.Color(204, 204, 204));
+        Password.setText("Password");
+        Password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
+
+        logan.setForeground(new java.awt.Color(255, 255, 255));
+        logan.setText("RUN BEYOND THE GRAVE");
+
+        confirmpassword.setBackground(new java.awt.Color(0, 0, 0));
+        confirmpassword.setFont(new java.awt.Font("Segoe UI", 0, 18));
+        confirmpassword.setForeground(new java.awt.Color(204, 204, 204));
+        confirmpassword.setText("Confirm Password");
+        confirmpassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
+
+        Confirmpassword.setBackground(new java.awt.Color(204, 0, 0));
+        Confirmpassword.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        Confirmpassword.setForeground(new java.awt.Color(255, 255, 255));
+        Confirmpassword.setText("Confirm Password");
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png.png")));
+        logo.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(434, 434, 434)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(523, 523, 523)
+                        .addComponent(Confirmpassword))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(339, 339, 339)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(532, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(152, 152, 152)
+                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(Confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(150, 150, 150))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,6 +161,7 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
         logan = new javax.swing.JLabel();
         confirmpassword = new javax.swing.JTextField();
         Confirmpassword = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +175,7 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
         Password.setBackground(new java.awt.Color(0, 0, 0));
         Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Password.setForeground(new java.awt.Color(204, 204, 204));
-        Password.setText("                        Password");
+        Password.setText("                    New Password");
         Password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
         Password.addActionListener(this::PasswordActionPerformed);
 
@@ -66,6 +194,9 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
         Confirmpassword.setForeground(new java.awt.Color(255, 255, 255));
         Confirmpassword.setText("Confirm Password");
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png.png"))); // NOI18N
+        logo.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,33 +204,39 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(492, 492, 492)
-                        .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(506, 506, 506)
-                        .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(434, 434, 434)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(523, 523, 523)
-                        .addComponent(Confirmpassword)))
-                .addContainerGap(577, Short.MAX_VALUE))
+                        .addComponent(Confirmpassword))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(339, 339, 339)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(532, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
-                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(GRAVERUN, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(logan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(152, 152, 152)
+                .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(Confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(150, 150, 150))
         );
@@ -129,28 +266,11 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GraveRunConfirmPassword().setVisible(true));
+        public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() ->
+            new GraveRunConfirmPassword("user@example.com").setVisible(true));
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Confirmpassword;
     private javax.swing.JLabel GRAVERUN;
@@ -158,5 +278,6 @@ public class GraveRunConfirmPassword extends javax.swing.JFrame {
     private javax.swing.JTextField confirmpassword;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel logan;
+    private javax.swing.JLabel logo;
     // End of variables declaration//GEN-END:variables
 }
