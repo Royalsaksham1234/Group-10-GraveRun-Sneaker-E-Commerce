@@ -4,6 +4,8 @@
  */
 package view;
 
+
+
 /**
  *
  * @author 11sah
@@ -15,6 +17,7 @@ public class HelpPage extends javax.swing.JFrame {
     /**
      * Creates new form HelpPage
      */
+    
     public HelpPage() {
     initComponents();
     this.setSize(1280, 720); // or your preferred size
@@ -45,9 +48,9 @@ public class HelpPage extends javax.swing.JFrame {
         text3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
         topic = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(null);
 
         bg.setBackground(new java.awt.Color(44, 29, 29));
@@ -62,7 +65,7 @@ public class HelpPage extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText(" \n\n   ✔ What the statuses mean\n    . Pending – We received your order.\n    . Processing – We’re preparing your items.\n    . Shipped – Your package is on the way.\n    . Out for Delivery – Courier will deliver today.\n    . Delivered – Order has reached you.\n\n\n   ✔ How to track an order\n     . Go to My Orders.\n     . Select the order you want to track.\n     . You will see the current status and tracking details.\n\n\n   ✔ If your order is delayed\n     . Delivery may be delayed due to weather or holidays.\n     . Contact support if it’s delayed more than 3 days from the expected date");
+        jTextArea1.setText(" \n\n   ✔ What the statuses mean\n    . Pending – We received your order.\n    . Processing – We’re preparing your items.\n    . Processed – Your package is ready for collection.\n    . Delivered – Order has reached you.\n\n\n   ✔ How to track an order\n     . Go to My Orders.\n     . Select the order you want to track.\n     . You will see the current status.\n\n\n   ✔ If your order is delayed\n     . Delivery may be delayed due to weather or holidays.\n     . Contact support if it’s delayed more than 3 days from the expected date");
         jTextArea1.setBorder(null);
         text1.setViewportView(jTextArea1);
 
@@ -171,6 +174,11 @@ public class HelpPage extends javax.swing.JFrame {
         topic.setBorder(null);
         topic.addActionListener(this::topicActionPerformed);
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/newlogo.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
@@ -178,8 +186,12 @@ public class HelpPage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(topic, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(topic, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(orderstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(shippingpolicy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -190,22 +202,21 @@ public class HelpPage extends javax.swing.JFrame {
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(bgLayout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(orderstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bgLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(topic, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(returnpolicy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(shippingpolicy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(topic, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(returnpolicy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(shippingpolicy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(orderstatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         getContentPane().add(bg);
-        bg.setBounds(0, 0, 1309, 720);
+        bg.setBounds(0, 0, 1309, 718);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -226,33 +237,16 @@ public class HelpPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_topic3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new HelpPage().setVisible(true));
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public javax.swing.JButton getBackButton() {
+        return jButton1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bg;
+    private javax.swing.JButton jButton1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
@@ -267,4 +261,5 @@ public class HelpPage extends javax.swing.JFrame {
     private javax.swing.JTextField topic2;
     private javax.swing.JTextField topic3;
     // End of variables declaration//GEN-END:variables
+
 }

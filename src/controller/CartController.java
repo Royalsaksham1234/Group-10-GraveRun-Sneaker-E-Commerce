@@ -64,8 +64,8 @@ public class CartController {
     
 
     private void openHelpPage() {
-        new view.HelpPage().setVisible(true);
-        view.dispose();
+        HelpController helpController = new HelpController(view);
+        helpController.showHelp();
     }
 
     private void openDashboard() {
