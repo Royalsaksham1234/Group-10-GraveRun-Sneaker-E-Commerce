@@ -36,8 +36,8 @@ public class FavouriteController {
     }
 
     private void helpClicked() {
-    HelpController helpController = new HelpController(view);
-    helpController.showHelp();
+        new view.HelpPage().setVisible(true);
+        view.dispose();
     }
 
     private void logoClicked() {
