@@ -21,7 +21,7 @@ public class MySqlConnection implements Database {
     private static final int PORT = 3306;
     private static final String DATABASE = "sneakers";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "1234";
+    private static final String PASSWORD = "1234SAH";
 
     @Override
     public Connection openConnection() {
