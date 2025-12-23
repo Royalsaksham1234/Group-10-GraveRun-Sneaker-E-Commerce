@@ -1,4 +1,4 @@
-src/database
+
 nbproject/private
 build/
 
@@ -7,3 +7,4 @@ build/
 
 
 
+/dist/
