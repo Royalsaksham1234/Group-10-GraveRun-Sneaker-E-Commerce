@@ -3,10 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/NetBeansProjects/Group-10-GraveRun-Sneaker-E-Commerce/src/view/GraveRunLogin.java</file>
-            <file>file:/C:/NetBeansProjects/Group-10-GraveRun-Sneaker-E-Commerce/src/view/GraveRunOTP.java</file>
-            <file>file:/C:/NetBeansProjects/Group-10-GraveRun-Sneaker-E-Commerce/src/view/GraveRunSignup.java</file>
-            <file>file:/C:/NetBeansProjects/Group-10-GraveRun-Sneaker-E-Commerce/src/controller/NewClass.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/dashboard.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/controller/DashboardController.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/model/ProductModel.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/dao/productDAOImpl.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/util/SessionManager.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/dashboard2.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/controller/SignupController.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/database/MySqlConnection.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/controller/AdminDashboardController.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/AdminDashboard.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/dao/adminDAO.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/model/adminData.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/database/Database.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/productFrame.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/CartView.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/GraveRunOTP.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/HelpPage.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/model/UserData.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/Favourites.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/GraveRunConfirmPassword.java</file>
+            <file>file:/C:/Users/srsro/OneDrive/Documents/NetBeansProjects/Group%2010,GraveRun%20Sneaker%20E-Commerce/src/view/GraveRunForgotPassword.java</file>
         </group>
     </open-files>
 </project-private>
