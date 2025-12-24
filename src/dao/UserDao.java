@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class UserDao {
- 
+
     private final MySqlConnection mysql = new MySqlConnection();
 
     // --- Signup ---
@@ -22,19 +22,19 @@ public class UserDao {
 
             stmt.setString(1, username);
             stmt.setString(2, email);
-            stmt.setString(3, password);
+            stmt.setString(3, password); // ⚠️ In production, hash the password
             stmt.executeUpdate();
             return true;
 
         } catch (SQLException e) {
-            System.out.println("Error during signup: " + e.getMessage());
+            System.err.println("Error during signup: " + e.getMessage());
             return false;
         }
     }
 
     // --- Check if user already exists ---
     public boolean checkUserExists(String username, String email) {
-        String sql = "SELECT * FROM users WHERE email = ? OR username = ?";
+        String sql = "SELECT 1 FROM users WHERE email = ? OR username = ?";
         try (Connection conn = mysql.openConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -44,39 +44,39 @@ public class UserDao {
             stmt.setString(2, username);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();
+                return rs.next(); // true if user exists
             }
 
         } catch (SQLException e) {
-            System.out.println("Error checking user: " + e.getMessage());
+            System.err.println("Error checking user existence: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // --- Login ---
     public boolean validateLogin(String email, String password) {
-        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+        String sql = "SELECT 1 FROM users WHERE email = ? AND password = ?";
         try (Connection conn = mysql.openConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (conn == null) return false;
 
             stmt.setString(1, email);
-            stmt.setString(2, password);
+            stmt.setString(2, password); // ⚠️ Hash comparison in real apps
 
             try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();
+                return rs.next(); // true if valid
             }
 
         } catch (SQLException e) {
-            System.out.println("Error validating login: " + e.getMessage());
+            System.err.println("Error validating login: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // --- Generate Reset Code ---
     public String generateResetCode() {
-        int code = (int)(Math.random() * 900000) + 100000; // 6-digit random code
+        int code = (int)(Math.random() * 900000) + 100000; // 6-digit code
         return String.valueOf(code);
     }
 
@@ -93,8 +93,9 @@ public class UserDao {
             ps.setString(3, email);
 
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            System.out.println("Error saving reset code: " + e.getMessage());
+            System.err.println("Error saving reset code: " + e.getMessage());
             return false;
         }
     }
@@ -108,16 +109,20 @@ public class UserDao {
             if (conn == null) return false;
 
             ps.setString(1, email);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     String storedCode = rs.getString("reset_code");
                     Timestamp expiry = rs.getTimestamp("reset_code_expiry");
-                    return storedCode != null && storedCode.equals(code)
-                           && expiry != null && expiry.after(new Date());
+                    return storedCode != null
+                            && storedCode.equals(code)
+                            && expiry != null
+                            && expiry.after(new Date());
                 }
             }
+
         } catch (SQLException e) {
-            System.out.println("Error validating reset code: " + e.getMessage());
+            System.err.println("Error validating reset code: " + e.getMessage());
         }
         return false;
     }
@@ -130,14 +135,14 @@ public class UserDao {
 
             if (conn == null) return false;
 
-            ps.setString(1, newPassword); // ⚠️ hash before saving in real apps
+            ps.setString(1, newPassword); // ⚠️ Hash in production
             ps.setString(2, email);
 
             return ps.executeUpdate() > 0;
+
         } catch (SQLException e) {
-            System.out.println("Error updating password: " + e.getMessage());
+            System.err.println("Error updating password: " + e.getMessage());
             return false;
         }
     }
 }
-

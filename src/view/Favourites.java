@@ -11,14 +11,14 @@ import java.awt.Image;
  *
  * @author srsro
  */
-public class CartView extends javax.swing.JFrame {
+public class Favourites extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CartView.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Favourites.class.getName());
 
     /**
      * Creates new form freeframe
      */
-public CartView() {
+public Favourites() {
     initComponents();
     Pop.add(Account);
     Pop.add(Order);
@@ -153,7 +153,7 @@ private void loadprofile() {
         Profile.addActionListener(this::ProfileActionPerformed);
 
         Fav.setBackground(new java.awt.Color(0, 0, 0));
-        Fav.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fav.png"))); // NOI18N
+        Fav.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart.png"))); // NOI18N
         Fav.setBorder(null);
         Fav.setBorderPainted(false);
         Fav.setFocusPainted(false);
@@ -412,8 +412,8 @@ Pop.show(Profile, 0, Profile.getHeight());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void FavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavActionPerformed
-    new Favourites().setVisible(true);
-this.dispose();    // TODO add your handling code here:
+new CartView().setVisible(true);
+this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_FavActionPerformed
 
     /**
@@ -438,7 +438,7 @@ this.dispose();    // TODO add your handling code here:
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CartView().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Favourites().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

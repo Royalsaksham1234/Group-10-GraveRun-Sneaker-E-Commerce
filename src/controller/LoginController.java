@@ -1,67 +1,57 @@
 package controller;
 
 import dao.UserDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import view.GraveRunLogin;
 
 public class LoginController {
+
     private final UserDao userDao;
-    private final GraveRunLogin loginView;
 
-    public LoginController(GraveRunLogin loginView) {
-        this.loginView = loginView;
+    public LoginController() {
         this.userDao = new UserDao();
-
-        // Attach listeners using getters
-        this.loginView.getLoginButton().addActionListener(new LoginListener());
-        this.loginView.getSignupLinkField().addActionListener(new SignupRedirectListener());
     }
 
-    public void showLoginForm() {
-        loginView.setLocationRelativeTo(null);
-        loginView.setVisible(true);
-    }
+    /**
+     * Login method to validate user credentials with database
+     * @param email
+     * @param password
+     * @return 
+     */
+    public boolean login(String email, String password) {
+        if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter both email and password");
+            return false;
+        }
 
-    public void closeLoginForm() {
-        loginView.dispose();
-    }
-
-    class LoginListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String email = loginView.getEmailField().getText().trim();
-            String password = new String(loginView.getPasswordField().getPassword()).trim();
-
-            if (email.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(loginView, "Please enter both email and password.");
-                return;
-            }
-
-            try {
-                boolean valid = userDao.validateLogin(email, password);
-
-                if (valid) {
-                    JOptionPane.showMessageDialog(loginView, "Login successful! Welcome to GraveRun.");
-                    // Clear fields
-                    loginView.getEmailField().setText("");
-                    loginView.getPasswordField().setText("");
-                    // TODO: Navigate to next screen here
-                } else {
-                    JOptionPane.showMessageDialog(loginView, "Invalid email or password.");
-                }
-            } catch (RuntimeException ex) {
-                JOptionPane.showMessageDialog(loginView, "An unexpected error occurred: " + ex.getMessage());
-            }
+        boolean isValid = userDao.validateLogin(email, password);
+        if (isValid) {
+            JOptionPane.showMessageDialog(null, "Login successful!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "User not found or incorrect password");
+            return false;
         }
     }
 
-    class SignupRedirectListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // No SignupView yet — placeholder action
-            JOptionPane.showMessageDialog(loginView, "Signup is not implemented yet.");
+    /**
+     * Optional: Signup new user
+     * @param username
+     * @param email
+     * @param password
+     * @return 
+     */
+    public boolean addUser(String username, String email, String password) {
+        if (userDao.checkUserExists(username, email)) {
+            JOptionPane.showMessageDialog(null, "User already exists");
+            return false;
+        }
+        boolean registered = userDao.registerUser(username, email, password);
+        if (registered) {
+            JOptionPane.showMessageDialog(null, "User registered successfully!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Registration failed");
+            return false;
         }
     }
 }

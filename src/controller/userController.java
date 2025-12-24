@@ -1,91 +1,75 @@
 package controller;
 
-import dao.UserDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import view.GraveRunSignup;
-import view.GraveRunLogin;
+import java.util.HashMap;
 
 public class userController {
-    private final UserDao userDao;
-    private final GraveRunSignup signupView;
 
-    public userController(GraveRunSignup signupView) {
-        this.signupView = signupView;
-        this.userDao = new UserDao();
+    // Simulated user database (email -> password)
+    private static final HashMap<String, String> userDB = new HashMap<>();
 
-        // Attach listeners using getters
-        this.signupView.getSignupButton().addActionListener(new SignupListener());
-        this.signupView.getLoginRedirectLink().addActionListener(new LoginRedirectListener());
+    static {
+        // Example existing user
+        userDB.put("testuser@gmail.com", "password123");
     }
 
-    public void showSignupForm() {
-        signupView.setLocationRelativeTo(null);
-        signupView.setVisible(true);
+    // SIGNUP: Add a new user
+    public boolean signup(String email, String password, String confirmPassword) {
+        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields");
+            return false;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Passwords do not match");
+            return false;
+        }
+
+        if (userDB.containsKey(email)) {
+            JOptionPane.showMessageDialog(null, "User already exists");
+            return false;
+        }
+
+        userDB.put(email, password);
+        JOptionPane.showMessageDialog(null, "Signup successful!");
+        return true;
     }
 
-    public void closeSignupForm() {
-        signupView.dispose();
-    }
+    // LOGIN: Check email and password
+    public boolean login(String email, String password) {
+        if (email.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields");
+            return false;
+        }
 
-    class SignupListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String username = signupView.getUsernameField().getText().trim();
-            String email = signupView.getEmailField().getText().trim();
-            String password = new String(signupView.getPasswordField().getPassword()).trim();
-
-            // Basic validation
-            if (username.isEmpty() || "Username".equals(username)
-                || email.isEmpty() || "Email".equals(email)
-                || password.isEmpty() || "Password".equals(password)) {
-                JOptionPane.showMessageDialog(signupView, "Please fill in all fields.");
-                return;
-            }
-
-            if (!email.contains("@") || !email.contains(".")) {
-                JOptionPane.showMessageDialog(signupView, "Please enter a valid email address.");
-                return;
-            }
-
-            try {
-                // Check if user already exists
-                if (userDao.checkUserExists(username, email)) {
-                    JOptionPane.showMessageDialog(signupView, "User already exists. Try another email/username.");
-                    return;
-                }
-
-                // Register new user
-                boolean created = userDao.registerUser(username, email, password);
-
-                if (created) {
-                    JOptionPane.showMessageDialog(signupView, "Signup successful! You can now log in.");
-                    // Clear fields
-                    signupView.getUsernameField().setText("");
-                    signupView.getEmailField().setText("");
-                    signupView.getPasswordField().setText("");
-
-                    // Redirect to login
-                    closeSignupForm();
-                    GraveRunLogin loginView = new GraveRunLogin();
-                    new LoginController(loginView).showLoginForm();
-                } else {
-                    JOptionPane.showMessageDialog(signupView, "Signup failed. Try again.");
-                }
-            } catch (RuntimeException ex) {
-                JOptionPane.showMessageDialog(signupView, "An unexpected error occurred: " + ex.getMessage());
-            }
+        if (userDB.containsKey(email) && userDB.get(email).equals(password)) {
+            JOptionPane.showMessageDialog(null, "Login successful!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid email or password");
+            return false;
         }
     }
 
-    class LoginRedirectListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // Redirect to login
-            closeSignupForm();
-            GraveRunLogin loginView = new GraveRunLogin();
-            new LoginController(loginView).showLoginForm();
+    // FORGOT PASSWORD: Reset password if user exists
+    public boolean resetPassword(String email, String newPassword, String confirmPassword) {
+        if (email.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields");
+            return false;
         }
+
+        if (!userDB.containsKey(email)) {
+            JOptionPane.showMessageDialog(null, "User not found");
+            return false;
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Passwords do not match");
+            return false;
+        }
+
+        userDB.put(email, newPassword);
+        JOptionPane.showMessageDialog(null, "Password reset successful!");
+        return true;
     }
 }
