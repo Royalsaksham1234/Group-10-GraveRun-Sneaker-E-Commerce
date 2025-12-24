@@ -1,12 +1,11 @@
 package controller;
 
+import dao.UserDao;
 import view.dashboard;
 import dao.productDAO;
 import dao.productDAOImpl;
 import dao.favoriteDAO;
 import dao.favoriteDAOImpl;
-import dao.userDAO;
-import dao.userDAOImpl;
 import java.awt.HeadlessException;
 import model.ProductModel;
 import model.UserData;
@@ -22,7 +21,7 @@ public class DashboardController {
     private dashboard view;
     private productDAO productDao;
     private favoriteDAO favoriteDao;
-    private userDAO userDao;
+    private UserDao userDao;
     
     // Store product data for buttons
     private ProductModel product1, product2, product3, product4;
@@ -30,7 +29,7 @@ public class DashboardController {
     public DashboardController() {
         this.productDao = new productDAOImpl();
         this.favoriteDao = new favoriteDAOImpl();
-        this.userDao = new userDAOImpl();
+        this.userDao = new UserDao();
         this.view = new dashboard();
         initController();
         loadProducts();
@@ -527,7 +526,7 @@ public class DashboardController {
     private void navigateToLogin() {
         view.dispose();
         java.awt.EventQueue.invokeLater(() -> {
-            view.GraveRunNewLogin loginView = new view.GraveRunNewLogin();
+            view.GraveRunLogin loginView = new view.GraveRunLogin();
             // You would pass the controller here
             loginView.setVisible(true);
         });
