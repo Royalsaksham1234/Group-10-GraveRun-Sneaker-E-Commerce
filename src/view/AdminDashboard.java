@@ -28,43 +28,135 @@ public class AdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sidebarPanel = new javax.swing.JPanel();
+        logo = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jButton5 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
+        headerPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
+        dashboardPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
-        jPanel2.setLayout(null);
+        sidebarPanel.setBackground(new java.awt.Color(28, 28, 28));
+        sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 0));
+        sidebarPanel.setLayout(null);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
+        logo.setBackground(new java.awt.Color(28, 28, 28));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png_1_185x85.png"))); // NOI18N
+        logo.setBorder(null);
+        sidebarPanel.add(logo);
+        logo.setBounds(0, 0, 185, 85);
+        sidebarPanel.add(jSeparator1);
+        jSeparator1.setBounds(0, 85, 200, 3);
 
-        jPanel2.add(jPanel3);
-        jPanel3.setBounds(0, 0, 200, 720);
+        jButton4.setBackground(new java.awt.Color(43, 43, 43));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Dashboard");
+        jButton4.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton4.setMinimumSize(new java.awt.Dimension(200, 40));
+        sidebarPanel.add(jButton4);
+        jButton4.setBounds(0, 88, 200, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
-                .addContainerGap(1273, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jButton2.setBackground(new java.awt.Color(43, 43, 43));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Orders");
+        jButton2.setMaximumSize(new java.awt.Dimension(200, 40));
+        jButton2.setMinimumSize(new java.awt.Dimension(200, 40));
+        sidebarPanel.add(jButton2);
+        jButton2.setBounds(0, 128, 200, 40);
+
+        jButton3.setBackground(new java.awt.Color(43, 43, 43));
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Users");
+        jButton3.setMaximumSize(new java.awt.Dimension(200, 40));
+        sidebarPanel.add(jButton3);
+        jButton3.setBounds(0, 168, 200, 40);
+
+        jButton1.setBackground(new java.awt.Color(43, 43, 43));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Statistics");
+        jButton1.setMaximumSize(new java.awt.Dimension(200, 40));
+        sidebarPanel.add(jButton1);
+        jButton1.setBounds(0, 208, 200, 40);
+        sidebarPanel.add(jSeparator2);
+        jSeparator2.setBounds(0, 248, 200, 3);
+
+        jButton5.setBackground(new java.awt.Color(43, 43, 43));
+        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setText("Logout");
+        sidebarPanel.add(jButton5);
+        jButton5.setBounds(0, 560, 72, 23);
+        sidebarPanel.add(jSeparator3);
+        jSeparator3.setBounds(0, 400, 200, 10);
+
+        getContentPane().add(sidebarPanel);
+        sidebarPanel.setBounds(0, 60, 200, 660);
+
+        headerPanel.setBackground(new java.awt.Color(18, 18, 18));
+        headerPanel.setPreferredSize(new java.awt.Dimension(0, 60));
+        headerPanel.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Admin Dashboard");
+        headerPanel.add(jLabel1);
+        jLabel1.setBounds(0, 0, 134, 60);
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Admin");
+        headerPanel.add(jLabel2);
+        jLabel2.setBounds(1220, 0, 49, 60);
+
+        getContentPane().add(headerPanel);
+        headerPanel.setBounds(0, 0, 1280, 60);
+
+        contentPanel.setBackground(new java.awt.Color(18, 18, 18));
+        contentPanel.setLayout(null);
+
+        dashboardPanel.setBackground(new java.awt.Color(18, 18, 18));
+        dashboardPanel.setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(43, 43, 43));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardPanel.add(jPanel1);
+        jPanel1.setBounds(10, 30, 220, 120);
+
+        jPanel2.setBackground(new java.awt.Color(43, 43, 43));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardPanel.add(jPanel2);
+        jPanel2.setBounds(10, 240, 220, 120);
+
+        jPanel3.setBackground(new java.awt.Color(43, 43, 43));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardPanel.add(jPanel3);
+        jPanel3.setBounds(710, 60, 220, 120);
+
+        jPanel4.setBackground(new java.awt.Color(43, 43, 43));
+        jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardPanel.add(jPanel4);
+        jPanel4.setBounds(720, 270, 220, 120);
+
+        contentPanel.add(dashboardPanel);
+        dashboardPanel.setBounds(0, 0, 1080, 660);
+
+        getContentPane().add(contentPanel);
+        contentPanel.setBounds(200, 60, 1080, 660);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -95,7 +187,24 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel dashboardPanel;
+    private javax.swing.JPanel headerPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton logo;
+    private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables
 }

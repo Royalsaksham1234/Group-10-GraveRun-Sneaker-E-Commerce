@@ -1,7 +1,7 @@
-
+src/database
 nbproject/private
 build/
-
+src/Database/MySqlConnection
 
 
 

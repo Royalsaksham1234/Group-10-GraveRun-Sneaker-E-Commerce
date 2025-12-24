@@ -20,22 +20,21 @@ import java.util.List;
 
 public class DashboardController {
     private dashboard view;
-    private productDAO productDao;
-    private favoriteDAO favoriteDao;
-    private userDAO userDao;
+    private productDAO productDAO;
+    private favoriteDAO favoriteDAO;
+    private userDAO userDAO;
     
     // Store product data for buttons
     private ProductModel product1, product2, product3, product4;
     
-    public DashboardController() {
-        this.productDao = new productDAOImpl();
-        this.favoriteDao = new favoriteDAOImpl();
-        this.userDao = new userDAOImpl();
-        this.view = new dashboard();
-        initController();
-        loadProducts();
-    }
-    
+  public DashboardController(dashboard view) {  // ← Accept view as parameter
+    this.view = view;  // ← Use the passed view
+    this.productDAO = new productDAOImpl();
+    this.favoriteDAO = new favoriteDAOImpl();
+    this.userDAO = new userDAOImpl();
+    initController();
+    loadProducts();
+}
     private void initController() {
         // Remove existing login/signup button texts since user is already logged in
         updateAuthButtons();
@@ -65,7 +64,7 @@ public class DashboardController {
     private void loadProducts() {
         try {
             // Get featured products
-            List<ProductModel> featuredProducts = productDao.getFeaturedProducts();
+            List<ProductModel> featuredProducts = productDAO.getFeaturedProducts();
             
             // Display first 4 products
             if (featuredProducts.size() >= 4) {
@@ -250,7 +249,7 @@ public class DashboardController {
         }
         
         try {
-            List<ProductModel> searchResults = productDao.searchProducts(searchTerm);
+            List<ProductModel> searchResults = productDAO.searchProducts(searchTerm);
             
             if (searchResults.isEmpty()) {
                 JOptionPane.showMessageDialog(view,
@@ -327,9 +326,9 @@ public class DashboardController {
             try {
                 List<ProductModel> products;
                 if (selected.equals("All")) {
-                    products = productDao.getAllProducts();
+                    products = productDAO.getAllProducts();
                 } else {
-                    products = productDao.getProductsByCategory(selected);
+                    products = productDAO.getProductsByCategory(selected);
                 }
                 
                 if (products.isEmpty()) {
@@ -410,11 +409,11 @@ public class DashboardController {
         
         try {
             int userId = SessionManager.getCurrentUserId();
-            boolean isFavorite = favoriteDao.isFavorite(userId, product.getProductId());
+            boolean isFavorite = favoriteDAO.isFavorite(userId, product.getProductId());
             
             if (isFavorite) {
                 // Remove from favorites
-                if (favoriteDao.removeFromFavorites(userId, product.getProductId())) {
+                if (favoriteDAO.removeFromFavorites(userId, product.getProductId())) {
                     JOptionPane.showMessageDialog(view,
                         "Removed " + product.getName() + " from favorites",
                         "Favorites",
@@ -422,7 +421,7 @@ public class DashboardController {
                 }
             } else {
                 // Add to favorites
-                if (favoriteDao.addToFavorites(userId, product.getProductId())) {
+                if (favoriteDAO.addToFavorites(userId, product.getProductId())) {
                     JOptionPane.showMessageDialog(view,
                         "Added " + product.getName() + " to favorites",
                         "Favorites",
@@ -492,8 +491,10 @@ public class DashboardController {
     }
     
     private void showFullProductDetails(ProductModel product) {
-        String details = "=== PRODUCT DETAILS ===\n\n" +
-                        "Name: " + product.getName() + "\n" +
+        String details = """
+                         === PRODUCT DETAILS ===
+                         
+                         Name: """ + product.getName() + "\n" +
                         "Brand: " + product.getBrand() + "\n" +
                         "Category: " + product.getCategory() + "\n" +
                         "Price: NRs" + product.getPrice() + "\n" +
@@ -510,8 +511,10 @@ public class DashboardController {
     }
     
     private void showUserProfile(UserData user) {
-        String profile = "=== USER PROFILE ===\n\n" +
-                        "Username: " + user.getUsername() + "\n" +
+        String profile = """
+                         === USER PROFILE ===
+                         
+                         Username: """ + user.getUsername() + "\n" +
                         "Email: " + user.getEmail() + "\n" +
                         "Full Name: " + (user.getFullName() != null ? user.getFullName() : "Not set") + "\n" +
                         "Phone: " + (user.getPhone() != null ? user.getPhone() : "Not set") + "\n" +
@@ -543,6 +546,6 @@ public class DashboardController {
     
     public void showDashboard() {
         view.setVisible(true);
-        view.setLocationRelativeTo(null); // Center window
+        view.setLocationRelativeTo(null); 
     }
 }

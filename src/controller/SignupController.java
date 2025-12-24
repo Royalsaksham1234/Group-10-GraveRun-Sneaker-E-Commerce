@@ -252,13 +252,4 @@ public class SignupController {
         }
     }
     
-    private void navigateToDashboard() {
-        view.dispose();
-        
-        // Navigate to dashboard
-        java.awt.EventQueue.invokeLater(() -> {
-            DashboardController dashboardController = new DashboardController();
-            dashboardController.showDashboard();
-        });
-    }
 }

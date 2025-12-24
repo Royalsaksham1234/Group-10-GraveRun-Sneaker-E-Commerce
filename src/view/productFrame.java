@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
+import controller.DashboardController;
+import java.awt.event.ActionListener;
 /**
  *
  * @author srsro
@@ -29,42 +30,42 @@ public class productFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        productimage = new javax.swing.JLabel();
+        productname = new javax.swing.JLabel();
+        productprice = new javax.swing.JLabel();
+        buynow = new javax.swing.JButton();
+        favourites = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(73, 17, 17));
         jPanel1.setLayout(null);
+        jPanel1.add(productimage);
+        productimage.setBounds(10, 20, 230, 87);
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(10, 20, 230, 87);
+        productname.setForeground(new java.awt.Color(255, 250, 250));
+        productname.setText("jLabel2");
+        jPanel1.add(productname);
+        productname.setBounds(10, 110, 38, 16);
 
-        jLabel2.setForeground(new java.awt.Color(255, 250, 250));
-        jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(10, 110, 38, 16);
+        productprice.setForeground(new java.awt.Color(255, 250, 250));
+        productprice.setText("jLabel3");
+        jPanel1.add(productprice);
+        productprice.setBounds(10, 130, 38, 16);
 
-        jLabel3.setForeground(new java.awt.Color(255, 250, 250));
-        jLabel3.setText("jLabel3");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(10, 130, 38, 16);
+        buynow.setBackground(new java.awt.Color(29, 21, 21));
+        buynow.setForeground(new java.awt.Color(255, 255, 255));
+        buynow.setText("Buy now");
+        jPanel1.add(buynow);
+        buynow.setBounds(180, 120, 78, 17);
 
-        jButton1.setBackground(new java.awt.Color(29, 21, 21));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buy now");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(180, 120, 78, 17);
-
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2);
-        jButton2.setBounds(250, 0, 21, 17);
+        favourites.setBackground(new java.awt.Color(73, 17, 17));
+        favourites.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fav.png"))); // NOI18N
+        favourites.setBorder(null);
+        favourites.addActionListener(this::favouritesActionPerformed);
+        jPanel1.add(favourites);
+        favourites.setBounds(230, 0, 40, 17);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 265, 151);
@@ -72,9 +73,9 @@ public class productFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void favouritesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favouritesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_favouritesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,11 +103,26 @@ public class productFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton buynow;
+    private javax.swing.JButton favourites;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel productimage;
+    private javax.swing.JLabel productname;
+    private javax.swing.JLabel productprice;
     // End of variables declaration//GEN-END:variables
+public void BuynowListner(ActionListener listner){
+    buynow.addActionListener(listner);  
+}
+public void FavouriteListner(ActionListener listner){
+    favourites.addActionListener(listner);
+}
+public javax.swing.JLabel getProductimage(){
+    return productimage;
+}
+public javax.swing.JLabel getProductname(){
+    return productname;
+}
+public javax.swing.JLabel getProductprice(){
+    return productprice;
+}
 }

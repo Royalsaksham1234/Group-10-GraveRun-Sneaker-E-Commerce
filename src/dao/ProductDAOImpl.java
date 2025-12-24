@@ -15,8 +15,7 @@ public class productDAOImpl implements productDAO {
         String query = "INSERT INTO products (name, description, category, brand, price, " +
                       "stock_quantity, image_url, size, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setString(1, product.getName());
             ps.setString(2, product.getDescription());
@@ -41,8 +40,7 @@ public class productDAOImpl implements productDAO {
     public ProductModel getProductById(int productId) {
         String query = "SELECT * FROM products WHERE product_id = ?";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setInt(1, productId);
             ResultSet rs = ps.executeQuery();
@@ -63,8 +61,7 @@ public class productDAOImpl implements productDAO {
         List<ProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products ORDER BY created_at DESC";
         
-        try (
-             Statement stmt = db.openConnection().createStatement();
+        try (Statement stmt = db.openConnection().createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             
             while (rs.next()) {
@@ -83,8 +80,7 @@ public class productDAOImpl implements productDAO {
         List<ProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE category = ? ORDER BY created_at DESC";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setString(1, category);
             ResultSet rs = ps.executeQuery();
@@ -105,8 +101,7 @@ public class productDAOImpl implements productDAO {
         List<ProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE brand = ? ORDER BY created_at DESC";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setString(1, brand);
             ResultSet rs = ps.executeQuery();
@@ -128,8 +123,7 @@ public class productDAOImpl implements productDAO {
         String query = "SELECT * FROM products WHERE name LIKE ? OR description LIKE ? " +
                       "OR brand LIKE ? OR category LIKE ? ORDER BY created_at DESC";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             String searchPattern = "%" + keyword + "%";
             ps.setString(1, searchPattern);
@@ -156,8 +150,7 @@ public class productDAOImpl implements productDAO {
                       "brand = ?, price = ?, stock_quantity = ?, image_url = ?, " +
                       "size = ?, color = ? WHERE product_id = ?";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setString(1, product.getName());
             ps.setString(2, product.getDescription());
@@ -183,8 +176,7 @@ public class productDAOImpl implements productDAO {
     public boolean deleteProduct(int productId) {
         String query = "DELETE FROM products WHERE product_id = ?";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setInt(1, productId);
             int rowsAffected = ps.executeUpdate();
@@ -200,8 +192,7 @@ public class productDAOImpl implements productDAO {
     public boolean updateStock(int productId, int quantity) {
         String query = "UPDATE products SET stock_quantity = stock_quantity + ? WHERE product_id = ?";
         
-        try (
-             PreparedStatement ps = db.openConnection().prepareStatement(query)) {
+        try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setInt(1, quantity);
             ps.setInt(2, productId);
@@ -218,19 +209,23 @@ public class productDAOImpl implements productDAO {
     @Override
     public List<ProductModel> getFeaturedProducts() {
         List<ProductModel> products = new ArrayList<>();
-        String query = "SELECT * FROM products WHERE stock_quantity > 0 " +
-                      "ORDER BY RAND() LIMIT 8"; // Random 8 products as featured
         
-        try (
-             Statement stmt = db.openConnection().createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        // FIXED: Use correct connection method and column names
+        String query = "SELECT * FROM products WHERE stock_quantity > 0 ORDER BY created_at DESC LIMIT 8";
+        
+        try (Connection conn = db.openConnection();  // FIXED: Use openConnection, not closeConnection
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
             
             while (rs.next()) {
-                products.add(mapResultSetToProduct(rs));
+                products.add(mapResultSetToProduct(rs));  // FIXED: Use existing mapping method
             }
             
+            System.out.println("✅ Successfully loaded " + products.size() + " featured products");
+            
         } catch (SQLException e) {
-            System.err.println("Error getting featured products: " + e.getMessage());
+            System.err.println("❌ Error getting featured products: " + e.getMessage());
+            e.printStackTrace();
         }
         
         return products;
@@ -240,10 +235,9 @@ public class productDAOImpl implements productDAO {
     public List<ProductModel> getNewArrivals() {
         List<ProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE stock_quantity > 0 " +
-                      "ORDER BY created_at DESC LIMIT 10"; // Latest 10 products
+                      "ORDER BY created_at DESC LIMIT 10";
         
-        try (
-             Statement stmt = db.openConnection().createStatement();
+        try (Statement stmt = db.openConnection().createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
             
             while (rs.next()) {
@@ -256,6 +250,31 @@ public class productDAOImpl implements productDAO {
         
         return products;
     }
+    
+    public List<ProductModel> getBestSellingProducts(int limit) {
+        List<ProductModel> products = new ArrayList<>();
+        
+        // FIXED: Use correct column name stock_quantity
+        String query = "SELECT * FROM products WHERE stock_quantity > 0 ORDER BY created_at DESC LIMIT ?";
+        
+        try (Connection conn = db.openConnection();  // database connection
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            
+            pstmt.setInt(1, limit);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                products.add(mapResultSetToProduct(rs));  
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error getting best selling products: " + e.getMessage());
+            e.printStackTrace();
+        }
+        
+        return products;
+    }
+    
     
     private ProductModel mapResultSetToProduct(ResultSet rs) throws SQLException {
         ProductModel product = new ProductModel();
@@ -270,6 +289,17 @@ public class productDAOImpl implements productDAO {
         product.setSize(rs.getString("size"));
         product.setColor(rs.getString("color"));
         product.setCreatedAt(rs.getTimestamp("created_at"));
+        
+        // Set calculated fields
+        product.setInStock(product.getStockQuantity() > 0);
+        
+        // Try to get sales_count if column exists, otherwise default to 0
+        try {
+            product.setSalesCount(rs.getInt("sales_count"));
+        } catch (SQLException e) {
+            product.setSalesCount(0);  // Default if column doesn't exist
+        }
+        
         return product;
     }
 }

@@ -15,7 +15,9 @@ public class ProductModel {
     private String size;
     private String color;
     private Timestamp createdAt;
-    
+    private int salesCount;
+    private boolean inStock;
+
     // Constructors
     public ProductModel() {}
     
@@ -64,10 +66,14 @@ public class ProductModel {
         return "$" + price.toString();
     }
     
-    public boolean isInStock() {
-        return stockQuantity > 0;
-    }
-    
+    /**
+     *
+     * @return
+     */
+public int getSalesCount() { return salesCount; }
+public void setSalesCount(int salesCount) { this.salesCount = salesCount; }
+public boolean isInStock() { return inStock; }
+public void setInStock(boolean inStock) { this.inStock = inStock; }
     @Override
     public String toString() {
         return "ProductModel{" +
@@ -78,4 +84,6 @@ public class ProductModel {
                 ", stockQuantity=" + stockQuantity +
                 '}';
     }
+
+    
 }
