@@ -7,3 +7,9 @@ src/Database/MySqlConnection
 
 
 
+/dist/
+src/databse
+nbproject/private/private.xml
+nbproject/private/build-impl.xml
+nbproject/build.xml
+

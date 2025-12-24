@@ -4,12 +4,6 @@
  */
 package view;
 
-import controller.DashboardController;
-
-/**
- *
- * @author Samsung
- */
 public class GraveRunSignup extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GraveRunSignup.class.getName());
@@ -378,53 +372,4 @@ new GraveRunNewLogin().setVisible(true);
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
 
-    public void setDashboardController(DashboardController aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-// Add these methods to GraveRunSignup.java
-
-public String getUsername() {
-    return Username.getText().trim();
-}
-
-public String getEmail() {
-    return emailField1.getText().trim();
-}
-
-public char[] getPassword() {
-    return passwordField.getPassword();
-}
-
-public char[] getConfirmPassword() {
-    return ConfirmP.getPassword();
-}
-
-public void clearPasswordFields() {
-    passwordField.setText("");
-    ConfirmP.setText("");
-}
-
-public void clearAllFields() {
-    Username.setText("Username");
-    emailField1.setText("Email");
-    clearPasswordFields();
-}
-
-public void addSignUpActionListener(java.awt.event.ActionListener listener) {
-    Sign.addActionListener(listener);
-}
-
-public void addLoginActionListener(java.awt.event.ActionListener listener) {
-    Login.addActionListener(listener);
-}
-
-public void setErrorLabel(String message) {
-    Graverun.setText(message);
-    Graverun.setForeground(new java.awt.Color(255, 0, 0));
-}
-
-public void setSuccessLabel(String message) {
-    Graverun.setText(message);
-    Graverun.setForeground(new java.awt.Color(0, 153, 0));
-}
 }
