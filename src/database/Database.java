@@ -3,18 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package database;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import java.sql.*;
+
 
 /**
  *
- * @author srsro
+ * 
  */
 public interface Database {
     Connection openConnection();
     void closeConnection (Connection conn);
-    ResultSet runQuery(Connection conn,String query);
-    int executeUpdate(Connection conn,String query);
+    ResultSet runQuery(Connection conn, String query);
+    int executeUpdate(Connection conn, String query);
 }
-
-

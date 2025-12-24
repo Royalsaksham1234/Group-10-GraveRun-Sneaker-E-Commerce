@@ -4,24 +4,18 @@
  */
 package view;
 
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 /**
  *
  * @author srsro
  */
-public class dashboard extends javax.swing.JFrame {
+public class dashboard2 extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(dashboard.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(dashboard2.class.getName());
 
     /**
-     * Creates new form freeframe
+     * Creates new form dashboard2
      */
-    public dashboard() {
+    public dashboard2() {
         initComponents();
     }
 
@@ -34,6 +28,8 @@ public class dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu1 = new java.awt.PopupMenu();
+        popupMenu2 = new java.awt.PopupMenu();
         backgroundPanel = new javax.swing.JPanel();
         motto1 = new javax.swing.JLabel();
         motto2 = new javax.swing.JLabel();
@@ -41,8 +37,6 @@ public class dashboard extends javax.swing.JFrame {
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         categories = new javax.swing.JButton();
-        login = new javax.swing.JButton();
-        signup = new javax.swing.JButton();
         bannerPanel = new javax.swing.JPanel();
         Banner = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -81,11 +75,15 @@ public class dashboard extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         buynow4 = new javax.swing.JButton();
         favourite4 = new javax.swing.JButton();
-        logo = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        popupMenu1.setLabel("popupMenu1");
+
+        popupMenu2.setLabel("popupMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(11, 11, 11));
-        getContentPane().setLayout(null);
 
         backgroundPanel.setBackground(new java.awt.Color(11, 11, 11));
         backgroundPanel.setLayout(null);
@@ -125,18 +123,6 @@ public class dashboard extends javax.swing.JFrame {
         categories.setBorder(null);
         backgroundPanel.add(categories);
         categories.setBounds(810, 10, 190, 50);
-
-        login.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        login.setText("login");
-        login.setBorderPainted(false);
-        login.addActionListener(this::loginActionPerformed);
-        backgroundPanel.add(login);
-        login.setBounds(1050, 20, 90, 30);
-
-        signup.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        signup.setText("signup");
-        backgroundPanel.add(signup);
-        signup.setBounds(1160, 20, 90, 30);
 
         bannerPanel.setBackground(new java.awt.Color(60, 10, 10));
         bannerPanel.setLayout(null);
@@ -344,29 +330,53 @@ public class dashboard extends javax.swing.JFrame {
         backgroundPanel.add(productlevel4);
         productlevel4.setBounds(990, 390, 265, 151);
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png_1_185x85.png"))); // NOI18N
-        logo.setBorder(null);
-        logo.setBorderPainted(false);
-        backgroundPanel.add(logo);
-        logo.setBounds(40, 10, 100, 80);
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        backgroundPanel.add(jButton1);
+        jButton1.setBounds(1050, 20, 40, 23);
 
-        getContentPane().add(backgroundPanel);
-        backgroundPanel.setBounds(0, 0, 1280, 720);
+        jButton2.setText("jButton2");
+        backgroundPanel.add(jButton2);
+        jButton2.setBounds(1110, 20, 40, 23);
+
+        jButton3.setText("jButton3");
+        backgroundPanel.add(jButton3);
+        jButton3.setBounds(1190, 20, 75, 23);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     private void buynowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buynowActionPerformed
-           // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_buynowActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void favourite2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_favourite2ActionPerformed
         // TODO add your handling code here:
@@ -384,14 +394,9 @@ public class dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_favourite4ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-       
-                // TODO add your handling code here:
-    }//GEN-LAST:event_loginActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,7 +420,7 @@ public class dashboard extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new dashboard().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new dashboard2().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -434,6 +439,9 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JButton favourite2;
     private javax.swing.JButton favourite3;
     private javax.swing.JButton favourite4;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -453,10 +461,10 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton login;
-    private javax.swing.JButton logo;
     private javax.swing.JLabel motto1;
     private javax.swing.JLabel motto2;
+    private java.awt.PopupMenu popupMenu1;
+    private java.awt.PopupMenu popupMenu2;
     private javax.swing.JLabel price;
     private javax.swing.JPanel productLabel1;
     private javax.swing.JPanel productlabel2;
@@ -465,162 +473,6 @@ public class dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel shoeImg;
     private javax.swing.JLabel shoeName;
-    private javax.swing.JButton signup;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
-
-    public void AddbtnSearchListener(ActionListener listener) {
-     btnSearch.addActionListener(listener);
-    }
-
-    public javax.swing.JTextField getTxtSearch() {
-        return txtSearch;
-    }
-
-    // Authentication buttons
-    public void AddloginListener(ActionListener listener) {
-         login.addActionListener(listener);
-    }
-
-    public void AddSignupListener(ActionListener listener) {
-        signup.addActionListener(listener);
-    }
-
-    // Banner and navigation
-    public void  AddgetBuynowListener(ActionListener listener) {
-         buynow.addActionListener (listener);
-    }
-
-    public void getLogoListener(ActionListener listener) {
-         logo.addActionListener (listener);
-    }
-
-    public void getCategoriesListener(ActionListener listener) {
-        categories.addActionListener(listener);
-    }
-
-    // Product panels
-    public javax.swing.JPanel getProductlabel2() {
-        return productlabel2;
-    }
-
-    public javax.swing.JPanel getProductLabel1() {
-        return productLabel1;
-    }
-
-    public javax.swing.JPanel getProductlabel3() {
-        return productlabel3;
-    }
-
-    public javax.swing.JPanel getProductlevel4() {
-        return productlevel4;
-    }
-
-    // Product image labels
-    public javax.swing.JLabel getjLabel6() {
-        return jLabel6;
-    }
-
-    public javax.swing.JLabel getShoeImg() {
-        return shoeImg;
-    }
-
-    public javax.swing.JLabel getjLabel11() {
-        return jLabel11;
-    }
-
-    public javax.swing.JLabel getjLabel14() {
-        return jLabel14;
-    }
-
-    // Product name labels
-    public javax.swing.JLabel getjLabel9() {
-        return jLabel9;
-    }
-
-    public javax.swing.JLabel getShoeName() {
-        return shoeName;
-    }
-
-    public javax.swing.JLabel getjLabel12() {
-        return jLabel12;
-    }
-
-    public javax.swing.JLabel getjLabel15() {
-        return jLabel15;
-    }
-
-    // Product price labels
-    public javax.swing.JLabel getjLabel10() {
-        return jLabel10;
-    }
-
-    public javax.swing.JLabel getPrice() {
-        return price;
-    }
-
-    public javax.swing.JLabel getjLabel13() {
-        return jLabel13;
-    }
-
-    public javax.swing.JLabel getjLabel16() {
-        return jLabel16;
-    }
-
-    // Buy Now buttons
-    public void  getBuyNow1Listener(ActionListener listener) {
-         buyNow1.addActionListener (listener);
-    }
-
-    public void  getBuyNow2Listener(ActionListener listener) {
-         buyNow2.addActionListener (listener);
-    }
-
-    public void  getBuyNow3Listener(ActionListener listener) {
-         buyNow3.addActionListener (listener);
-    }
-
-    public void  getBuyNow4Listener(ActionListener listener) {
-         buynow4.addActionListener (listener);
-    }
-
-    // Favorite buttons
-    public void getFavourite1Listener(ActionListener listener) {
-         favourite1.addActionListener (listener);
-    }
-
-   public void getFavourite2Listener(ActionListener listener) {
-         favourite2.addActionListener (listener);
-    }
-
-    public void getFavourite3Listener(ActionListener listener) {
-         favourite3.addActionListener (listener);
-    }
-
-    public void getFavourite4Listener(ActionListener listener) {
-         favourite4.addActionListener (listener);
-    }
-
-    // Banner panel and labels (optional)
-    public JPanel getBannerPanel() {
-        return bannerPanel;
-    }
-
-    public JLabel getBestSellers() {
-        return bestSellers;
-    }
-    // Add these getter methods to dashboard.java
-public JButton getLogin() {
-    return login;
-}
-
-public JButton getSignup() {
-    return signup;
-}
-
-
-
-
-
-
 }
