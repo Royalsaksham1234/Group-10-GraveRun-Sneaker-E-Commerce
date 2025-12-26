@@ -584,28 +584,8 @@ public javax.swing.JMenuItem getOrderMenu() {
 
 public javax.swing.JMenuItem getOutMenu() {
     return OUT;
-
 }
+}
+
+
 // Main method to launch the application
-public static void main(String args[]) {
-    java.awt.EventQueue.invokeLater(() -> {
-        BuyNow view = new BuyNow();
-        new CartController(view);  
-        view.setVisible(true);     
-    });
-}
-public void clearCart() {
-    jButton4.removeAll();
-
-}
-
-public void addCartItem(CartItem item) {}
-
-public void setTotal(double total) {
-    Total.setText("Rs. " + total);
-}
-
-}
-
-
-
