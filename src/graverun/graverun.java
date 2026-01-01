@@ -1,9 +1,10 @@
 package graverun;
 
-import controller.LoginController;
-import controller.DashboardController;
+
+
 import dao.UserDao;
-import view.GraveRunLogin;
+import dao.userDAOImpl;
+
 import util.SessionManager;
 
 public class graverun {
@@ -13,16 +14,16 @@ public class graverun {
             SessionManager.initialize();
             
             // Initialize DAO
-            UserDao userDao = new UserDao();
+            UserDao userDao = new userDAOImpl();
             
             // Initialize view
-            GraveRunLogin loginView = new GraveRunLogin();
+           
             
             // Initialize controller
-            LoginController loginController = new LoginController();
+            
             
             // Show login view
-            loginView.setVisible(true);
+            ;
             
         } catch (Exception e) {
             e.printStackTrace();

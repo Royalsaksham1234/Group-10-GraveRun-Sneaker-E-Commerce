@@ -13,7 +13,7 @@ public class productDAOImpl implements productDAO {
     @Override
     public boolean addProduct(ProductModel product) {
         String query = "INSERT INTO products (name, description, category, brand, price, " +
-                      "stock_quantity, image_url, size, color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                      "stock_quantity, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
@@ -24,9 +24,7 @@ public class productDAOImpl implements productDAO {
             ps.setBigDecimal(5, product.getPrice());
             ps.setInt(6, product.getStockQuantity());
             ps.setString(7, product.getImageUrl());
-            ps.setString(8, product.getSize());
-            ps.setString(9, product.getColor());
-            
+           
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
             
@@ -37,12 +35,12 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public ProductModel getProductById(int productId) {
+    public ProductModel getProductById(int productid) {
         String query = "SELECT * FROM products WHERE product_id = ?";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
-            ps.setInt(1, productId);
+            ps.setInt(1, productid);
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
@@ -146,22 +144,20 @@ public class productDAOImpl implements productDAO {
     
     @Override
     public boolean updateProduct(ProductModel product) {
-        String query = "UPDATE products SET name = ?, description = ?, category = ?, " +
-                      "brand = ?, price = ?, stock_quantity = ?, image_url = ?, " +
-                      "size = ?, color = ? WHERE product_id = ?";
+        String query = "UPDATE products SET name = ?, brand = ?, category = ?, " +
+                   "description = ?, price = ?, image_url = ?, stock_quantity = ? " +
+                   "WHERE product_id = ?";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
             
             ps.setString(1, product.getName());
-            ps.setString(2, product.getDescription());
+            ps.setString(2, product.getBrand());
             ps.setString(3, product.getCategory());
-            ps.setString(4, product.getBrand());
+            ps.setString(4, product.getDescription());
             ps.setBigDecimal(5, product.getPrice());
-            ps.setInt(6, product.getStockQuantity());
-            ps.setString(7, product.getImageUrl());
-            ps.setString(8, product.getSize());
-            ps.setString(9, product.getColor());
-            ps.setInt(10, product.getProductId());
+            ps.setString(6, product.getImageUrl());
+            ps.setInt(7, product.getStockQuantity());
+            ps.setInt(8, product.getProductId());
             
             int rowsAffected = ps.executeUpdate();
             return rowsAffected > 0;
@@ -286,8 +282,6 @@ public class productDAOImpl implements productDAO {
         product.setPrice(rs.getBigDecimal("price"));
         product.setStockQuantity(rs.getInt("stock_quantity"));
         product.setImageUrl(rs.getString("image_url"));
-        product.setSize(rs.getString("size"));
-        product.setColor(rs.getString("color"));
         product.setCreatedAt(rs.getTimestamp("created_at"));
         
         // Set calculated fields

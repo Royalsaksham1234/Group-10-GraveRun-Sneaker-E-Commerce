@@ -12,10 +12,10 @@ public class ProductModel {
     private BigDecimal price;
     private int stockQuantity;
     private String imageUrl;
-    private String size;
-    private String color;
     private Timestamp createdAt;
-    
+    private int salesCount;
+    private boolean inStock;
+
     // Constructors
     public ProductModel() {}
     
@@ -50,12 +50,6 @@ public class ProductModel {
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
     
-    public String getSize() { return size; }
-    public void setSize(String size) { this.size = size; }
-    
-    public String getColor() { return color; }
-    public void setColor(String color) { this.color = color; }
-    
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
     
@@ -64,10 +58,14 @@ public class ProductModel {
         return "$" + price.toString();
     }
     
-    public boolean isInStock() {
-        return stockQuantity > 0;
-    }
-    
+    /**
+     *
+     * @return
+     */
+public int getSalesCount() { return salesCount; }
+public void setSalesCount(int salesCount) { this.salesCount = salesCount; }
+public boolean isInStock() { return inStock; }
+public void setInStock(boolean inStock) { this.inStock = inStock; }
     @Override
     public String toString() {
         return "ProductModel{" +
@@ -78,4 +76,6 @@ public class ProductModel {
                 ", stockQuantity=" + stockQuantity +
                 '}';
     }
+
+    
 }

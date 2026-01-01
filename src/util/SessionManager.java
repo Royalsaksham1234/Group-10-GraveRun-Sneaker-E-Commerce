@@ -30,7 +30,7 @@ public class SessionManager {
     }
     
     public static int getCurrentUserId() {
-        return currentUser != null ? currentUser.getUserId() : -1;
+        return currentUser != null ? currentUser.getid() : -1;
     }
     
     public static String getCurrentUsername() {
