@@ -13,13 +13,13 @@ import java.sql.*;
  *
  * @author srsro
  */
-public class MySqlConnection implements Database {
+public class Mysqlconnection implements Database {
 
     @Override
     public Connection openConnection() {
        try{
            String username = "root";
-           String password = "1234";
+           String password = "Samridha19";
            String database = "Sneakers";
            Connection connection;
            connection = DriverManager.getConnection(
