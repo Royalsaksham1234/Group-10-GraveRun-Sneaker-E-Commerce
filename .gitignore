@@ -8,7 +8,8 @@ build/
 
 
 /dist/
-src/databse
+src/databse/Database
+src/database/MySqlConnection
 nbproject/private/private.xml
 nbproject/private/build-impl.xml
 nbproject/build.xml

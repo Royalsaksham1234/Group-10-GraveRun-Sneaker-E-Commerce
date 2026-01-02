@@ -74,8 +74,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         Productsbtn.addActionListener(evt -> showPanel("products"));
         Ordersbtn.addActionListener(evt -> showPanel("orders"));
         Usersbtn.addActionListener(evt -> showPanel("users"));
+        Statisticsbtn.addActionListener(evt -> openStatistics());
         Logoutbtn.addActionListener(evt -> logoutAction());
     }
+    private void openStatistics() {
+    SalesStatistics sales = new SalesStatistics(); 
+    sales.setVisible(true);
+    this.dispose();
+}
 
     private void showPanel(String panelName) {
         // Hide all panels
@@ -337,6 +343,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void StatisticsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatisticsbtnActionPerformed
+
         // TODO add your handling code here:
     }//GEN-LAST:event_StatisticsbtnActionPerformed
 

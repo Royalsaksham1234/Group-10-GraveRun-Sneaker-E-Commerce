@@ -227,6 +227,7 @@ public class ProductsPanel extends javax.swing.JPanel {
         editButton.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         editButton.setForeground(new java.awt.Color(255, 255, 255));
         editButton.setText("Edit");
+        editButton.addActionListener(this::editButtonActionPerformed);
         headerPanel.add(editButton);
         editButton.setBounds(830, 20, 90, 30);
 
@@ -288,6 +289,10 @@ public class ProductsPanel extends javax.swing.JPanel {
 
         add(tableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1040, 560));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editButtonActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
