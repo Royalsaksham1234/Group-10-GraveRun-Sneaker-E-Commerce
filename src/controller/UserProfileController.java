@@ -1,9 +1,11 @@
 package controller;
 
 import dao.UserProfileDao;
+import javax.swing.SwingUtilities;
 import model.UserProfileData;
 
 import javax.swing.table.DefaultTableModel;
+import view.GraveRunNewLogin;
 
 public class UserProfileController {
 
@@ -12,13 +14,22 @@ public class UserProfileController {
     private javax.swing.JLabel username;
     private javax.swing.JLabel email;
     private int userId;
+     private javax.swing.JButton logout;
+    
 
-    public UserProfileController(javax.swing.JTable table, javax.swing.JLabel lblUsername, javax.swing.JLabel lblEmail, int userId) {
+
+
+    public UserProfileController(javax.swing.JTable table, javax.swing.JLabel lblUsername, javax.swing.JLabel lblEmail, int userId, javax.swing.JButton logout) {
         this.dao = new UserProfileDao();
         this.table = table;
         this.username = lblUsername;
         this.email = lblEmail;
         this.userId = userId;
+        this.logout = logout;
+        
+        attachButtonActions();
+
+
         
     }
 
@@ -47,4 +58,18 @@ public class UserProfileController {
             });
         }
     }
+        private void attachButtonActions() {
+        // Logout
+        logout.addActionListener(e -> {
+            // Open login page
+            GraveRunNewLogin loginPage = new GraveRunNewLogin();
+            loginPage.setVisible(true);
+
+            // Close current page
+            SwingUtilities.getWindowAncestor(logout).dispose();
+        });
+    
+    
+    }
+    
 }

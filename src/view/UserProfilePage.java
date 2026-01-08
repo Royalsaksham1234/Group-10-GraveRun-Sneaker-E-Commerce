@@ -5,6 +5,7 @@
 package view;
 
 import controller.UserProfileController;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -25,7 +26,7 @@ public class UserProfilePage extends javax.swing.JFrame {
     }
     public UserProfilePage(int userId) {
         this();
-        UserProfileController controller = new UserProfileController(Order_List, username, password, userId);
+        UserProfileController controller = new UserProfileController(Order_List, username, password, userId, logout);
         controller.loadProfileData();
     }
     
@@ -187,16 +188,16 @@ public class UserProfilePage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(64, 64, 64))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         getContentPane().add(jPanel3);
@@ -239,7 +240,7 @@ public class UserProfilePage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new UserProfilePage().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new UserProfilePage(1).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -259,5 +260,8 @@ public class UserProfilePage extends javax.swing.JFrame {
     private javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 
+public void addLogoutListener(ActionListener listener) {
+    logout.addActionListener(listener);
+}
 
 }
