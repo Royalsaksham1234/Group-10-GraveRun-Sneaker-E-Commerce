@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Model class for Order entity
  * @author srsro
  */
-public class OrderModel {
+public class AdminOrderModel {
     private int id;
     private int userId;
     private BigDecimal totalAmount;
@@ -21,10 +21,10 @@ public class OrderModel {
     private String userEmail;
 
     // Constructors
-    public OrderModel() {
+    public AdminOrderModel() {
     }
 
-    public OrderModel(int id, int userId, BigDecimal totalAmount, String status, 
+    public AdminOrderModel(int id, int userId, BigDecimal totalAmount, String status, 
                       String shippingAddress, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.userId = userId;

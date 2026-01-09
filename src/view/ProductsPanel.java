@@ -1,32 +1,37 @@
 package view;
 
-import controller.ProductController;
-import dao.productDAO;
-import model.ProductModel;
+import controller.AdminProductController;
+import model.AdminProductModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.io.File;
 import java.util.List;
 
 /**
- * Panel for managing products
- * @author srsro
+ * VIEW: Panel for managing products
+ * Responsibilities: UI display, user interaction, event handling only
+ * All business logic delegated to AdminProductController
+ * Follows strict MVC pattern - consistent with UsersPanel and OrdersPanel
  */
 public class ProductsPanel extends javax.swing.JPanel {
     
-    private final ProductController productController;
+    private final AdminProductController productController;
     private DefaultTableModel tableModel;
 
-    public ProductsPanel(productDAO productDAO) {
-        this.productController = new ProductController(productDAO);
+    /**
+     * Constructor - takes controller (following MVC pattern)
+     */
+    public ProductsPanel(AdminProductController controller) {
+        this.productController = controller;
         initComponents();
         setupTable();
-        loadProducts();
+        refreshView();
         addActionListeners();
     }
 
+    // ==================== UI Setup Methods ====================
+    
     private void setupTable() {
         String[] columns = {"Image", "Product ID", "Name", "Category", "Price", "Stock Quantity"};
         tableModel = new DefaultTableModel(columns, 0) {
@@ -43,46 +48,199 @@ public class ProductsPanel extends javax.swing.JPanel {
         };
         productsTable.setModel(tableModel);
         
+        // Set row height for images
         productsTable.setRowHeight(50);
-        productsTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-        productsTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-        productsTable.getColumnModel().getColumn(2).setPreferredWidth(200);
-        productsTable.getColumnModel().getColumn(3).setPreferredWidth(120);
-        productsTable.getColumnModel().getColumn(4).setPreferredWidth(100);
-        productsTable.getColumnModel().getColumn(5).setPreferredWidth(100);
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        productsTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+    }
+    
+    private void addActionListeners() {
+        addProductButton.addActionListener(evt -> addProduct());
+        editProductButton.addActionListener(evt -> editProduct());
+        deleteProductButton.addActionListener(evt -> deleteProduct());
+        viewDetailsButton.addActionListener(evt -> viewProductDetails());
+        Refresh.addActionListener(evt -> refreshProducts());
+        searchButton.addActionListener(evt -> searchProducts());
+        searchField.addActionListener(evt -> searchProducts());
+        categoryFilterComboBox.addActionListener(evt -> filterByCategory());
     }
 
-    public void loadProducts() {
-        tableModel.setRowCount(0);
-        List<ProductModel> products = productController.getAllProducts();
+    // ==================== View Update Methods ====================
+    
+    /**
+     * Refresh the entire view with all products
+     * FIXED: Renamed from loadProducts() to refreshView() for consistency
+     */
+    public void refreshView() {
+        // Delegate to controller
+        List<AdminProductModel> products = productController.getAllProducts();
+        updateTableView(products);
         
         if (products.isEmpty()) {
-            emptyStateLabel.setVisible(true);
-            tableScrollPane.setVisible(false);
-        } else {
-            emptyStateLabel.setVisible(false);
-            tableScrollPane.setVisible(true);
+            showEmptyState("No products available. Click 'Add Product' to get started.");
+        }
+    }
+
+    /**
+     * Update table with product data
+     */
+    private void updateTableView(List<AdminProductModel> products) {
+        tableModel.setRowCount(0);
+        
+        if (products.isEmpty()) {
+            productsTable.setVisible(false);
+            return;
+        }
+        
+        // Display products
+        emptyStateLabel.setVisible(false);
+        productsTable.setVisible(true);
+        
+        for (AdminProductModel product : products) {
+            ImageIcon imageIcon = loadProductImage(product.getImageUrl());
+            // Controller formats data for table
+            Object[] row = productController.formatProductForTable(product, imageIcon);
+            tableModel.addRow(row);
+        }
+    }
+
+    // ==================== User Action Handlers ====================
+    
+    private void addProduct() {
+        AddProductDialog dialog = new AddProductDialog(
+            (JFrame) SwingUtilities.getWindowAncestor(this), 
+            true, 
+            productController
+        );
+        dialog.setVisible(true);
+        
+        if (dialog.isProductAdded()) {
+            refreshView();
+        }
+    }
+
+    private void editProduct() {
+        int selectedRow = productsTable.getSelectedRow();
+        
+        if (!isRowSelected(selectedRow)) {
+            showWarning("Please select a product to edit.");
+            return;
+        }
+        
+        int productId = (int) tableModel.getValueAt(selectedRow, 1);
+        
+        // Controller retrieves product
+        AdminProductModel product = productController.getProductById(productId);
+        
+        if (product != null) {
+            EditProductDialog dialog = new EditProductDialog(
+                (JFrame) SwingUtilities.getWindowAncestor(this), 
+                true, 
+                productController, 
+                product
+            );
+            dialog.setVisible(true);
             
-            for (ProductModel product : products) {
-                ImageIcon imageIcon = loadProductImage(product.getImageUrl());
-                
-                Object[] row = {
-                    imageIcon,
-                    product.getProductId(),
-                    product.getName(),
-                    product.getCategory(),
-                    String.format("Rs %.2f", product.getPrice()),
-                    product.getStockQuantity()
-                };
-                tableModel.addRow(row);
+            if (dialog.isProductUpdated()) {
+                refreshView();
             }
         }
     }
 
+    private void deleteProduct() {
+        int selectedRow = productsTable.getSelectedRow();
+        
+        if (!isRowSelected(selectedRow)) {
+            showWarning("Please select a product to delete.");
+            return;
+        }
+        
+        int productId = (int) tableModel.getValueAt(selectedRow, 1);
+        String productName = (String) tableModel.getValueAt(selectedRow, 2);
+        
+        if (confirmDelete(productName)) {
+            // Controller handles deletion logic and validation
+            boolean success = productController.deleteProduct(productId);
+            
+            if (success) {
+                showSuccess("Product deleted successfully!");
+                refreshView();
+            }
+        }
+    }
+
+    private void viewProductDetails() {
+        int selectedRow = productsTable.getSelectedRow();
+        
+        if (!isRowSelected(selectedRow)) {
+            showWarning("Please select a product to view details");
+            return;
+        }
+        
+        int productId = (int) tableModel.getValueAt(selectedRow, 1);
+        
+        // Controller retrieves product
+        AdminProductModel product = productController.getProductById(productId);
+        
+        if (product != null) {
+            ProductDetailsDialog dialog = new ProductDetailsDialog(
+                (Frame) SwingUtilities.getWindowAncestor(this), 
+                product
+            );
+            dialog.setVisible(true);
+        } else {
+            showError("Error loading product details");
+        }
+    }
+
+    // ==================== Search and Filter Methods ====================
+    
+    private void searchProducts() {
+        String searchText = searchField.getText().trim();
+        
+        if (searchText.isEmpty()) {
+            refreshView();
+            return;
+        }
+        
+        // Controller handles search logic
+        List<AdminProductModel> products = productController.searchProducts(searchText);
+        
+        tableModel.setRowCount(0);
+        
+        if (products.isEmpty()) {
+            showEmptyState("No products found matching '" + searchText + "'");
+        } else {
+            updateTableView(products);
+        }
+    }
+
+    private void filterByCategory() {
+        String selectedCategory = (String) categoryFilterComboBox.getSelectedItem();
+        
+        if ("All".equals(selectedCategory)) {
+            refreshView();
+            return;
+        }
+        
+        // Controller handles filter logic
+        List<AdminProductModel> products = productController.filterByCategory(selectedCategory);
+        
+        tableModel.setRowCount(0);
+        
+        if (products.isEmpty()) {
+            showEmptyState("No products found in category '" + selectedCategory + "'");
+        } else {
+            updateTableView(products);
+        }
+    }
+
+    private void refreshProducts() {
+        searchField.setText("");
+        categoryFilterComboBox.setSelectedIndex(0);
+        refreshView();
+    }
+
+    // ==================== UI Helper Methods ====================
+    
     private ImageIcon loadProductImage(String imageUrl) {
         if (imageUrl == null || imageUrl.trim().isEmpty()) {
             return createEmptyIcon();
@@ -107,203 +265,217 @@ public class ProductsPanel extends javax.swing.JPanel {
         return new ImageIcon(emptyImage);
     }
 
-    private void addActionListeners() {
-        addButton.addActionListener(evt -> addButtonActionPerformed());
-        editButton.addActionListener(evt -> editButtonActionPerformed());
-        deleteButton.addActionListener(evt -> deleteButtonActionPerformed());
+    private void showEmptyState(String message) {
+        emptyStateLabel.setText(message);
+        emptyStateLabel.setVisible(true);
+        productsTable.setVisible(false);
     }
 
-    private void addButtonActionPerformed() {
-        AddProductDialog dialog = new AddProductDialog(
-            (JFrame) SwingUtilities.getWindowAncestor(this), 
-            true, 
-            productController
-        );
-        dialog.setVisible(true);
-        
-        if (dialog.isProductAdded()) {
-            loadProducts();
-        }
+    private boolean isRowSelected(int row) {
+        return row != -1;
     }
 
-    private void editButtonActionPerformed() {
-        int selectedRow = productsTable.getSelectedRow();
-        
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, 
-                "Please select a product to edit.", 
-                "No Selection", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        int productId = (int) tableModel.getValueAt(selectedRow, 1);
-        ProductModel product = productController.getProductById(productId);
-        
-        if (product != null) {
-            EditProductDialog dialog = new EditProductDialog(
-                (JFrame) SwingUtilities.getWindowAncestor(this), 
-                true, 
-                productController, 
-                product
-            );
-            dialog.setVisible(true);
-            
-            if (dialog.isProductUpdated()) {
-                loadProducts();
-            }
-        }
-    }
-
-    private void deleteButtonActionPerformed() {
-        int selectedRow = productsTable.getSelectedRow();
-        
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, 
-                "Please select a product to delete.", 
-                "No Selection", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        int productId = (int) tableModel.getValueAt(selectedRow, 1);
-        String productName = (String) tableModel.getValueAt(selectedRow, 2);
-        
-        int confirm = JOptionPane.showConfirmDialog(this, 
+    private boolean confirmDelete(String productName) {
+        return JOptionPane.showConfirmDialog(this, 
             "Are you sure you want to delete '" + productName + "'?", 
             "Confirm Delete", 
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE);
-        
-        if (confirm == JOptionPane.YES_OPTION) {
-            boolean success = productController.deleteProduct(productId);
-            
-            if (success) {
-                JOptionPane.showMessageDialog(this, 
-                    "Product deleted successfully!", 
-                    "Success", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                loadProducts();
-            }
-        }
+            JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION;
     }
-   
+
+    // ==================== Dialog Helper Methods ====================
+    
+    private void showWarning(String message) {
+        JOptionPane.showMessageDialog(this, message, "No Selection", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void showSuccess(String message) {
+        JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
     @SuppressWarnings("unchecked")
+        
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        headerPanel = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
-        addButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        emptyStateLabel = new javax.swing.JLabel();
-        tableScrollPane = new javax.swing.JScrollPane();
+        searchPanel = new javax.swing.JPanel();
+        searchLabel = new javax.swing.JLabel();
+        searchField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        filterLabel = new javax.swing.JLabel();
+        categoryFilterComboBox = new javax.swing.JComboBox<>();
+        scrollPane = new javax.swing.JScrollPane();
         productsTable = new javax.swing.JTable();
+        buttonPanel = new javax.swing.JPanel();
+        addProductButton = new javax.swing.JButton();
+        editProductButton = new javax.swing.JButton();
+        deleteProductButton = new javax.swing.JButton();
+        viewDetailsButton = new javax.swing.JButton();
+        Refresh = new javax.swing.JButton();
+        emptyStateLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 18, 18));
         setMinimumSize(new java.awt.Dimension(1080, 660));
         setPreferredSize(new java.awt.Dimension(1080, 660));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(null);
 
-        headerPanel.setBackground(new java.awt.Color(28, 28, 28));
-        headerPanel.setLayout(null);
-
-        titleLabel.setBackground(new java.awt.Color(128, 128, 128));
         titleLabel.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         titleLabel.setForeground(new java.awt.Color(255, 255, 255));
-        titleLabel.setText("Products Management");
-        headerPanel.add(titleLabel);
-        titleLabel.setBounds(20, 15, 270, 50);
+        titleLabel.setText("Product Management");
+        add(titleLabel);
+        titleLabel.setBounds(30, 20, 300, 35);
 
-        addButton.setBackground(new java.awt.Color(0, 120, 215));
-        addButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Add Products");
-        headerPanel.add(addButton);
-        addButton.setBounds(660, 20, 130, 30);
+        searchPanel.setBackground(new java.awt.Color(43, 43, 43));
+        searchPanel.setLayout(null);
 
-        editButton.setBackground(new java.awt.Color(40, 40, 40));
-        editButton.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        editButton.setForeground(new java.awt.Color(255, 255, 255));
-        editButton.setText("Edit");
-        editButton.addActionListener(this::editButtonActionPerformed);
-        headerPanel.add(editButton);
-        editButton.setBounds(830, 20, 90, 30);
+        searchLabel.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        searchLabel.setForeground(new java.awt.Color(255, 255, 255));
+        searchLabel.setText("Search:");
+        searchPanel.add(searchLabel);
+        searchLabel.setBounds(20, 17, 70, 25);
 
-        deleteButton.setBackground(new java.awt.Color(180, 40, 40));
-        deleteButton.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteButton.setText("Delete");
-        headerPanel.add(deleteButton);
-        deleteButton.setBounds(950, 20, 90, 30);
+        searchField.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        searchPanel.add(searchField);
+        searchField.setBounds(90, 15, 300, 30);
 
-        add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 60));
+        searchButton.setBackground(new java.awt.Color(70, 130, 180));
+        searchButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        searchButton.setForeground(new java.awt.Color(255, 255, 255));
+        searchButton.setText("Search");
+        searchButton.setFocusPainted(false);
+        searchPanel.add(searchButton);
+        searchButton.setBounds(405, 13, 100, 35);
 
-        emptyStateLabel.setBackground(new java.awt.Color(150, 150, 150));
-        emptyStateLabel.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        emptyStateLabel.setForeground(new java.awt.Color(255, 255, 255));
-        emptyStateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        emptyStateLabel.setText("No products found. Click 'Add Product' to get started");
-        add(emptyStateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 460, 70));
+        filterLabel.setFont(new java.awt.Font("SansSerif", 0, 15)); // NOI18N
+        filterLabel.setForeground(new java.awt.Color(255, 255, 255));
+        filterLabel.setText("Category:");
+        searchPanel.add(filterLabel);
+        filterLabel.setBounds(540, 17, 80, 25);
 
-        tableScrollPane.setBackground(new java.awt.Color(28, 28, 28));
-        tableScrollPane.setBorder(null);
-        tableScrollPane.setForeground(new java.awt.Color(255, 255, 255));
-        tableScrollPane.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        categoryFilterComboBox.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        categoryFilterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Performance", "Running", "Casual", "Basketball" }));
+        searchPanel.add(categoryFilterComboBox);
+        categoryFilterComboBox.setBounds(625, 15, 160, 30);
+
+        add(searchPanel);
+        searchPanel.setBounds(30, 70, 1020, 60);
+
+        scrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(60, 60, 60)));
 
         productsTable.setBackground(new java.awt.Color(28, 28, 28));
+        productsTable.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         productsTable.setForeground(new java.awt.Color(255, 255, 255));
         productsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Product ID", "Name", "Category", "Price", "Stock Quantity"
+                "Image", "Product ID", "Name", "Category", "Price", "Stock  Quantity"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        productsTable.setGridColor(new java.awt.Color(40, 40, 40));
-        productsTable.setRowHeight(40);
-        productsTable.setShowVerticalLines(true);
-        tableScrollPane.setViewportView(productsTable);
-        if (productsTable.getColumnModel().getColumnCount() > 0) {
-            productsTable.getColumnModel().getColumn(0).setResizable(false);
-            productsTable.getColumnModel().getColumn(0).setPreferredWidth(80);
-            productsTable.getColumnModel().getColumn(1).setResizable(false);
-            productsTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-            productsTable.getColumnModel().getColumn(2).setResizable(false);
-            productsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
-            productsTable.getColumnModel().getColumn(3).setResizable(false);
-            productsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
-            productsTable.getColumnModel().getColumn(4).setResizable(false);
-            productsTable.getColumnModel().getColumn(4).setPreferredWidth(100);
-        }
+        productsTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        productsTable.setGridColor(new java.awt.Color(60, 60, 60));
+        productsTable.setRowHeight(50);
+        productsTable.setSelectionBackground(new java.awt.Color(70, 130, 180));
+        productsTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        productsTable.setShowGrid(true);
+        scrollPane.setViewportView(productsTable);
 
-        add(tableScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 1040, 560));
+        add(scrollPane);
+        scrollPane.setBounds(30, 150, 1020, 410);
+
+        buttonPanel.setBackground(new java.awt.Color(18, 18, 18));
+        buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 0));
+
+        addProductButton.setBackground(new java.awt.Color(34, 139, 34));
+        addProductButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        addProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        addProductButton.setText("Add Product");
+        addProductButton.setPreferredSize(new java.awt.Dimension(150, 45));
+        buttonPanel.add(addProductButton);
+
+        editProductButton.setBackground(new java.awt.Color(255, 152, 0));
+        editProductButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        editProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        editProductButton.setText("Edit Product");
+        editProductButton.setPreferredSize(new java.awt.Dimension(140, 45));
+        buttonPanel.add(editProductButton);
+
+        deleteProductButton.setBackground(new java.awt.Color(220, 53, 69));
+        deleteProductButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        deleteProductButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteProductButton.setText("Delete Product");
+        deleteProductButton.setPreferredSize(new java.awt.Dimension(160, 45));
+        buttonPanel.add(deleteProductButton);
+
+        viewDetailsButton.setBackground(new java.awt.Color(70, 130, 180));
+        viewDetailsButton.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        viewDetailsButton.setForeground(new java.awt.Color(255, 255, 255));
+        viewDetailsButton.setText("View Details");
+        viewDetailsButton.setPreferredSize(new java.awt.Dimension(140, 45));
+        buttonPanel.add(viewDetailsButton);
+
+        Refresh.setBackground(new java.awt.Color(108, 117, 125));
+        Refresh.setFont(new java.awt.Font("SansSerif", 1, 15)); // NOI18N
+        Refresh.setForeground(new java.awt.Color(255, 255, 255));
+        Refresh.setText("Refresh");
+        Refresh.setPreferredSize(new java.awt.Dimension(120, 45));
+        buttonPanel.add(Refresh);
+
+        add(buttonPanel);
+        buttonPanel.setBounds(30, 580, 1020, 50);
+
+        emptyStateLabel.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        emptyStateLabel.setForeground(new java.awt.Color(150, 150, 150));
+        emptyStateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        emptyStateLabel.setText("No products available");
+        add(emptyStateLabel);
+        emptyStateLabel.setBounds(30, 320, 1020, 30);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editButtonActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton editButton;
+    private javax.swing.JButton Refresh;
+    private javax.swing.JButton addProductButton;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JComboBox<String> categoryFilterComboBox;
+    private javax.swing.JButton deleteProductButton;
+    private javax.swing.JButton editProductButton;
     private javax.swing.JLabel emptyStateLabel;
-    private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel filterLabel;
     private javax.swing.JTable productsTable;
-    private javax.swing.JScrollPane tableScrollPane;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JLabel searchLabel;
+    private javax.swing.JPanel searchPanel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JButton viewDetailsButton;
     // End of variables declaration//GEN-END:variables
+
 
 }

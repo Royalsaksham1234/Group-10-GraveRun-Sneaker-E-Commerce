@@ -3,7 +3,7 @@ package model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class ProductModel {
+public class AdminProductModel {
     private int productId;
     private String name;
     private String description;
@@ -17,9 +17,9 @@ public class ProductModel {
     private boolean inStock;
 
     // Constructors
-    public ProductModel() {}
+    public AdminProductModel() {}
     
-    public ProductModel(String name, String description, BigDecimal price) {
+    public AdminProductModel(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
         this.price = price;

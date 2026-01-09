@@ -2,10 +2,10 @@ package graverun;
 
 
 
-import dao.UserDao;
-import dao.userDAOImpl;
+import dao.AdminUserDAOImpl;
 
 import util.SessionManager;
+import dao.AdminUserDAO;
 
 public class graverun {
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class graverun {
             SessionManager.initialize();
             
             // Initialize DAO
-            UserDao userDao = new userDAOImpl();
+            AdminUserDAO userDao = new AdminUserDAOImpl();
             
             // Initialize view
            

@@ -1,8 +1,8 @@
 package view;
 
-import controller.OrderController;
-import model.OrderModel;
-import model.OrderItemModel;
+import controller.AdminOrderController;
+import model.AdminOrderModel;
+import model.AdminOrderItemModel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class OrderDetailsDialog extends javax.swing.JDialog {
     
-    private final OrderController orderController;
-    private final OrderModel order;
+    private final AdminOrderController orderController;
+    private final AdminOrderModel order;
     private DefaultTableModel itemsTableModel;
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy HH:mm");
 
     public OrderDetailsDialog(java.awt.Frame parent, boolean modal, 
-                             OrderController orderController, OrderModel order) {
+                             AdminOrderController orderController, AdminOrderModel order) {
         super(parent, modal);
         this.orderController = orderController;
         this.order = order;
@@ -51,9 +51,9 @@ public class OrderDetailsDialog extends javax.swing.JDialog {
         };
         itemsTable.setModel(itemsTableModel);
         
-        List<OrderItemModel> items = orderController.getOrderItems(order.getId());
+        List<AdminOrderItemModel> items = orderController.getOrderItems(order.getId());
         
-        for (OrderItemModel item : items) {
+        for (AdminOrderItemModel item : items) {
             Object[] row = {
                 item.getProductName() != null ? item.getProductName() : "Product #" + item.getProductId(),
                 item.getProductBrand() != null ? item.getProductBrand() : "N/A",

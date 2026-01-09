@@ -1,9 +1,9 @@
 package util;
 
-import model.UserData;
+import model.AdminUserData;
 
 public class SessionManager {
-    private static UserData currentUser = null;
+    private static AdminUserData currentUser = null;
     private static boolean isLoggedIn = false;
     
     public static void initialize() {
@@ -11,7 +11,7 @@ public class SessionManager {
         isLoggedIn = false;
     }
     
-    public static void login(UserData user) {
+    public static void login(AdminUserData user) {
         currentUser = user;
         isLoggedIn = true;
     }
@@ -25,7 +25,7 @@ public class SessionManager {
         return isLoggedIn;
     }
     
-    public static UserData getCurrentUser() {
+    public static AdminUserData getCurrentUser() {
         return currentUser;
     }
     
@@ -46,7 +46,7 @@ public class SessionManager {
         return isLoggedIn;
     }
     
-    public static void updateUserProfile(UserData updatedUser) {
+    public static void updateUserProfile(AdminUserData updatedUser) {
         if (currentUser != null) {
             currentUser = updatedUser;
         }

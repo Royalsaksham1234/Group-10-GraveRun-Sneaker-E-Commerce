@@ -2,7 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 
-public class OrderItemModel {
+public class AdminOrderItemModel {
     private int id;
     private int orderId;
     private int productId;
@@ -16,11 +16,11 @@ public class OrderItemModel {
     private String productImageUrl;
 
     // Default constructor
-    public OrderItemModel() {
+    public AdminOrderItemModel() {
     }
 
     // Constructor
-    public OrderItemModel(int orderId, int productId, int quantity, 
+    public AdminOrderItemModel(int orderId, int productId, int quantity, 
                          BigDecimal price, BigDecimal subtotal) {
         this.orderId = orderId;
         this.productId = productId;

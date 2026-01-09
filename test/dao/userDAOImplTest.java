@@ -5,7 +5,7 @@
 package dao;
 
 import java.util.List;
-import model.UserData;
+import model.AdminUserData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,8 +44,8 @@ public class userDAOImplTest {
     @Test
     public void testCreateUser() {
         System.out.println("createUser");
-        UserData user = null;
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserData user = null;
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.createUser(user);
         assertEquals(expResult, result);
@@ -60,9 +60,9 @@ public class userDAOImplTest {
     public void testGetUserById() {
         System.out.println("getUserById");
         int userId = 0;
-        userDAOImpl instance = new userDAOImpl();
-        UserData expResult = null;
-        UserData result = instance.getUserById(userId);
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
+        AdminUserData expResult = null;
+        AdminUserData result = instance.getUserById(userId);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -75,9 +75,9 @@ public class userDAOImplTest {
     public void testGetUserByEmail() {
         System.out.println("getUserByEmail");
         String email = "";
-        userDAOImpl instance = new userDAOImpl();
-        UserData expResult = null;
-        UserData result = instance.getUserByEmail(email);
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
+        AdminUserData expResult = null;
+        AdminUserData result = instance.getUserByEmail(email);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -89,8 +89,8 @@ public class userDAOImplTest {
     @Test
     public void testUpdateUser() {
         System.out.println("updateUser");
-        UserData user = null;
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserData user = null;
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.updateUser(user);
         assertEquals(expResult, result);
@@ -105,7 +105,7 @@ public class userDAOImplTest {
     public void testDeleteUser() {
         System.out.println("deleteUser");
         int userId = 0;
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.deleteUser(userId);
         assertEquals(expResult, result);
@@ -121,7 +121,7 @@ public class userDAOImplTest {
         System.out.println("authenticateUser");
         String email = "";
         String password = "";
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.authenticateUser(email, password);
         assertEquals(expResult, result);
@@ -136,7 +136,7 @@ public class userDAOImplTest {
     public void testUserExists() {
         System.out.println("userExists");
         String email = "";
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.userExists(email);
         assertEquals(expResult, result);
@@ -150,9 +150,9 @@ public class userDAOImplTest {
     @Test
     public void testGetAllUsers() {
         System.out.println("getAllUsers");
-        userDAOImpl instance = new userDAOImpl();
-        List<UserData> expResult = null;
-        List<UserData> result = instance.getAllUsers();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
+        List<AdminUserData> expResult = null;
+        List<AdminUserData> result = instance.getAllUsers();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -166,7 +166,7 @@ public class userDAOImplTest {
         System.out.println("updatePassword");
         int userId = 0;
         String newPasswordHash = "";
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.updatePassword(userId, newPasswordHash);
         assertEquals(expResult, result);
@@ -180,8 +180,8 @@ public class userDAOImplTest {
     @Test
     public void testUpdateProfile() {
         System.out.println("updateProfile");
-        UserData user = null;
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserData user = null;
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.updateProfile(user);
         assertEquals(expResult, result);
@@ -196,7 +196,7 @@ public class userDAOImplTest {
     public void testDeactivateUser() {
         System.out.println("deactivateUser");
         int userId = 0;
-        userDAOImpl instance = new userDAOImpl();
+        AdminUserDAOImpl instance = new AdminUserDAOImpl();
         boolean expResult = false;
         boolean result = instance.deactivateUser(userId);
         assertEquals(expResult, result);

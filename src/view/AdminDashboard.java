@@ -1,31 +1,40 @@
 package view;
 
 import controller.AdminDashboardController;
-import dao.productDAO;
-import dao.productDAOImpl;
-import dao.UserDao;
-import dao.userDAOImpl;
-import java.awt.event.ActionListener;
+import controller.AdminUserController;
+import controller.AdminOrderController;
+import controller.AdminProductController;
+import dao.AdminProductDAOImpl;
+import dao.AdminUserDAOImpl;
+import dao.AdminProductDAO;
+import dao.AdminUserDAO;
 
 /**
- * Main Admin Dashboard
- * @author srsro
+ * Main Admin Dashboard - Follows MVC Pattern
+ * View Component - Only handles UI display and user interactions
  */
 public class AdminDashboard extends javax.swing.JFrame {
 
-    private final productDAO productDAO;
-    private final UserDao userDAO;
-    private AdminDashboardController dashboardController;
+    // Controllers
+    private final AdminDashboardController dashboardController;
+    private final AdminProductController productController;
+    private final AdminUserController userController;
+    private final AdminOrderController orderController;
     
-    // Panel instances - renamed to avoid conflict with GUI components
+    // Panel instances
     private ProductsPanel productsPanelView;
     private OrdersPanel ordersPanelView;
     private UsersPanel usersPanelView;
 
     public AdminDashboard() {
         // Initialize DAOs
-        this.productDAO = new productDAOImpl();
-        this.userDAO = new userDAOImpl();
+        AdminProductDAO productDAO = new AdminProductDAOImpl();
+        AdminUserDAO userDAO = new AdminUserDAOImpl();
+        
+        // Initialize Controllers
+        this.productController = new AdminProductController(productDAO);
+        this.userController = new AdminUserController(userDAO);
+        this.orderController = new AdminOrderController();
         this.dashboardController = new AdminDashboardController(productDAO, userDAO);
         
         initComponents();
@@ -34,11 +43,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         setupActionListeners();
     }
 
+    /**
+     * Initialize panel instances with their respective controllers
+     */
     private void initializePanels() {
-        // Create panel instances
-        productsPanelView = new ProductsPanel(productDAO);
-        ordersPanelView = new OrdersPanel();
-        usersPanelView = new UsersPanel(userDAO);
+        // Create panel instances with controllers (following MVC)
+        productsPanelView = new ProductsPanel(productController);
+        ordersPanelView = new OrdersPanel(orderController);
+        usersPanelView = new UsersPanel(userController);
         
         // Set bounds to match content panel
         productsPanelView.setBounds(0, 0, 1080, 660);
@@ -57,18 +69,25 @@ public class AdminDashboard extends javax.swing.JFrame {
         dashboardPanel.setVisible(true);
     }
 
+    /**
+     * Update dashboard statistics from controller
+     */
     private void updateDashboardStats() {
         int totalProducts = dashboardController.getTotalProducts();
         int totalUsers = dashboardController.getTotalUsers();
         int totalOrders = dashboardController.getTotalOrders();
         String revenue = dashboardController.formatRevenue(dashboardController.getTotalRevenue());
         
+        // Update UI labels
         ordersNumberLabel.setText(String.valueOf(totalOrders));
         usersNumberLabel.setText(String.valueOf(totalUsers));
         productNumberLabel.setText(String.valueOf(totalProducts));
         revenueNumberLabel.setText(revenue);
     }
 
+    /**
+     * Setup action listeners for sidebar buttons
+     */
     private void setupActionListeners() {
         Dashboardbtn.addActionListener(evt -> showPanel("dashboard"));
         Productsbtn.addActionListener(evt -> showPanel("products"));
@@ -77,12 +96,19 @@ public class AdminDashboard extends javax.swing.JFrame {
         Statisticsbtn.addActionListener(evt -> openStatistics());
         Logoutbtn.addActionListener(evt -> logoutAction());
     }
-    private void openStatistics() {
-    SalesStatistics sales = new SalesStatistics(); 
-    sales.setVisible(true);
-    this.dispose();
-}
 
+    /**
+     * Open statistics window
+     */
+    private void openStatistics() {
+        SalesStatistics sales = new SalesStatistics(); 
+        sales.setVisible(true);
+        this.dispose();
+    }
+
+    /**
+     * Show selected panel and hide others
+     */
     private void showPanel(String panelName) {
         // Hide all panels
         dashboardPanel.setVisible(false);
@@ -90,27 +116,30 @@ public class AdminDashboard extends javax.swing.JFrame {
         ordersPanelView.setVisible(false);
         usersPanelView.setVisible(false);
         
-        // Show selected panel
+        // Show selected panel and refresh its data
         switch (panelName) {
             case "dashboard":
                 updateDashboardStats();
                 dashboardPanel.setVisible(true);
                 break;
             case "products":
-                productsPanelView.loadProducts();
+                productsPanelView.refreshView(); // FIXED: Now using refreshView()
                 productsPanelView.setVisible(true);
                 break;
             case "orders":
-                ordersPanelView.loadOrders();
+                ordersPanelView.refreshView();
                 ordersPanelView.setVisible(true);
                 break;
             case "users":
-                usersPanelView.loadUsers();
+                usersPanelView.refreshView();
                 usersPanelView.setVisible(true);
                 break;
         }
     }
 
+    /**
+     * Handle logout action
+     */
     private void logoutAction() {
         int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
             "Are you sure you want to logout?", 
@@ -271,7 +300,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         ordersNumberLabel.setForeground(new java.awt.Color(242, 242, 242));
         ordersNumberLabel.setText("80");
         ordersPanel.add(ordersNumberLabel);
-        ordersNumberLabel.setBounds(90, 80, 37, 24);
+        ordersNumberLabel.setBounds(90, 70, 37, 24);
 
         dashboardPanel.add(ordersPanel);
         ordersPanel.setBounds(210, 110, 220, 120);
@@ -290,7 +319,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         usersNumberLabel.setForeground(new java.awt.Color(242, 242, 242));
         usersNumberLabel.setText("120");
         usersPanel.add(usersNumberLabel);
-        usersNumberLabel.setBounds(90, 80, 37, 24);
+        usersNumberLabel.setBounds(90, 70, 37, 24);
 
         dashboardPanel.add(usersPanel);
         usersPanel.setBounds(210, 320, 220, 120);
@@ -309,7 +338,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         productNumberLabel.setForeground(new java.awt.Color(242, 242, 242));
         productNumberLabel.setText("120");
         productPanel.add(productNumberLabel);
-        productNumberLabel.setBounds(100, 90, 37, 24);
+        productNumberLabel.setBounds(90, 70, 37, 24);
 
         dashboardPanel.add(productPanel);
         productPanel.setBounds(690, 110, 220, 120);
@@ -328,7 +357,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         revenueNumberLabel.setForeground(new java.awt.Color(242, 242, 242));
         revenueNumberLabel.setText("250k");
         revenuePanel.add(revenueNumberLabel);
-        revenueNumberLabel.setBounds(90, 90, 50, 24);
+        revenueNumberLabel.setBounds(90, 70, 50, 24);
 
         dashboardPanel.add(revenuePanel);
         revenuePanel.setBounds(690, 320, 220, 120);
@@ -408,24 +437,4 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel usersNumberLabel;
     private javax.swing.JPanel usersPanel;
     // End of variables declaration//GEN-END:variables
-  public void addDashboardActionListener(ActionListener listener) {
-        Dashboardbtn.addActionListener(listener);
-    }
-    
-    public void addLogoutActionListener(ActionListener listener) {
-        Logoutbtn.addActionListener(listener);
-    }
-    
-    public void addOrdersActionListener(ActionListener listener) {
-        Ordersbtn.addActionListener(listener);
-    }
-    
-    public void addStatisticsActionListener(ActionListener listener) {
-        Statisticsbtn.addActionListener(listener);
-    }
-    
-    public void addUsersActionListener(ActionListener listener) {
-        Usersbtn.addActionListener(listener);
-    }
 }
-

@@ -1,19 +1,19 @@
 package view;
 
-import controller.ProductController;
-import model.ProductModel;
+import controller.AdminProductController;
+import model.AdminProductModel;
 import javax.swing.*;
 import java.math.BigDecimal;
 
 public class EditProductDialog extends javax.swing.JDialog {
     
-    private final ProductController productController;
-    private final ProductModel product;
+    private final AdminProductController productController;
+    private final AdminProductModel product;
     private boolean productUpdated;
     private String selectedImageFileName;
 
     public EditProductDialog(java.awt.Frame parent, boolean modal, 
-                    ProductController productController, ProductModel product) {
+                    AdminProductController productController, AdminProductModel product) {
     super(parent, modal);
     this.productController = productController;
     this.product = product;
@@ -140,6 +140,8 @@ public class EditProductDialog extends javax.swing.JDialog {
         updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(500, 600));
+        setResizable(false);
         setSize(new java.awt.Dimension(500, 600));
         getContentPane().setLayout(null);
 

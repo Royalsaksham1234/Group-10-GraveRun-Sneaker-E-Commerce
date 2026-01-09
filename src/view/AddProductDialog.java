@@ -1,8 +1,8 @@
 
 package view;
 
-import controller.ProductController;
-import model.ProductModel;
+import controller.AdminProductController;
+import model.AdminProductModel;
 import javax.swing.*;
 import java.math.BigDecimal;
 
@@ -12,11 +12,11 @@ import java.math.BigDecimal;
  */
 public class AddProductDialog extends javax.swing.JDialog {
     
-    private final ProductController productController;
+    private final AdminProductController productController;
     private boolean productAdded = false;
     private String selectedImageFileName = null;
 
-    public AddProductDialog(java.awt.Frame parent, boolean modal, ProductController productController) {
+    public AddProductDialog(java.awt.Frame parent, boolean modal, AdminProductController productController) {
         super(parent, modal);
         this.productController = productController;
         initComponents();
@@ -60,7 +60,7 @@ public class AddProductDialog extends javax.swing.JDialog {
             BigDecimal price = new BigDecimal(priceStr);
             int stock = Integer.parseInt(stockStr);
 
-            ProductModel product = new ProductModel();
+            AdminProductModel product = new AdminProductModel();
             product.setName(name);
             product.setBrand("GraveRun");
             product.setCategory(category);
@@ -132,6 +132,8 @@ public class AddProductDialog extends javax.swing.JDialog {
         setTitle("Add New Product");
         setBackground(new java.awt.Color(28, 28, 28));
         setModal(true);
+        setPreferredSize(new java.awt.Dimension(500, 600));
+        setResizable(false);
         getContentPane().setLayout(null);
 
         mainPanel.setBackground(new java.awt.Color(28, 28, 28));

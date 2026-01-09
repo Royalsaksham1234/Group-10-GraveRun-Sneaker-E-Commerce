@@ -19,7 +19,7 @@ public class MySqlConnection implements Database {
 
     private static final String HOST = "localhost";
     private static final int PORT = 3306;
-    private static final String DATABASE = "sneakers";
+    private static final String DATABASE = "graverun";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "1234";
 

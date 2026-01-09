@@ -1,17 +1,17 @@
 package dao;
 
 import database.MySqlConnection;
-import model.UserData;
+import model.AdminUserData;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class userDAOImpl implements UserDao {
+public class AdminUserDAOImpl implements AdminUserDAO {
     MySqlConnection db = new MySqlConnection();
 
     @Override
-    public boolean createUser(UserData user) {
-        String query = "INSERT INTO users (email, password, username, full_name, address, phone) " +
+    public boolean createUser(AdminUserData user) {
+        String query = "INSERT INTO users (email, password_hash, username, full_name, address, phone) " +
                       "VALUES (?, ?, ?, ?, ?, ?)";
         
         try (
@@ -34,7 +34,7 @@ public class userDAOImpl implements UserDao {
     }
     
     @Override
-    public UserData getUserById(int id) {
+    public AdminUserData getUserById(int id) {
         String query = "SELECT * FROM users WHERE id = ?";
         
         try (
@@ -55,7 +55,7 @@ public class userDAOImpl implements UserDao {
     }
     
     @Override
-    public UserData getUserByEmail(String email) {
+    public AdminUserData getUserByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
         
         try (
@@ -76,7 +76,7 @@ public class userDAOImpl implements UserDao {
     }
     
     @Override
-    public boolean updateUser(UserData user) {
+    public boolean updateUser(AdminUserData user) {
         String query = "UPDATE users SET email = ?, username = ?, full_name = ?, " +
                       "address = ?, phone = ?, is_active = ? WHERE id = ?";
         
@@ -119,7 +119,7 @@ public class userDAOImpl implements UserDao {
     
     @Override
     public boolean authenticateUser(String email, String password) {
-        String query = "SELECT password FROM users WHERE email = ? AND is_active = TRUE";
+        String query = "SELECT password_hash FROM users WHERE email = ? AND is_active = TRUE";
         
         try (
              PreparedStatement ps = db.openConnection().prepareStatement(query)) {
@@ -128,7 +128,7 @@ public class userDAOImpl implements UserDao {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                String storedHash = rs.getString("password");
+                String storedHash = rs.getString("password_hash");
                 // In production, use proper password hashing like BCrypt
                 return storedHash.equals(password); // Simple comparison for demo
             }
@@ -162,8 +162,8 @@ public class userDAOImpl implements UserDao {
     }
     
     @Override
-    public List<UserData> getAllUsers() {
-        List<UserData> users = new ArrayList<>();
+    public List<AdminUserData> getAllUsers() {
+        List<AdminUserData> users = new ArrayList<>();
         String query = "SELECT * FROM users ORDER BY created_at DESC";
         
         try (
@@ -201,7 +201,7 @@ public class userDAOImpl implements UserDao {
     }
     
     @Override
-    public boolean updateProfile(UserData user) {
+    public boolean updateProfile(AdminUserData user) {
         String query = "UPDATE users SET full_name = ?, address = ?, phone = ? WHERE id = ?";
         
         try (
@@ -238,11 +238,11 @@ public class userDAOImpl implements UserDao {
         }
     }
     
-    private UserData mapResultSetToUser(ResultSet rs) throws SQLException {
-        UserData user = new UserData();
+    private AdminUserData mapResultSetToUser(ResultSet rs) throws SQLException {
+        AdminUserData user = new AdminUserData();
         user.setid(rs.getInt("id"));
         user.setEmail(rs.getString("email"));
-        user.setPassword(rs.getString("password"));
+        user.setPassword(rs.getString("password_hash"));
         user.setUsername(rs.getString("username"));
         user.setFullName(rs.getString("full_name"));
         user.setAddress(rs.getString("address"));

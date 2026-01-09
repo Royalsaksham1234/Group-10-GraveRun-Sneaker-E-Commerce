@@ -1,6 +1,6 @@
 package model;
 
-public class UserModel {
+public class AdminUserModel {
     private String fullName;
     private String email;
     private String password;
@@ -8,7 +8,7 @@ public class UserModel {
     private String otp;
 
     // Constructor for signup
-    public UserModel(String fullName, String email, String password, String confirmPassword) {
+    public AdminUserModel(String fullName, String email, String password, String confirmPassword) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -16,7 +16,7 @@ public class UserModel {
     }
 
     // Constructor for login
-    public UserModel(String email, String password) {
+    public AdminUserModel(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -63,7 +63,7 @@ public class UserModel {
     }
     
     // Constructor for OTP verification
-public UserModel(String email, String otp, boolean isOtp) {
+public AdminUserModel(String email, String otp, boolean isOtp) {
     this.email = email;
     this.otp = otp;
 }

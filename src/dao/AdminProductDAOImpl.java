@@ -1,17 +1,17 @@
 package dao;
 
 import database.MySqlConnection;
-import model.ProductModel;
+import model.AdminProductModel;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class productDAOImpl implements productDAO {
+public class AdminProductDAOImpl implements AdminProductDAO {
     MySqlConnection db = new MySqlConnection();
     
     @Override
-    public boolean addProduct(ProductModel product) {
+    public boolean addProduct(AdminProductModel product) {
         String query = "INSERT INTO products (name, description, category, brand, price, " +
                       "stock_quantity, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
@@ -35,7 +35,7 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public ProductModel getProductById(int productid) {
+    public AdminProductModel getProductById(int productid) {
         String query = "SELECT * FROM products WHERE product_id = ?";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
@@ -55,8 +55,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> getAllProducts() {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getAllProducts() {
+        List<AdminProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products ORDER BY created_at DESC";
         
         try (Statement stmt = db.openConnection().createStatement();
@@ -74,8 +74,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> getProductsByCategory(String category) {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getProductsByCategory(String category) {
+        List<AdminProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE category = ? ORDER BY created_at DESC";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
@@ -95,8 +95,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> getProductsByBrand(String brand) {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getProductsByBrand(String brand) {
+        List<AdminProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE brand = ? ORDER BY created_at DESC";
         
         try (PreparedStatement ps = db.openConnection().prepareStatement(query)) {
@@ -116,8 +116,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> searchProducts(String keyword) {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> searchProducts(String keyword) {
+        List<AdminProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE name LIKE ? OR description LIKE ? " +
                       "OR brand LIKE ? OR category LIKE ? ORDER BY created_at DESC";
         
@@ -143,7 +143,7 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public boolean updateProduct(ProductModel product) {
+    public boolean updateProduct(AdminProductModel product) {
         String query = "UPDATE products SET name = ?, brand = ?, category = ?, " +
                    "description = ?, price = ?, image_url = ?, stock_quantity = ? " +
                    "WHERE product_id = ?";
@@ -203,8 +203,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> getFeaturedProducts() {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getFeaturedProducts() {
+        List<AdminProductModel> products = new ArrayList<>();
         
         // FIXED: Use correct connection method and column names
         String query = "SELECT * FROM products WHERE stock_quantity > 0 ORDER BY created_at DESC LIMIT 8";
@@ -228,8 +228,8 @@ public class productDAOImpl implements productDAO {
     }
     
     @Override
-    public List<ProductModel> getNewArrivals() {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getNewArrivals() {
+        List<AdminProductModel> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE stock_quantity > 0 " +
                       "ORDER BY created_at DESC LIMIT 10";
         
@@ -247,8 +247,8 @@ public class productDAOImpl implements productDAO {
         return products;
     }
     
-    public List<ProductModel> getBestSellingProducts(int limit) {
-        List<ProductModel> products = new ArrayList<>();
+    public List<AdminProductModel> getBestSellingProducts(int limit) {
+        List<AdminProductModel> products = new ArrayList<>();
         
         // FIXED: Use correct column name stock_quantity
         String query = "SELECT * FROM products WHERE stock_quantity > 0 ORDER BY created_at DESC LIMIT ?";
@@ -272,8 +272,8 @@ public class productDAOImpl implements productDAO {
     }
     
     
-    private ProductModel mapResultSetToProduct(ResultSet rs) throws SQLException {
-        ProductModel product = new ProductModel();
+    private AdminProductModel mapResultSetToProduct(ResultSet rs) throws SQLException {
+        AdminProductModel product = new AdminProductModel();
         product.setProductId(rs.getInt("product_id"));
         product.setName(rs.getString("name"));
         product.setDescription(rs.getString("description"));
