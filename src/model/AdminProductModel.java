@@ -1,0 +1,80 @@
+package model;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
+public class AdminProductModel {
+    private int productId;
+    private String name;
+    private String description;
+    private String brand;
+    private BigDecimal price;
+    private int stockQuantity;
+    private String imageUrl;
+    private Timestamp createdAt;
+    private int salesCount;
+    private boolean inStock;
+
+    // Constructors
+    public AdminProductModel() {}
+    
+    public AdminProductModel(String name, String description, BigDecimal price) {
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.imageUrl = imageUrl;
+        this.size = size;
+
+    }
+
+    // Getters and Setters
+    public int getProductId() { return productId; }
+    public void setProductId(int productId) { this.productId = productId; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getBrand() { return brand; }
+    public void setBrand(String brand) { this.brand = brand; }
+
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+
+    public int getStockQuantity() { return stockQuantity; }
+    public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
+
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
+    
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+
+    // Helper Methods
+    public String getFormattedPrice() {
+        return price != null ? "NPR " + price.toPlainString() : "NPR 0";
+    }
+
+    public boolean isInStock() {
+        return stockQuantity > 0;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "productId=" + productId +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", price=" + price +
+                ", stockQuantity=" + stockQuantity +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", size='" + size + '\'' +
+                
+                '}';
+    }

@@ -1,20 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package graverun;
 
-/**
- *
- * @author srsro
- */
-public class graverun {
 
-    /**
-     * @param args the command line arguments
-     */
+
+import dao.AdminUserDAOImpl;
+
+import util.SessionManager;
+import dao.AdminUserDAO;
+
+public class graverun {
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            // Initialize session manager
+            SessionManager.initialize();
+            
+            // Initialize DAO
+            AdminUserDAO userDao = new AdminUserDAOImpl();
+            
+            // Initialize view
+           
+            
+            // Initialize controller
+            
+            
+            // Show login view
+            ;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null,
+                "Failed to start application: " + e.getMessage(),
+                "Startup Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
 }
