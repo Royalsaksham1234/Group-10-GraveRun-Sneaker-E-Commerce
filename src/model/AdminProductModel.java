@@ -7,7 +7,6 @@ public class AdminProductModel {
     private int productId;
     private String name;
     private String description;
-    private String category;
     private String brand;
     private BigDecimal price;
     private int stockQuantity;
@@ -21,51 +20,51 @@ public class AdminProductModel {
     
     public AdminProductModel(String name, String description, BigDecimal price) {
         this.name = name;
-        this.description = description;
+        this.brand = brand;
         this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.imageUrl = imageUrl;
+        this.size = size;
+
     }
-    
+
     // Getters and Setters
     public int getProductId() { return productId; }
     public void setProductId(int productId) { this.productId = productId; }
-    
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-    
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-    
+
     public String getBrand() { return brand; }
     public void setBrand(String brand) { this.brand = brand; }
-    
+
     public BigDecimal getPrice() { return price; }
     public void setPrice(BigDecimal price) { this.price = price; }
-    
+
     public int getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
-    
+
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getSize() { return size; }
+    public void setSize(String size) { this.size = size; }
     
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
-    
-    // Helper methods
+
+    // Helper Methods
     public String getFormattedPrice() {
-        return "$" + price.toString();
+        return price != null ? "NPR " + price.toPlainString() : "NPR 0";
     }
-    
-    /**
-     *
-     * @return
-     */
-public int getSalesCount() { return salesCount; }
-public void setSalesCount(int salesCount) { this.salesCount = salesCount; }
-public boolean isInStock() { return inStock; }
-public void setInStock(boolean inStock) { this.inStock = inStock; }
+
+    public boolean isInStock() {
+        return stockQuantity > 0;
+    }
+
     @Override
     public String toString() {
         return "ProductModel{" +
@@ -74,8 +73,8 @@ public void setInStock(boolean inStock) { this.inStock = inStock; }
                 ", brand='" + brand + '\'' +
                 ", price=" + price +
                 ", stockQuantity=" + stockQuantity +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", size='" + size + '\'' +
+                
                 '}';
     }
-
-    
-}
