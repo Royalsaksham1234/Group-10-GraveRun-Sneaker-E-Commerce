@@ -1,7 +1,7 @@
 package dao;
 
 import database.MySqlConnection;
-import model.ProductModel;
+import model.AdminProductModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,9 +15,9 @@ public class ProductDAOImpl implements ProductDao {
     // GET ALL PRODUCTS
     // =======================
     @Override
-    public List<ProductModel> getAllProducts() {
-        List<ProductModel> products = new ArrayList<>();
-        String sql = "SELECT id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
+    public List<AdminProductModel> getAllProducts() {
+        List<AdminProductModel> products = new ArrayList<>();
+        String sql = "SELECT product_id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
                      "FROM products ORDER BY created_at DESC";
 
         Connection conn = db.openConnection();
@@ -42,9 +42,9 @@ public class ProductDAOImpl implements ProductDao {
     // GET PRODUCT BY ID
     // =======================
     @Override
-    public ProductModel getProductById(int productId) {
-        String sql = "SELECT id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
-                     "FROM products WHERE id=?";
+    public AdminProductModel getProductById(int productId) {
+        String sql = "SELECT product_id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
+                     "FROM products WHERE product_id=?";
 
         Connection conn = db.openConnection();
         if (conn == null) return null;
@@ -68,9 +68,9 @@ public class ProductDAOImpl implements ProductDao {
     // SEARCH PRODUCTS
     // =======================
     @Override
-    public List<ProductModel> searchProducts(String keyword) {
-        List<ProductModel> products = new ArrayList<>();
-        String sql = "SELECT id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
+    public List<AdminProductModel> searchProducts(String keyword) {
+        List<AdminProductModel> products = new ArrayList<>();
+        String sql = "SELECT product_id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
                      "FROM products WHERE name LIKE ? OR description LIKE ? OR brand LIKE ?";
 
         Connection conn = db.openConnection();
@@ -99,9 +99,9 @@ public class ProductDAOImpl implements ProductDao {
     // GET PRODUCTS BY BRAND
     // =======================
     @Override
-    public List<ProductModel> getProductsByBrand(String brandName) {
-        List<ProductModel> products = new ArrayList<>();
-        String sql = "SELECT id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
+    public List<AdminProductModel> getProductsByBrand(String brandName) {
+        List<AdminProductModel> products = new ArrayList<>();
+        String sql = "SELECT product_id, name, price, image_url, description, brand, stock_quantity, size, created_at " +
                      "FROM products WHERE brand LIKE ?";
 
         Connection conn = db.openConnection();
@@ -125,7 +125,7 @@ public class ProductDAOImpl implements ProductDao {
     // ADD PRODUCT (ADMIN)
     // =======================
     @Override
-    public boolean addProduct(ProductModel product) {
+    public boolean addProduct(AdminProductModel product) {
         String sql = "INSERT INTO products (name, price, image_url, description, brand, stock_quantity, size) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -155,9 +155,9 @@ public class ProductDAOImpl implements ProductDao {
     // UPDATE PRODUCT
     // =======================
     @Override
-    public boolean updateProduct(ProductModel product) {
+    public boolean updateProduct(AdminProductModel product) {
         String sql = "UPDATE products SET name=?, price=?, image_url=?, description=?, brand=?, stock_quantity=?, size=? =? " +
-                     "WHERE id=?";
+                     "WHERE product_id=?";
 
         Connection conn = db.openConnection();
         if (conn == null) return false;
@@ -188,7 +188,7 @@ public class ProductDAOImpl implements ProductDao {
     // =======================
     @Override
     public boolean deleteProduct(int productId) {
-        String sql = "DELETE FROM products WHERE id=?";
+        String sql = "DELETE FROM products WHERE product_id=?";
 
         Connection conn = db.openConnection();
         if (conn == null) return false;
@@ -210,7 +210,7 @@ public class ProductDAOImpl implements ProductDao {
     // =======================
     @Override
     public boolean updateStock(int productId, int quantity) {
-        String sql = "UPDATE products SET stock_quantity=? WHERE id=?";
+        String sql = "UPDATE products SET stock_quantity=? WHERE product_id=?";
 
         Connection conn = db.openConnection();
         if (conn == null) return false;
@@ -231,9 +231,9 @@ public class ProductDAOImpl implements ProductDao {
     // =======================
     // HELPER METHOD
     // =======================
-    private ProductModel mapResultSetToProduct(ResultSet rs) throws SQLException {
-        ProductModel product = new ProductModel();
-        product.setProductId(rs.getInt("id"));
+    private AdminProductModel mapResultSetToProduct(ResultSet rs) throws SQLException {
+        AdminProductModel product = new AdminProductModel();
+        product.setProductId(rs.getInt("product_id"));
         product.setName(rs.getString("name"));
         product.setPrice(rs.getBigDecimal("price"));
         product.setImageUrl(rs.getString("image_url"));

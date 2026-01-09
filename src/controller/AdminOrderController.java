@@ -20,10 +20,10 @@ public class AdminOrderController {
     private final AdminOrderDAO orderDAO;
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM dd, yyyy HH:mm");
     
-    public AdminOrderController() {
-        this.orderDAO = new AdminOrderDAOImpl();
+    // CHANGE THIS: Accept the DAO as a parameter
+    public AdminOrderController(AdminOrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
     }
-    
     // ==================== Data Retrieval Methods ====================
     
     /**

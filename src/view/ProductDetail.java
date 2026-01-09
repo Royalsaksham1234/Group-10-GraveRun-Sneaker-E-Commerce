@@ -5,7 +5,7 @@
 package view;
 
 import javax.swing.ImageIcon;
-import model.ProductModel;
+import model.AdminProductModel;
 import dao.CartDAO;
 import dao.FavoriteDAO;
 /**
@@ -14,7 +14,7 @@ import dao.FavoriteDAO;
  */
 public class ProductDetail extends javax.swing.JPanel {
 private int productId;
- private final ProductModel product;
+ private final AdminProductModel product;
 
  
 
@@ -22,7 +22,7 @@ private int productId;
      * Creates new form ProductCardPnel
      * @param product
      */
-public ProductDetail(ProductModel product) {
+public ProductDetail(AdminProductModel product) {
     this.product = product;
     initComponents();
     loadProductData();
@@ -53,14 +53,15 @@ public ProductDetail(ProductModel product) {
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
 
-        setMaximumSize(new java.awt.Dimension(0, 0));
-        setPreferredSize(new java.awt.Dimension(435, 500));
+        setMaximumSize(new java.awt.Dimension(1280, 550));
+        setMinimumSize(new java.awt.Dimension(1280, 550));
+        setPreferredSize(new java.awt.Dimension(1280, 550));
 
         jPanel1.setBackground(new java.awt.Color(73, 17, 17));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
-        jPanel1.setMaximumSize(new java.awt.Dimension(280, 380));
-        jPanel1.setMinimumSize(new java.awt.Dimension(900, 495));
-        jPanel1.setPreferredSize(new java.awt.Dimension(280, 380));
+        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 500));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 500));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -70,35 +71,35 @@ public ProductDetail(ProductModel product) {
 
         productimage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         productimage.setPreferredSize(new java.awt.Dimension(260, 240));
-        jPanel1.add(productimage, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 490, 380));
+        jPanel1.add(productimage, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 500, 400));
 
         Price.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
         Price.setForeground(new java.awt.Color(255, 255, 255));
         Price.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, 270, 69));
+        jPanel1.add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 300, 50));
 
         productname1.setFont(new java.awt.Font("Rockwell", 0, 48)); // NOI18N
         productname1.setForeground(new java.awt.Color(255, 255, 255));
         productname1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(productname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 1130, 60));
+        jPanel1.add(productname1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1180, 60));
 
         Sizecombo.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         Sizecombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "US 7/EU 40", "US 8/EU 41", "US 9/EU 42.5", "US 10/EU 44", "US 11/EU 45", " ", " " }));
         Sizecombo.setSelectedIndex(-1);
         Sizecombo.addActionListener(this::SizecomboActionPerformed);
-        jPanel1.add(Sizecombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, 270, 60));
+        jPanel1.add(Sizecombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 330, 250, 50));
 
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
         jButton1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Buy Now");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 3, true));
+        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 5, true));
         jButton1.setFocusPainted(false);
         jButton1.setMaximumSize(new java.awt.Dimension(350, 65));
         jButton1.setMinimumSize(new java.awt.Dimension(350, 65));
         jButton1.setPreferredSize(new java.awt.Dimension(350, 65));
         jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, 300, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 250, 60));
 
         Adfav.setBackground(new java.awt.Color(106, 14, 14));
         Adfav.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fav.png"))); // NOI18N
@@ -107,16 +108,16 @@ public ProductDetail(ProductModel product) {
         Adfav.setContentAreaFilled(false);
         Adfav.setFocusPainted(false);
         Adfav.addActionListener(this::AdfavActionPerformed);
-        jPanel1.add(Adfav, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 350, 65, 65));
+        jPanel1.add(Adfav, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 330, 50, 50));
 
         Adcart.setBackground(new java.awt.Color(0, 0, 0));
         Adcart.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         Adcart.setForeground(new java.awt.Color(255, 255, 255));
         Adcart.setText("Add to Cart");
-        Adcart.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 2, true));
+        Adcart.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 3, true));
         Adcart.setFocusPainted(false);
         Adcart.addActionListener(this::AdcartActionPerformed);
-        jPanel1.add(Adcart, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 430, 300, 65));
+        jPanel1.add(Adcart, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 400, 250, 60));
 
         description.setEditable(false);
         description.setBackground(new java.awt.Color(73, 17, 17));
@@ -129,13 +130,13 @@ public ProductDetail(ProductModel product) {
         description.setBorder(null);
         jScrollPane1.setViewportView(description);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 590, 160));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 640, 180));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,13 +207,24 @@ public void setProductImage(String filename) {
     }
 
 private void loadProductData() {
-    if (this.product == null) return; // safeguard
+    if (this.product == null) return;
 
-   
     productname1.setText(product.getName());
     Price.setText(product.getFormattedPrice());
-  Sizecombo.setSelectedItem(product.getSize());
-
+    
+    // ✅ ADD THIS: Load description
+    if (product.getDescription() != null && !product.getDescription().trim().isEmpty()) {
+        description.setText(product.getDescription());
+    } else {
+        description.setText("No description available.");
+    }
+    
+    // ✅ ADD THIS: Load product image
+    if (product.getImageUrl() != null && !product.getImageUrl().trim().isEmpty()) {
+        setProductImage(product.getImageUrl());
+    }
+    
+    Sizecombo.setSelectedItem(product.getSize());
 }
 
 

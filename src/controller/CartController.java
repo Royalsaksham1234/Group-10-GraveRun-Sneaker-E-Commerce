@@ -2,7 +2,7 @@ package controller;
 
 import dao.CartDAO;
 import model.CartItem;
-import model.ProductModel;
+import model.AdminProductModel;
 import view.CartView;
 import view.ProductCartPanel;
 
@@ -36,7 +36,7 @@ public class CartController {
 
     // ---------------- PANEL FACTORY ----------------
     private ProductCartPanel createPanel(CartItem item) {
-        ProductModel product = item.getProduct();
+        AdminProductModel product = item.getProduct();
 
         ProductCartPanel panel = new ProductCartPanel();
         panel.setProductId(product.getProductId());
@@ -60,7 +60,7 @@ public class CartController {
     }
 
     // ---------------- EXTERNAL API ----------------
-    public void addProductToCart(ProductModel product) {
+    public void addProductToCart(AdminProductModel product) {
         cartDAO.addProduct(product);
         loadCart();
     }

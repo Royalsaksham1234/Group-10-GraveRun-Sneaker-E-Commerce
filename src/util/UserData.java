@@ -3,7 +3,7 @@ package util;
 import java.sql.Timestamp;
 
 public class UserData {
-    private final int userId;
+    private final int id;
     private final String fullName;
     private final String username;
     private final String email;
@@ -15,7 +15,7 @@ public class UserData {
 
 
     public UserData() {
-        this.userId = 0;
+        this.id = 0;
         this.fullName = null;
         this.username = null;
         this.email = null;
@@ -28,7 +28,7 @@ public class UserData {
 
     // Main constructor for creating a new user (before insert - userId = 0)
     public UserData(String fullName, String username, String email, String phone, String address, String role) {
-        this.userId = 0; // will be set by DB
+        this.id = 0; // will be set by DB
         this.fullName = fullName;
         this.username = username;
         this.email = email;
@@ -40,9 +40,9 @@ public class UserData {
     }
 
     // Full constructor - used by DAO after fetching from DB (with real userId)
-    public UserData(int userId, String fullName, String username, String email,
+    public UserData(int id, String fullName, String username, String email,
                     String phone, String address, String role, boolean isActive, Timestamp createdAt) {
-        this.userId = userId;
+        this.id = id;
         this.fullName = fullName;
         this.username = username;
         this.email = email;
@@ -54,7 +54,7 @@ public class UserData {
     }
 
     // Getters only (immutable)
-    public int getUserId() { return userId; }
+    public int getid() { return id; }
     public String getFullName() { return fullName; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }
@@ -71,7 +71,7 @@ public class UserData {
     @Override
     public String toString() {
         return "UserData{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +

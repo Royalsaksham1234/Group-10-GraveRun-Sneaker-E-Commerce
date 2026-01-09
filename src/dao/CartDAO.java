@@ -2,7 +2,7 @@ package dao;
 
 import database.MySqlConnection;
 import model.CartItem;
-import model.ProductModel;
+
 import util.SessionManager;
 
 import java.sql.Connection;
@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.AdminProductModel;
 
 public class CartDAO {
 
@@ -26,14 +27,14 @@ public class CartDAO {
         if (SessionManager.getCurrentUser() == null) {
             throw new IllegalStateException("No user logged in");
         }
-        return SessionManager.getCurrentUser().getUserId();
+        return SessionManager.getCurrentUser().getid();
     }
 
     // ---------------- GET ALL ITEMS ----------------
     public List<CartItem> getAllItems() {
         List<CartItem> items = new ArrayList<>();
-        String query = "SELECT c.quantity, p.id, p.name, p.price, p.image_url " +
-                       "FROM cart_items c JOIN products p ON c.product_id = p.id " +
+        String query = "SELECT c.quantity, p.product_id, p.name, p.price, p.image_url " +
+                       "FROM cart_items c JOIN products p ON c.product_id = p.product_id " +
                        "WHERE c.user_id = ?";
 
         try (Connection conn = db.openConnection();
@@ -43,8 +44,8 @@ public class CartDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                ProductModel product = new ProductModel();
-                product.setProductId(rs.getInt("id"));
+                AdminProductModel product = new AdminProductModel();
+                product.setProductId(rs.getInt("product_id"));
                 product.setName(rs.getString("name"));
                 product.setPrice(rs.getBigDecimal("price"));
                 product.setImageUrl(rs.getString("image_url"));
@@ -60,7 +61,7 @@ public class CartDAO {
     }
 
     // ---------------- ADD PRODUCT ----------------
-    public void addProduct(ProductModel product) {
+    public void addProduct(AdminProductModel product) {
         String query = "INSERT INTO cart_items (user_id, product_id, quantity) " +
                        "VALUES (?, ?, 1) " +
                        "ON DUPLICATE KEY UPDATE quantity = quantity + 1";
@@ -78,10 +79,10 @@ public class CartDAO {
     }
 
     // ---------------- UPDATE QUANTITY ----------------
-    public void updateQuantity(ProductModel product, int quantity) {
+    public void updateQuantity(AdminProductModel product, int quantity) {
         if (quantity < 1) return;
 
-        String query = "UPDATE cart_items SET quantity = ? WHERE user_id = ? AND product_id = ?";
+        String query = "UPDATE cart_items SET quantity = ? WHERE id = ? AND product_id = ?";
 
         try (Connection conn = db.openConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -98,7 +99,7 @@ public class CartDAO {
 
     // ---------------- REMOVE PRODUCT ----------------
     public void removeProduct(int productId) {
-        String query = "DELETE FROM cart_items WHERE user_id = ? AND product_id = ?";
+        String query = "DELETE FROM cart_items WHERE id = ? AND product_id = ?";
 
         try (Connection conn = db.openConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
@@ -114,7 +115,7 @@ public class CartDAO {
 
     // ---------------- CLEAR CART ----------------
     public void clearCart() {
-        String query = "DELETE FROM cart_items WHERE user_id = ?";
+        String query = "DELETE FROM cart_items WHERE id = ?";
 
         try (Connection conn = db.openConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {

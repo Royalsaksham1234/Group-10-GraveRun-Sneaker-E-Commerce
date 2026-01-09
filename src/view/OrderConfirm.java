@@ -13,7 +13,7 @@ import util.StripeService;
 import java.awt.Desktop;
 import java.net.URI;
 import javax.swing.JOptionPane;
-import model.ProductModel;
+import model.AdminProductModel;
 import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.SwingUtilities;
@@ -24,9 +24,9 @@ import util.SessionManager;
  */
 public class OrderConfirm extends javax.swing.JPanel {
     private double unitPrice;
-    private final ProductModel product;
+    private final AdminProductModel product;
 
-    public OrderConfirm(ProductModel product) {
+    public OrderConfirm(AdminProductModel product) {
         this.product = product;
         initComponents();
         makeSpinnerNonEditable();
@@ -67,14 +67,15 @@ private void loadProductData() {
         Phone = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(0, 0));
-        setPreferredSize(new java.awt.Dimension(435, 500));
+        setMaximumSize(new java.awt.Dimension(1280, 550));
+        setMinimumSize(new java.awt.Dimension(1280, 550));
+        setPreferredSize(new java.awt.Dimension(1280, 550));
 
         jPanel1.setBackground(new java.awt.Color(73, 17, 17));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
-        jPanel1.setMaximumSize(new java.awt.Dimension(280, 380));
-        jPanel1.setMinimumSize(new java.awt.Dimension(900, 495));
-        jPanel1.setPreferredSize(new java.awt.Dimension(280, 380));
+        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 500));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 500));
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel1MouseClicked(evt);
@@ -100,10 +101,11 @@ private void loadProductData() {
         Confirm.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         Confirm.setForeground(new java.awt.Color(255, 255, 255));
         Confirm.setText("Confirm");
-        Confirm.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 3, true));
+        Confirm.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(106, 14, 14), 5, true));
         Confirm.setFocusPainted(false);
         Confirm.setMaximumSize(new java.awt.Dimension(350, 65));
         Confirm.setMinimumSize(new java.awt.Dimension(350, 65));
+        Confirm.setOpaque(true);
         Confirm.setPreferredSize(new java.awt.Dimension(350, 65));
         Confirm.addActionListener(this::ConfirmActionPerformed);
         jPanel1.add(Confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 420, 300, -1));
@@ -158,11 +160,11 @@ private void loadProductData() {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

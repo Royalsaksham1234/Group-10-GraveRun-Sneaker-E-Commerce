@@ -30,7 +30,7 @@ public class UserProfileDao {
                 o.created_at
             FROM orders o
             LEFT JOIN order_items oi ON o.id = oi.order_id
-            LEFT JOIN products p ON oi.product_id = p.id
+            LEFT JOIN products p ON oi.product_id = p.product_id
             WHERE o.user_id = ?
             ORDER BY o.created_at DESC
         """;

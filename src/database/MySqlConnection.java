@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package database;
 
 import java.sql.Connection;
@@ -7,7 +11,9 @@ import java.sql.Statement;
 import java.sql.SQLException;
 
 /**
- * MySQL Connection Helper for GraveRun Sneaker E-Commerce
+ * MySQL configuration helper.
+ * - Ensures database exists before returning a connection.
+ * - Provides basic query/update helpers used by DAO layer.
  */
 public class MySqlConnection implements Database {
 
@@ -15,28 +21,66 @@ public class MySqlConnection implements Database {
     private static final int PORT = 3306;
     private static final String DATABASE = "graverun";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Jibesh@16";  // Your password
+    private static final String PASSWORD = "1234";
 
     @Override
     public Connection openConnection() {
-       try{
-           String username = "root";
-           String password = "Samridha19";
-           String database = "sneakers";
-           Connection connection;
-           connection = DriverManager.getConnection(
-           "jdbc:mysql://localhost:3306/" +database, username, password);
-           if (connection == null){
-               System.out.print("Connection unsuccessfull");
-           }else{
-               System.out.println("Connection successful");
-           }
-           
-           return connection;        
-       } catch (SQLException e){
-           System.out.println(e);
-           return null;
-       } 
+        try {
+            // Make sure the database exists; creates it if missing.
+            ensureDatabaseExists();
+
+            String url = String.format(
+                "jdbc:mysql://%s:%d/%s?serverTimezone=UTC&createDatabaseIfNotExist=true",
+                HOST, PORT, DATABASE
+            );
+
+            Connection connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+            if (connection == null) {
+                System.out.print("Connection unsuccessful");
+            } else {
+                System.out.println("Connection successful");
+                ensureTablesExist(connection);
+            }
+
+            return connection;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    /**
+     * Creates required tables if they do not already exist.
+     * Currently includes the users table used across the app.
+     */
+    private void ensureTablesExist(Connection conn) throws SQLException {
+        String createUsersTable = """
+            CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                full_name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL UNIQUE,
+                phone VARCHAR(50),
+                username VARCHAR(255) NOT NULL UNIQUE,
+                password_hash VARCHAR(255) NOT NULL,
+                role VARCHAR(20) NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            """;
+
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(createUsersTable);
+        }
+    }
+
+    /**
+     * Creates the database if it does not already exist.
+     */
+    private void ensureDatabaseExists() throws SQLException {
+        String rootUrl = String.format("jdbc:mysql://%s:%d/?serverTimezone=UTC", HOST, PORT);
+        try (Connection conn = DriverManager.getConnection(rootUrl, USERNAME, PASSWORD);
+             Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS `" + DATABASE + "`");
+        }
     }
 
     @Override
@@ -44,42 +88,35 @@ public class MySqlConnection implements Database {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
-                System.out.println("Connection closed successfully.");
+                System.out.println("Connection close");
             }
-        } catch (SQLException e) {
-            System.err.println("Error closing connection: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     @Override
     public ResultSet runQuery(Connection conn, String query) {
         try {
-            if (conn == null || conn.isClosed()) {
-                System.err.println("Connection is null or closed!");
-                return null;
-            }
-            Statement stmt = conn.createStatement();
-            return stmt.executeQuery(query);
-        } catch (SQLException e) {
-            System.err.println("Query error: " + e.getMessage());
-            e.printStackTrace();
+            Statement stmp = conn.createStatement();
+            return stmp.executeQuery(query);
+
+        } catch (Exception e) {
+            System.out.print(e);
             return null;
         }
     }
 
     @Override
-    public int excecuteUpdate(Connection conn, String query) {  // Fixed typo: executeUpdate
+    public int executeUpdate(Connection conn, String query) {
         try {
-            if (conn == null || conn.isClosed()) {
-                System.err.println("Connection is null or closed!");
-                return -1;
-            }
-            Statement stmt = conn.createStatement();
-            return stmt.executeUpdate(query);
-        } catch (SQLException e) {
-            System.err.println("Update error: " + e.getMessage());
-            e.printStackTrace();
+            Statement stamp = conn.createStatement();
+            return stamp.executeUpdate(query);
+
+        } catch (Exception e) {
+            System.out.print(e);
             return -1;
         }
     }
+
 }

@@ -1,85 +1,115 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-import controller.FavouriteController;
-import dao.CartDAO;
-import dao.FavoriteDAO;
-import model.ProductModel;
-import dao.ProductDAOImpl;
-import dao.ProductDao;
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import javax.swing.JOptionPane;
-import java.util.List;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import controller.DashboardController;
+import model.AdminProductModel;
 import util.SessionManager;
-import controller.ProductDetailController;
-
+import java.awt.BorderLayout;
+import javax.swing.*;
 
 /**
- *
- * @author Lenovo
+ * DASHBOARD VIEW - Pure UI Layer
+ * Contains ZERO business logic - only UI rendering
  */
-public class Dashboard1 extends javax.swing.JFrame  implements ProductCardPanel.ProductSelectionListener {
-private javax.swing.JPanel productGridPanel;
-private final CartDAO cartDAO;
-    private javax.swing.JPanel allProductsPanel;   // NEVER changes
-private javax.swing.JPanel currentPanel;   
-private javax.swing.JPanel previousPanel;// changes on search/detail
- private FavoriteDAO favoriteDAO = new FavoriteDAO();
+public class Dashboard1 extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard1.class.getName());
-
-    /**
-     * Creates new form Dashboard
-     */
+    private DashboardController controller;
+    private static final String SEARCH_PLACEHOLDER = "Search by brands";
+    private JPanel productGridPanel; // ✅ Holds all product cards
+    
     public Dashboard1() {
         initComponents();
-
-int userId = SessionManager.getCurrentUserId();
-this.cartDAO = new CartDAO(); // no arguments
-
-
-
-        Pop.add(Account);
-        Pop.add(Order);
-        Pop.add(OUT);
-
-        loadProductsFromDatabase();
-    
+        this.controller = new DashboardController(this);
+        setupSearchFieldBehavior();
     }
-private void loadProductsFromDatabase() {
-    allProductsPanel = new javax.swing.JPanel();
-    allProductsPanel.setLayout(new BoxLayout(allProductsPanel, BoxLayout.X_AXIS));
+    
+    public DashboardController getController() {
+        return controller;
+    }
+    
+    /**
+     * Setup automatic placeholder clearing for search field
+     */
+    private void setupSearchFieldBehavior() {
+        Search.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (Search.getText().equals(SEARCH_PLACEHOLDER)) {
+                    Search.setText("");
+                    Search.setForeground(java.awt.Color.BLACK);
+                }
+            }
+            
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (Search.getText().trim().isEmpty()) {
+                    Search.setText(SEARCH_PLACEHOLDER);
+                    Search.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
+        
+        Search.setForeground(java.awt.Color.GRAY);
+    }
 
-    try {
-        ProductDao productDao = new ProductDAOImpl();
-        List<ProductModel> products = productDao.getAllProducts();
-
-        for (ProductModel product : products) {
-            ProductCardPanel card = new ProductCardPanel(product, this);
-            allProductsPanel.add(card);
+    /**
+     * UPDATE SESSION STATE
+     */
+    public void updateSessionState() {
+        if (SessionManager.isLoggedIn()) {
+            Profile.setToolTipText("My Profile");
+        } else {
+            Profile.setToolTipText("Login / Signup");
         }
+        
+        this.revalidate();
+        this.repaint();
+    }
 
-        // show ALL products initially
+    // ==================== PRODUCT DISPLAY METHODS ====================
+
+    /**
+     * ✅ FIXED: Creates a horizontal scrolling panel for product cards
+     */
+    public ProductCardPanel addProductCard(AdminProductModel product) {
+        // Create grid panel on first call
+        if (productGridPanel == null) {
+            productGridPanel = new JPanel();
+            productGridPanel.setLayout(new javax.swing.BoxLayout(productGridPanel, javax.swing.BoxLayout.X_AXIS));
+            productGridPanel.setBackground(new java.awt.Color(0, 0, 0));
+            
+            // Clear and add to main container
+            Productcontainer.removeAll();
+            Productcontainer.add(productGridPanel, java.awt.BorderLayout.CENTER);
+        }
+        
+        // Add card to grid panel
+        ProductCardPanel card = new ProductCardPanel(product, null);
+        productGridPanel.add(card);
+        return card;
+    }
+
+    public void clearProductDisplay() {
         Productcontainer.removeAll();
-        Productcontainer.setLayout(new BorderLayout());
-        Productcontainer.add(allProductsPanel, BorderLayout.CENTER);
+        productGridPanel = null; // ✅ Reset grid panel
+    }
+
+    public void refreshProductDisplay() {
         Productcontainer.revalidate();
         Productcontainer.repaint();
-
-        currentPanel = allProductsPanel; // track current view
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Failed to load products:\n" + e.getMessage());
-        e.printStackTrace();
     }
-}
+
+    public void resetSearchField() {
+        Search.setText(SEARCH_PLACEHOLDER);
+        Search.setForeground(java.awt.Color.GRAY);
+    }
+    
+    /**
+     * Get current search text (excluding placeholder)
+     */
+    public String getSearchText() {
+        String text = Search.getText().trim();
+        return text.equals(SEARCH_PLACEHOLDER) ? "" : text;
+    }
 
 
     /**
@@ -142,6 +172,7 @@ private void loadProductsFromDatabase() {
         Order.setText("Order Status");
         Order.setBorder(null);
         Order.setBorderPainted(false);
+        Order.addActionListener(this::OrderActionPerformed);
         Pop.add(Order);
 
         OUT.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
@@ -149,6 +180,7 @@ private void loadProductsFromDatabase() {
         OUT.setText("Log Out");
         OUT.setBorder(null);
         OUT.setBorderPainted(false);
+        OUT.addActionListener(this::OUTActionPerformed);
         Pop.add(OUT);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -339,13 +371,16 @@ private void loadProductsFromDatabase() {
         aboutus3.setForeground(new java.awt.Color(255, 255, 255));
         aboutus3.setText("An online shoe store that makes browsing and buying footwear easy.");
 
-        Help.setBackground(new java.awt.Color(0, 0, 0));
-        Help.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        Help.setBackground(new java.awt.Color(20, 20, 20));
+        Help.setFont(new java.awt.Font("Rockwell", 1, 20)); // NOI18N
         Help.setForeground(new java.awt.Color(255, 255, 255));
         Help.setText("Help");
-        Help.setBorder(null);
-        Help.setBorderPainted(false);
-        Help.setFocusPainted(false);
+        Help.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        Help.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Help.setMargin(new java.awt.Insets(10, 20, 10, 20));
+        Help.setMaximumSize(new java.awt.Dimension(180, 55));
+        Help.setMinimumSize(new java.awt.Dimension(180, 55));
+        Help.setPreferredSize(new java.awt.Dimension(180, 55));
         Help.addActionListener(this::HelpActionPerformed);
 
         Contact.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -390,26 +425,29 @@ private void loadProductsFromDatabase() {
             .addGroup(footerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Help, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(footerLayout.createSequentialGroup()
-                        .addComponent(Contact)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(mail))
-                    .addComponent(Help, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(footerLayout.createSequentialGroup()
-                        .addComponent(aboutus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(aboutus1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(footerLayout.createSequentialGroup()
-                                .addComponent(aboutus2)
+                                .addComponent(Contact)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(aboutus3))
+                                .addComponent(mail))
                             .addGroup(footerLayout.createSequentialGroup()
-                                .addComponent(phone)
+                                .addComponent(aboutus)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(location)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(aboutus1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(footerLayout.createSequentialGroup()
+                                        .addComponent(aboutus2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(aboutus3))
+                                    .addGroup(footerLayout.createSequentialGroup()
+                                        .addComponent(phone)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(location)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         getContentPane().add(footer, java.awt.BorderLayout.PAGE_END);
@@ -419,18 +457,7 @@ private void loadProductsFromDatabase() {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
                                
-    if (previousPanel != null) {
-        Productcontainer.removeAll();
-        Productcontainer.add(previousPanel, BorderLayout.CENTER);
-        Productcontainer.revalidate();
-        Productcontainer.repaint();
-
-        currentPanel = previousPanel;
-        previousPanel = null; // optional: reset after going back
-    } else {
-        // No previous panel → show all products
-        showAllProducts();
-    }
+  
 
 
 
@@ -438,85 +465,23 @@ private void loadProductsFromDatabase() {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void SearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchFocusGained
-        if (Search.getText().equals("Search by brands")) {
-            Search.setText("");
-        }// TODO add your handling code here:
+       
     }//GEN-LAST:event_SearchFocusGained
 
     private void SearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchFocusLost
-        if (Search.getText().trim().isEmpty()) {
-            Search.setText("Search by brands");
-
-        }    // TODO add your handling code here:
+      
     }//GEN-LAST:event_SearchFocusLost
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
                                       
-    String brand = Search.getText().trim();
-
-    // 🚫 Search button must NEVER navigate
-    if (brand.isEmpty() || brand.equals("Search by brands")) {
-        JOptionPane.showMessageDialog(
-            this,
-            "Please enter a brand name to search"
-        );
-        return;
-    }
-
-    ProductDao productDao = new ProductDAOImpl();
-    List<ProductModel> products = productDao.getProductsByBrand(brand);
-
-    if (products.isEmpty()) {
-        JOptionPane.showMessageDialog(
-            this,
-            "No products found for brand: " + brand
-        );
-        return;
-    }
-
-    JPanel searchPanel = new JPanel();
-    searchPanel.setLayout(new BoxLayout(searchPanel, BoxLayout.X_AXIS));
-
-    for (ProductModel product : products) {
-        searchPanel.add(new ProductCardPanel(product, this));
-    }
-
-    Productcontainer.removeAll();
-    Productcontainer.add(searchPanel, BorderLayout.CENTER);
-    Productcontainer.revalidate();
-    Productcontainer.repaint();
-
-    currentPanel = searchPanel;
+   
 
 
     }//GEN-LAST:event_searchActionPerformed
 
     private void FavActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FavActionPerformed
                                    
-    if (SessionManager.getCurrentUser() == null) {
-        int option = JOptionPane.showConfirmDialog(
-            this,
-            "You need to login or signup to view your favorites.\nDo you want to signup now?",
-            "Login Required",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (option == JOptionPane.YES_OPTION) {
-            GraveRunSignup signup = new GraveRunSignup((Frame) SwingUtilities.getWindowAncestor(this), true);
-            signup.setLocationRelativeTo(this);
-            signup.setVisible(true);
-        }
-        return; // Exit if user not logged in
-    }
-
-    // ✅ Create Favourites view and controller
-    Favourites favView = new Favourites(); // No DAO in view!
-    new FavouriteController(favView);      // Controller injects DAO
-    favView.setVisible(true);
-
-    this.dispose(); // close dashboard if you want
-
+   
 
     }//GEN-LAST:event_FavActionPerformed
 
@@ -525,69 +490,40 @@ private void loadProductsFromDatabase() {
     }//GEN-LAST:event_ProfileActionPerformed
 
     private void Fav1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Fav1ActionPerformed
-    if (SessionManager.getCurrentUser() == null) {
-        int option = JOptionPane.showConfirmDialog(
-            this,
-            "You need to login or signup to view your cart.\nDo you want to signup now?",
-            "Login Required",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE
-        );
+   
 
-        if (option == JOptionPane.YES_OPTION) {
-            Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-            GraveRunSignup signup = new GraveRunSignup(parentFrame, true);
-            signup.setLocationRelativeTo(parentFrame);
-            signup.setVisible(true); // Modal - blocks until closed
-        }
-        // If No or already logged in after signup → continue below
-    }
+
 
    
-    if (SessionManager.getCurrentUser() != null) {
-       
-        CartView cartFrame = new CartView(cartDAO);
-cartFrame.setVisible(true);
-this.dispose();
-
-
-    };
     }//GEN-LAST:event_Fav1ActionPerformed
 
     private void HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpActionPerformed
-        HelpPage help=new HelpPage();
-        help.setVisible(true);
-        this.dispose();
+       
           // TODO add your handling code here:
     }//GEN-LAST:event_HelpActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountActionPerformed
-        // TODO add your handling code here:
+       
+           // TODO add your handling code here:
     }//GEN-LAST:event_AccountActionPerformed
+
+    private void OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderActionPerformed
+ 
+    
+    }//GEN-LAST:event_OrderActionPerformed
+
+    private void OUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OUTActionPerformed
+       
+        
+    }//GEN-LAST:event_OUTActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Dashboard1().setVisible(true));
+   public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new Dashboard1().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -626,115 +562,16 @@ this.dispose();
     private javax.swing.JLabel subname;
     // End of variables declaration//GEN-END:variables
 
-// Search & Header
-public javax.swing.JTextField getSearchField() {
-    return Search;
-}
-
-public javax.swing.JButton getSearchButton() {
-    return search;
-}
-
-
-public javax.swing.JButton getFavoritesButton() {
-    return Fav;
-}
-
-public javax.swing.JButton getCartButton() {
-    return Fav1;
-}
-
-public javax.swing.JButton getProfileButton() {
-    return Profile;
-}
-
-public javax.swing.JPopupMenu getPopupMenu() {
-    return Pop;
-}
-
-// Product Container (this is where products will be added dynamically)
-public javax.swing.JPanel getProductContainer() {
-    return Productcontainer;
-}
-
-// Footer Help Button
-public javax.swing.JButton getHelpButton() {
-    return Help;
-}
-public ProductCardPanel addProductCard(ProductModel product) {
-    ProductCardPanel card = new ProductCardPanel(product, this); // 🔥 PASS LISTENER
-    Productcontainer.add(card);
-    return card;
-}
-
-public void showProductDetail(ProductModel product) {
-
-    previousPanel = currentPanel; // save current panel to go back later
-
-    // Create the panel
-    ProductDetail detailPanel = new ProductDetail(product);
-
-    detailPanel.setProductId(product.getProductId());
-    detailPanel.setProductName(product.getName());
-    detailPanel.setProductPrice(product.getPrice());
-    detailPanel.setProductImage(product.getImageUrl());
-    detailPanel.setDescription(product.getDescription());
-
-    // ✅ Attach the controller so buttons actually work
-    new ProductDetailController(detailPanel, product, cartDAO, favoriteDAO);
-
-    // Show in container
-    Productcontainer.setLayout(new BorderLayout());
-    Productcontainer.removeAll();
-    Productcontainer.add(detailPanel, BorderLayout.CENTER);
-    Productcontainer.revalidate();
-    Productcontainer.repaint();
-
-    currentPanel = detailPanel;
-}
-
-
-public javax.swing.JScrollPane getScrollPane() {
-    return jScrollPane1;
-}
-@Override
-public void onProductSelected(int productId) {
-    System.out.println("Clicked product ID: " + productId);
-
-    ProductDao productDao = new ProductDAOImpl();
-    ProductModel product = productDao.getProductById(productId);
-
-    if (product == null) {
-        JOptionPane.showMessageDialog(this, "Product not found!");
-        return;
-    }
-
-    showProductDetail(product);
-}
-
-
-           
-private void showAllProducts() {
-    Productcontainer.removeAll();
-    Productcontainer.add(allProductsPanel, BorderLayout.CENTER);
-    Productcontainer.revalidate();
-    Productcontainer.repaint();
-
-    Search.setText("Search by brands");
-    currentPanel = allProductsPanel;
-}
-public void showOrderConfirm(ProductModel product) {
-
-    previousPanel = currentPanel; // save current view
-
-    OrderConfirm orderPanel = new OrderConfirm(product);
-
-    Productcontainer.setLayout(new BorderLayout());
-    Productcontainer.removeAll();
-    Productcontainer.add(orderPanel, BorderLayout.CENTER);
-    Productcontainer.revalidate();
-    Productcontainer.repaint();
-
-    currentPanel = orderPanel;
-}
+    public JButton getSearchButton() { return search; }
+    public JTextField getSearchField() { return Search; }
+    public JButton getFavoritesButton() { return Fav; }
+    public JButton getCartButton() { return Fav1; }
+    public JButton getProfileButton() { return Profile; }
+    public JButton getHelpButton() { return Help; }
+    public JLabel getLogoLabel() { return jLabel2; }
+    public JPopupMenu getPopupMenu() { return Pop; }
+    public JPanel getProductContainer() { return Productcontainer; }
+    public JMenuItem getMenuItemAccount() { return Account; }
+    public JMenuItem getMenuItemOrder() { return Order; }
+    public JMenuItem getMenuItemLogout() { return OUT; }
 }

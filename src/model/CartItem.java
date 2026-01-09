@@ -3,15 +3,15 @@ package model;
 import java.math.BigDecimal;
 
 public class CartItem {
-    private ProductModel product;
+    private AdminProductModel product;
     private int quantity;
 
-    public CartItem(ProductModel product, int quantity) {
+    public CartItem(AdminProductModel product, int quantity) {
         this.product = product;
         this.quantity = Math.max(1, quantity);
     }
 
-    public ProductModel getProduct() { return product; }
+    public AdminProductModel getProduct() { return product; }
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = Math.max(1, quantity); }
     public void increase() { quantity++; }

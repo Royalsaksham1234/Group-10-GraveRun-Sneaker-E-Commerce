@@ -4,7 +4,7 @@
  */
 package view;
 import javax.swing.ImageIcon;
-import model.ProductModel;
+import model.AdminProductModel;
 
 
 /**
@@ -12,11 +12,11 @@ import model.ProductModel;
  * @author Lenovo
  */
 public class ProductCardPanel extends javax.swing.JPanel {
-        private ProductModel product;
+        private AdminProductModel product;
     private ProductSelectionListener listener;
         private int productId;
     
-public ProductCardPanel(ProductModel product, ProductSelectionListener listener) {
+public ProductCardPanel(AdminProductModel product, ProductSelectionListener listener) {
     this.product = product;
     this.productId = product.getProductId();
     this.listener = listener;   // 🔥 THIS WAS MISSING

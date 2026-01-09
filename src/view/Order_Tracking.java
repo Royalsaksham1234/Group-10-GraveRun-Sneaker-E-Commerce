@@ -32,7 +32,7 @@ public class Order_Tracking extends javax.swing.JFrame {
         track_order = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
         BACK = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         estimated_time = new javax.swing.JLabel();
@@ -71,12 +71,18 @@ public class Order_Tracking extends javax.swing.JFrame {
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png.png"))); // NOI18N
         logo.setText("jLabel1");
+        logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoMouseClicked(evt);
+            }
+        });
         jPanel2.add(logo);
         logo.setBounds(370, -40, 160, 150);
 
-        jButton1.setText("CANCEL");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(1330, 20, 110, 23);
+        cancel.setText("CANCEL");
+        cancel.addActionListener(this::cancelActionPerformed);
+        jPanel2.add(cancel);
+        cancel.setBounds(1330, 20, 110, 23);
 
         BACK.setText("BACK");
         BACK.addActionListener(this::BACKActionPerformed);
@@ -115,15 +121,15 @@ public class Order_Tracking extends javax.swing.JFrame {
         o_one.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         o_one.setText("o");
         jPanel3.add(o_one);
-        o_one.setBounds(20, 25, 8, 20);
+        o_one.setBounds(20, 25, 9, 20);
 
         order_placed.setText("ORDER PLACED");
         jPanel3.add(order_placed);
-        order_placed.setBounds(80, 20, 90, 20);
+        order_placed.setBounds(80, 20, 120, 20);
 
         we_have_received_your_order.setText("WE HAVE RECEIVED YOUR ORDER.");
         jPanel3.add(we_have_received_your_order);
-        we_have_received_your_order.setBounds(60, 40, 190, 20);
+        we_have_received_your_order.setBounds(60, 40, 230, 20);
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 280, 1280, 80);
@@ -137,11 +143,11 @@ public class Order_Tracking extends javax.swing.JFrame {
 
         order_confirmed.setText("ORDER CONFIRMED");
         jPanel4.add(order_confirmed);
-        order_confirmed.setBounds(80, 10, 120, 16);
+        order_confirmed.setBounds(80, 10, 150, 16);
 
         your_order_has_been_confirmed.setText("YOUR ORDER HAS BEEN CONFIRMED.");
         jPanel4.add(your_order_has_been_confirmed);
-        your_order_has_been_confirmed.setBounds(60, 30, 210, 16);
+        your_order_has_been_confirmed.setBounds(60, 30, 250, 16);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(0, 360, 1280, 80);
@@ -155,11 +161,11 @@ public class Order_Tracking extends javax.swing.JFrame {
 
         order_processed.setText("ORDER PROCESSED");
         jPanel5.add(order_processed);
-        order_processed.setBounds(80, 20, 120, 16);
+        order_processed.setBounds(80, 20, 160, 16);
 
         we_are_preparing_your_order.setText("WE ARE PREPARING YOUR ORDER.");
         jPanel5.add(we_are_preparing_your_order);
-        we_are_preparing_your_order.setBounds(60, 40, 190, 20);
+        we_are_preparing_your_order.setBounds(60, 40, 240, 20);
 
         jPanel1.add(jPanel5);
         jPanel5.setBounds(0, 440, 1320, 80);
@@ -173,11 +179,11 @@ public class Order_Tracking extends javax.swing.JFrame {
 
         ready_to_pickup.setText("READY TO PICKUP");
         jPanel6.add(ready_to_pickup);
-        ready_to_pickup.setBounds(80, 20, 100, 16);
+        ready_to_pickup.setBounds(80, 20, 150, 16);
 
         your_order_is_ready_for_pickup.setText("YOUR ORDER IS READY FOR PICKUP.");
         jPanel6.add(your_order_is_ready_for_pickup);
-        your_order_is_ready_for_pickup.setBounds(60, 40, 220, 20);
+        your_order_is_ready_for_pickup.setBounds(60, 40, 280, 20);
 
         jPanel1.add(jPanel6);
         jPanel6.setBounds(0, 520, 1320, 80);
@@ -191,6 +197,14 @@ public class Order_Tracking extends javax.swing.JFrame {
     private void BACKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BACKActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BACKActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -219,9 +233,9 @@ public class Order_Tracking extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BACK;
+    private javax.swing.JButton cancel;
     private javax.swing.JLabel delivery;
     private javax.swing.JLabel estimated_time;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -249,7 +263,7 @@ public class Order_Tracking extends javax.swing.JFrame {
 
 // ========== GETTER METHODS FOR CONTROLLER ==========
 public javax.swing.JButton getBackButton() { return BACK; }
-public javax.swing.JButton getCancelButton() { return jButton1; }
+public javax.swing.JButton getCancelButton() { return cancel; }
 public javax.swing.JLabel getOrderLabel() { return order; }
 public javax.swing.JLabel getEstimatedTimeLabel() { return estimated_time; }
 public javax.swing.JLabel getPaymentLabel() { return jLabel2; }
@@ -267,4 +281,23 @@ public javax.swing.JLabel getOrderConfirmedLabel() { return order_confirmed; }
 public javax.swing.JLabel getOrderProcessedLabel() { return order_processed; }
 public javax.swing.JLabel getReadyToPickupLabel() { return ready_to_pickup; }
 
+public javax.swing.JLabel getLogo() { 
+    return logo; 
+}
+
+public javax.swing.JLabel getWeHaveReceivedYourOrderLabel() {
+    return we_have_received_your_order;
+}
+
+public javax.swing.JLabel getYourOrderHasBeenConfirmedLabel() {
+    return your_order_has_been_confirmed;
+}
+
+public javax.swing.JLabel getWeArePreparingYourOrderLabel() {
+    return we_are_preparing_your_order;
+}
+
+public javax.swing.JLabel getYourOrderIsReadyForPickupLabel() {
+    return your_order_is_ready_for_pickup;
+}
 }
