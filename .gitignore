@@ -13,4 +13,10 @@ src/database/MySqlConnection
 nbproject/private/private.xml
 nbproject/private/build-impl.xml
 nbproject/build.xml
+<<<<<<< HEAD
+/build/
+/dist/
+src/database/MySqlConnection
+=======
 
+>>>>>>> dc24b4d19ae210f0fb04e48ae3018909751d0b3d

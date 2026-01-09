@@ -19,34 +19,24 @@ public class MySqlConnection implements Database {
 
     @Override
     public Connection openConnection() {
-        try {
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            
-            if (connection != null) {
-                System.out.println("Database connection successful!");
-            }
-            
-            return connection;
-            
-        } catch (SQLException e) {
-            System.err.println("Database connection failed!");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
-            
-            // Optional: Show popup so you know immediately
-            javax.swing.JOptionPane.showMessageDialog(null,
-                "Cannot connect to database!\n\n" +
-                "Error: " + e.getMessage() + "\n\n" +
-                "Check:\n" +
-                "- MySQL server is running\n" +
-                "- Username: root\n" +
-                "- Password: Jibesh@16\n" +
-                "- Database 'graverun' exists",
-                "Connection Failed",
-                javax.swing.JOptionPane.ERROR_MESSAGE);
-                
-            return null;
-        }
+       try{
+           String username = "root";
+           String password = "Samridha19";
+           String database = "sneakers";
+           Connection connection;
+           connection = DriverManager.getConnection(
+           "jdbc:mysql://localhost:3306/" +database, username, password);
+           if (connection == null){
+               System.out.print("Connection unsuccessfull");
+           }else{
+               System.out.println("Connection successful");
+           }
+           
+           return connection;        
+       } catch (SQLException e){
+           System.out.println(e);
+           return null;
+       } 
     }
 
     @Override
