@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import model.UserProfileData;
 
 import javax.swing.table.DefaultTableModel;
-import view.GraveRunNewLogin;
+
 
 public class UserProfileController {
 
