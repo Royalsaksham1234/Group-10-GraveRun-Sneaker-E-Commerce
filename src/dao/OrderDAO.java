@@ -22,7 +22,7 @@ public class OrderDAO {
 
     // 🔹 Create order for multiple cart items
     public int createOrder(List<CartItem> cartItems, String address, String paymentMethod, String stripeSessionId) {
-        String insertOrder = "INSERT INTO orders (user_id, total_price, shipping_address, payment_method, stripe_session_id, status) " +
+        String insertOrder = "INSERT INTO orders (user_id, total_amount, shipping_address, payment_method, stripe_session_id, status) " +
                              "VALUES (?, ?, ?, ?, ?, ?)";
 
         String insertOrderItem = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
@@ -63,7 +63,7 @@ public class OrderDAO {
                     }
 
                     // 4️⃣ Clear cart
-                    String clearCart = "DELETE FROM cart_items WHERE user_id = ?";
+                    String clearCart = "DELETE FROM cart_items WHERE id = ?";
                     try (PreparedStatement psClear = conn.prepareStatement(clearCart)) {
                         psClear.setInt(1, userId);
                         psClear.executeUpdate();
@@ -106,7 +106,7 @@ public class OrderDAO {
 
     // 🔹 Optional: Fetch orders for user
     public ResultSet getUserOrders() {
-        String query = "SELECT * FROM orders WHERE user_id = ?";
+        String query = "SELECT * FROM orders WHERE id = ?";
         try {
             Connection conn = db.openConnection();
             PreparedStatement ps = conn.prepareStatement(query);

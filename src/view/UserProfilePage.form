@@ -51,7 +51,7 @@
                                   <Component id="mycart" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jLabel3" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="jButton4" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="confirmPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
@@ -60,11 +60,14 @@
                           <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="username" min="-2" pref="271" max="-2" attributes="0"/>
+                          <Component id="password" min="-2" pref="271" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="password" min="-2" pref="271" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="logo" min="-2" max="-2" attributes="0"/>
+                              <Component id="username" min="-2" pref="271" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -74,7 +77,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="logo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="username" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="password" min="-2" pref="31" max="-2" attributes="0"/>
@@ -84,10 +89,10 @@
                   <Component id="mywhislist" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="mycart" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="70" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton4" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="confirmPassword" min="-2" pref="33" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="logout" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
@@ -104,12 +109,12 @@
             <Property name="text" type="java.lang.String" value="My Orders"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="confirmPassword">
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirm Password"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmPasswordActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="mywhislist">
@@ -119,6 +124,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="My Whislist"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mywhislistActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -152,19 +160,38 @@
         </Component>
         <Component class="javax.swing.JLabel" name="username">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="14" style="0"/>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="username"/>
+            <Property name="text" type="java.lang.String" value="Username"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="password">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="14" style="0"/>
+            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="password"/>
+            <Property name="text" type="java.lang.String" value="Email"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="logo">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/images/Logo.png.png"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -184,7 +211,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="310" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="347" max="32767" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -220,7 +247,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="346" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="202" max="-2" attributes="0"/>
-                      <EmptySpace pref="422" max="32767" attributes="0"/>
+                      <EmptySpace pref="347" max="32767" attributes="0"/>
+                      <Component id="backbtn" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -228,7 +256,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="18" max="32767" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="backbtn" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" pref="47" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -248,6 +279,16 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Your Profile&#xa;"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="backbtn">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/exit (2).png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backbtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

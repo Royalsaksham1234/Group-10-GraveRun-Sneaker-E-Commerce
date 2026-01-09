@@ -3,7 +3,7 @@ package controller;
 import dao.FavoriteDAO;
 import javax.swing.JOptionPane;
 import model.FavouriteItem;
-import model.ProductModel;
+import model.AdminProductModel;
 import view.Favourites;
 import view.ProductFavPanel;
 
@@ -96,7 +96,7 @@ public class FavouriteController {
     }
 
     // ================= CALLED FROM DASHBOARD =================
-    public void addToFavourites(ProductModel product) {
+    public void addToFavourites(AdminProductModel product) {
 
         if (dao.isFavourite(product.getProductId())) {
             JOptionPane.showMessageDialog(view, "Already in favourites!");

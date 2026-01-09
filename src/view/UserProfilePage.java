@@ -21,15 +21,26 @@ public class UserProfilePage extends javax.swing.JFrame {
     /**
      * Creates new form ProfilePage
      */
-    public UserProfilePage() {
-        initComponents();
-    }
-    public UserProfilePage(int userId) {
-        this();
-        UserProfileController controller = new UserProfileController(Order_List, username, password, userId, logout);
-        controller.loadProfileData();
-    }
+    private UserProfileController controller;  // Class field
+
+public UserProfilePage(int userId) {
+    initComponents();
     
+    // Initialize controller with all required parameters
+    controller = new UserProfileController(
+        Order_List,       // JTable for orders
+        username,         // JLabel for username
+        password,         // JLabel for email
+        userId,           // User ID
+        logout,           // Logout button
+        mywhislist,       // My Wishlist button
+        myorders,         // My Orders button
+        confirmPassword,  // Confirm Password button
+        mycart            // My Cart button
+    );
+    
+    // Controller automatically loads data in its constructor
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,16 +53,18 @@ public class UserProfilePage extends javax.swing.JFrame {
 
         jPanel4 = new javax.swing.JPanel();
         myorders = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        confirmPassword = new javax.swing.JButton();
         mywhislist = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         mycart = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         username = new javax.swing.JLabel();
         password = new javax.swing.JLabel();
+        logo = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        backbtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Order_List = new javax.swing.JTable();
 
@@ -63,11 +76,12 @@ public class UserProfilePage extends javax.swing.JFrame {
         myorders.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         myorders.setText("My Orders");
 
-        jButton4.setText("Confirm Password");
-        jButton4.addActionListener(this::jButton4ActionPerformed);
+        confirmPassword.setText("Confirm Password");
+        confirmPassword.addActionListener(this::confirmPasswordActionPerformed);
 
         mywhislist.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         mywhislist.setText("My Whislist");
+        mywhislist.addActionListener(this::mywhislistActionPerformed);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -80,11 +94,17 @@ public class UserProfilePage extends javax.swing.JFrame {
         logout.setText("LOG OUT");
         logout.addActionListener(this::logoutActionPerformed);
 
+        username.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         username.setForeground(new java.awt.Color(255, 255, 255));
-        username.setText("username");
+        username.setText("Username");
 
+        password.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         password.setForeground(new java.awt.Color(255, 255, 255));
-        password.setText("password");
+        password.setText("Email");
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo.png.png"))); // NOI18N
+        logo.setBorder(null);
+        logo.addActionListener(this::logoActionPerformed);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -100,22 +120,26 @@ public class UserProfilePage extends javax.swing.JFrame {
                                 .addComponent(mywhislist, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                                 .addComponent(mycart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4))
+                            .addComponent(confirmPassword))
                         .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(102, 102, 102))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(logo)
+                            .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(25, 25, 25)
+                .addComponent(logo)
+                .addGap(48, 48, 48)
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,17 +149,17 @@ public class UserProfilePage extends javax.swing.JFrame {
                 .addComponent(mywhislist)
                 .addGap(28, 28, 28)
                 .addComponent(mycart)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(0, 0, 310, 720);
+        jPanel4.setBounds(0, 0, 310, 693);
 
         jPanel3.setBackground(new java.awt.Color(104, 14, 14));
 
@@ -146,6 +170,9 @@ public class UserProfilePage extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Your Profile\n");
 
+        backbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit (2).png"))); // NOI18N
+        backbtn.addActionListener(this::backbtnActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,13 +180,16 @@ public class UserProfilePage extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(346, 346, 346)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
+                .addComponent(backbtn))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backbtn)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -183,7 +213,7 @@ public class UserProfilePage extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 310, Short.MAX_VALUE)
+                .addGap(0, 347, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -206,9 +236,9 @@ public class UserProfilePage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void confirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_confirmPasswordActionPerformed
 
     private void mycartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mycartActionPerformed
         // TODO add your handling code here:
@@ -218,10 +248,24 @@ public class UserProfilePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void mywhislistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mywhislistActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mywhislistActionPerformed
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backbtnActionPerformed
+
+    private void logoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoActionPerformed
+     Dashboard1 dash = new Dashboard1();
+     dash.setVisible(true);
+      this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_logoActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -238,20 +282,34 @@ public class UserProfilePage extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+           try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new UserProfilePage(1).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> {
+            UserProfilePage page = new UserProfilePage(1);
+            page.setLocationRelativeTo(null);
+            page.setVisible(true);
+        });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Order_List;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton backbtn;
+    private javax.swing.JButton confirmPassword;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logo;
     private javax.swing.JButton logout;
     private javax.swing.JButton mycart;
     private javax.swing.JButton myorders;
@@ -263,5 +321,13 @@ public class UserProfilePage extends javax.swing.JFrame {
 public void addLogoutListener(ActionListener listener) {
     logout.addActionListener(listener);
 }
-
+public void addMyWhislistListener(ActionListener listener){
+    mywhislist.addActionListener(listener);
+}
+public void addmycartListener(ActionListener listener){
+    mycart.addActionListener(listener);
+}
+public void addmyordersListener(ActionListener listener){
+    myorders.addActionListener(listener);
+}
 }

@@ -5,6 +5,7 @@ public class UserModel {
     private String username;    // Added: for display/session
     private String email;
     private String password;
+    private String fullName;
     private String otp;
 
     // Default constructor (useful for DAO)
@@ -12,8 +13,9 @@ public class UserModel {
     }
 
     // For signup (with OTP)
-    public UserModel(String email, String password, String otp) {
+    public UserModel(String email,String fullName, String password, String otp) {
         this.email = email;
+        this.fullName=fullName;
         this.password = password;
         this.otp = otp;
     }
@@ -64,6 +66,8 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
     public String getOtp() {
         return otp;

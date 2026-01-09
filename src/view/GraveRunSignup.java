@@ -17,8 +17,9 @@ public class GraveRunSignup extends javax.swing.JDialog {
   
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GraveRunSignup.class.getName());
-private static final String EMAIL_PLACEHOLDER = "Email";
-private static final String PASSWORD_PLACEHOLDER = "PASSWORD";
+    private static final String EMAIL_PLACEHOLDER = "Email";
+    private static final String PASSWORD_PLACEHOLDER = "PASSWORD";
+    private static final String FULLNAME_PLACEHOLDER = "Full Name";
  
 public GraveRunSignup(java.awt.Window parent, ModalityType modalityType) {
     super(parent, modalityType);
@@ -63,6 +64,7 @@ public GraveRunSignup() {
         confirmpassword = new javax.swing.JPasswordField();
         password = new javax.swing.JPasswordField();
         log = new javax.swing.JButton();
+        fullName = new javax.swing.JTextField();
 
         signupfront.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -137,6 +139,21 @@ public GraveRunSignup() {
         log.setText("Login");
         log.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(106, 14, 14)));
 
+        fullName.setBackground(new java.awt.Color(0, 0, 0));
+        fullName.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        fullName.setForeground(new java.awt.Color(255, 255, 255));
+        fullName.setText("Full Name");
+        fullName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        fullName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                fullNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                fullNameFocusLost(evt);
+            }
+        });
+        fullName.addActionListener(this::fullNameActionPerformed);
+
         javax.swing.GroupLayout signupfrontLayout = new javax.swing.GroupLayout(signupfront);
         signupfront.setLayout(signupfrontLayout);
         signupfrontLayout.setHorizontalGroup(
@@ -150,18 +167,20 @@ public GraveRunSignup() {
                         .addGap(467, 467, 467)
                         .addComponent(logan))
                     .addGroup(signupfrontLayout.createSequentialGroup()
-                        .addGap(425, 425, 425)
-                        .addGroup(signupfrontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(signupfrontLayout.createSequentialGroup()
-                                .addComponent(alreadyhaveanaccount)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(signupfrontLayout.createSequentialGroup()
                         .addGap(481, 481, 481)
-                        .addComponent(Login)))
+                        .addComponent(Login))
+                    .addGroup(signupfrontLayout.createSequentialGroup()
+                        .addGap(425, 425, 425)
+                        .addGroup(signupfrontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fullName, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(signupfrontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(signupfrontLayout.createSequentialGroup()
+                                    .addComponent(alreadyhaveanaccount)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(548, Short.MAX_VALUE))
         );
         signupfrontLayout.setVerticalGroup(
@@ -173,9 +192,11 @@ public GraveRunSignup() {
                 .addComponent(logan)
                 .addGap(96, 96, 96)
                 .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
+                .addGap(41, 41, 41)
+                .addComponent(fullName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(41, 41, 41)
                 .addComponent(confirmpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85)
                 .addComponent(Login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,7 +204,7 @@ public GraveRunSignup() {
                 .addGroup(signupfrontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(log, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(alreadyhaveanaccount, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -252,6 +273,21 @@ public GraveRunSignup() {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
+    private void fullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fullNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fullNameActionPerformed
+
+    private void fullNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fullNameFocusGained
+         if (fullName.getText().equals("Full Name")) 
+        fullName.setText(""); 
+    }//GEN-LAST:event_fullNameFocusGained
+    
+    private void fullNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fullNameFocusLost
+      if (fullName.getText().isEmpty()) {
+        fullName.setText("Full Name");
+    }  // TODO add your handling code here:
+    }//GEN-LAST:event_fullNameFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -283,6 +319,7 @@ public GraveRunSignup() {
     private javax.swing.JLabel alreadyhaveanaccount;
     private javax.swing.JPasswordField confirmpassword;
     private javax.swing.JTextField email;
+    private javax.swing.JTextField fullName;
     private javax.swing.JButton log;
     private javax.swing.JLabel logan;
     private javax.swing.JPasswordField password;
@@ -290,6 +327,7 @@ public GraveRunSignup() {
     // End of variables declaration//GEN-END:variables
 private void setupPlaceholders() {
     email.setText(EMAIL_PLACEHOLDER);
+    fullName.setText(FULLNAME_PLACEHOLDER); 
     password.setText(PASSWORD_PLACEHOLDER);
     confirmpassword.setText(PASSWORD_PLACEHOLDER);
 
@@ -307,6 +345,9 @@ public javax.swing.JPasswordField getPasswordField() {
 
 public javax.swing.JPasswordField getConfirmPasswordField() {
     return confirmpassword;
+}
+public javax.swing.JTextField getFullNameField(){
+    return fullName;
 }
 
 public javax.swing.JButton getSignupButton() {

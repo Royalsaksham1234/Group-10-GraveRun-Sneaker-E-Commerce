@@ -1,213 +1,320 @@
 package controller;
 
-import dao.FavoriteDAO;
-import dao.ProductDao;
-import dao.ProductDAOImpl;
-import model.ProductModel;
-import util.SessionManager;
-import view.Dashboard1;
-import view.Favourites;
 import dao.CartDAO;
-import view.ProductCardPanel;
-import javax.swing.*;
+import dao.FavoriteDAO;
+import dao.ProductDAOImpl;
+import dao.ProductDao;
+import model.AdminProductModel;
+import util.SessionManager;
+import view.*;
 import java.util.List;
-import view.CartView;
-import view.GraveRunSignup;
-import view.ProductDetail;
+import javax.swing.*;
+import java.awt.Frame;
 
+/**
+ * DASHBOARD CONTROLLER - Handles ALL business logic and user interactions
+ * Following strict MVC architecture
+ */
 public class DashboardController {
     private final Dashboard1 view;
     private final ProductDao productDao;
 
-    public DashboardController() {
+    public DashboardController(Dashboard1 view) {
+        this.view = view;
         this.productDao = new ProductDAOImpl();
-        this.view = new Dashboard1();
+        
         initController();
-        loadProducts();
-        view.setVisible(true);
-        view.setLocationRelativeTo(null);
+        refreshDashboard();
     }
 
-    // Initialize all button actions
+    /**
+     * INITIALIZE ALL LISTENERS
+     */
     private void initController() {
-        // Search button (no login required)
+        // Header Navigation Buttons
         view.getSearchButton().addActionListener(e -> handleSearch());
-
-        // Favorites button – require login
-        view.getFavoritesButton().addActionListener(e -> {
-            if (SessionManager.isLoggedIn()) {
-                openFavorites();
-            } else {
-                requireLoginOrSignup();
+        view.getFavoritesButton().addActionListener(e -> handleFavorites());
+        view.getCartButton().addActionListener(e -> handleCart());
+        view.getProfileButton().addActionListener(e -> handleProfileClick());
+        view.getHelpButton().addActionListener(e -> handleHelp());
+        
+        // Logo - Refresh Dashboard
+        view.getLogoLabel().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refreshDashboard();
             }
         });
-
-        // Cart button – require login
-        view.getCartButton().addActionListener(e -> {
-            if (SessionManager.isLoggedIn()) {
-                openCart();
-            } else {
-                requireLoginOrSignup();
-            }
-        });
-
-        // Profile button – require login to show popup
-        view.getProfileButton().addActionListener(e -> {
-            if (SessionManager.isLoggedIn()) {
-                view.getPopupMenu().show(view.getProfileButton(), 0, view.getProfileButton().getHeight());
-            } else {
-                requireLoginOrSignup();
-            }
-        });
-
-        // Help button (no login required)
-        view.getHelpButton().addActionListener(e -> openHelp());
+        
+        // Profile Popup Menu Items
+        view.getMenuItemAccount().addActionListener(e -> handleAccountClick());
+        view.getMenuItemOrder().addActionListener(e -> handleOrderClick());
+        view.getMenuItemLogout().addActionListener(e -> handleLogout());
     }
 
-    // Prompt user to login/signup
-    private void requireLoginOrSignup() {
+    /**
+     * MASTER REFRESH METHOD
+     */
+    private void refreshDashboard() {
+        view.updateSessionState();
+        loadProducts();
+        view.resetSearchField();
+    }
+
+    /**
+     * LOAD PRODUCTS FROM DATABASE
+     */
+    private void loadProducts() {
+        try {
+            List<AdminProductModel> products = productDao.getAllProducts();
+            System.out.println("✅ Fetched " + products.size() + " products from database");
+            
+            view.clearProductDisplay();
+
+            for (AdminProductModel product : products) {
+                System.out.println("📦 Adding product: " + product.getName() + 
+                                 " | Image: " + product.getImageUrl());
+                
+                ProductCardPanel card = view.addProductCard(product);
+                card.setProductSelectionListener(selectedId -> handleProductClick(product));
+            }
+            
+            view.refreshProductDisplay();
+            System.out.println("✅ Product display refreshed");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(view, 
+                "Error loading products: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * SECURITY CHECK + LOGIN PROMPT
+     */
+    private boolean checkSessionOrPrompt() {
+        if (SessionManager.isLoggedIn()) {
+            return true;
+        } else {
+            promptForLogin();
+            return SessionManager.isLoggedIn();
+        }
+    }
+
+    /**
+     * PROMPT USER TO LOGIN/SIGNUP
+     */
+    private void promptForLogin() {
         int choice = JOptionPane.showConfirmDialog(view,
-                "Please login or signup first to access this feature.",
+                "You need to login to access this feature.\nDo you want to signup now?",
                 "Login Required",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
+
         if (choice == JOptionPane.YES_OPTION) {
-            navigateToSignup();
+            openSignupDialog();
         }
     }
 
-    // Load all products and attach click listeners (FIXED: safe variable capture)
-    private void loadProducts() {
-        try {
-            List<ProductModel> products = productDao.getAllProducts();
-            view.getProductContainer().removeAll();
+    /**
+     * OPEN SIGNUP DIALOG
+     */
+    private void openSignupDialog() {
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(view);
+        GraveRunSignup signup = new GraveRunSignup(parentFrame, true);
+        signup.setLocationRelativeTo(view);
+        signup.setVisible(true);
+        
+        if (SessionManager.isLoggedIn()) {
+            refreshDashboard();
+        }
+    }
 
-            for (ProductModel product : products) {
-                ProductCardPanel card = view.addProductCard(product);
+    // ==================== NAVIGATION HANDLERS ====================
 
-                // CRITICAL FIX: Capture the current product safely to avoid closure bug
-                ProductModel currentProduct = product;
-                card.setProductSelectionListener(selectedId -> handleProductClick(currentProduct));
+    /**
+     * HANDLE PROFILE BUTTON CLICK
+     */
+    private void handleProfileClick() {
+        if (SessionManager.isLoggedIn()) {
+            if (view.getProfileButton().isShowing()) {
+                view.getPopupMenu().show(
+                    view.getProfileButton(), 
+                    0, 
+                    view.getProfileButton().getHeight()
+                );
             }
-
-            view.getProductContainer().revalidate();
-            view.getProductContainer().repaint();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view,
-                    "Error loading products:\n" + e.getMessage(),
-                    "Database Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
+        } else {
+            promptForLogin();
         }
     }
 
-    // Handle product card click
-    private void handleProductClick(ProductModel product) {
-        if (!SessionManager.isLoggedIn()) {
-            int choice = JOptionPane.showConfirmDialog(view,
-                    "Please login or signup to purchase this product.",
-                    "Login Required",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-            if (choice == JOptionPane.YES_OPTION) {
-                navigateToSignup();
+    /**
+     * HANDLE ACCOUNT MENU ITEM CLICK
+     */
+    private void handleAccountClick() {
+        if (checkSessionOrPrompt()) {
+            int userId = SessionManager.getCurrentUserId();
+            UserProfilePage profile = new UserProfilePage(userId);
+            profile.setLocationRelativeTo(view);
+            profile.setVisible(true);
+            view.dispose(); // ✅ Clean disposal
+        }
+    }
+
+    /**
+     * HANDLE ORDER MENU ITEM CLICK
+     */
+    private void handleOrderClick() {
+        if (checkSessionOrPrompt()) {
+            try {
+                int userId = SessionManager.getCurrentUserId();
+                
+                Order_Tracking trackingView = new Order_Tracking();
+                OrderTrackingController controller = new OrderTrackingController(trackingView, view);
+                
+                controller.loadMostRecentOrder(userId);
+                controller.showScreen();
+                
+                view.setVisible(false); // ✅ Hide, don't dispose
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(view,
+                    "Error opening order tracking: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
-            return;
         }
-        openBuyNowPage(product);
     }
 
-    // Open Buy Now page with fresh product data from database
-private void openBuyNowPage(ProductModel product) {
-    ProductDetail detailPanel = new ProductDetail(product);
+    /**
+     * HANDLE LOGOUT
+     */
+    private void handleLogout() {
+        int confirm = JOptionPane.showConfirmDialog(view,
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            SessionManager.logout();
+            refreshDashboard(); // ✅ Refresh to guest state
+            JOptionPane.showMessageDialog(view, 
+                "You have been logged out successfully.",
+                "Logged Out",
+                JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
-    CartDAO cartDAO = new CartDAO(); // Your existing constructor
-    FavoriteDAO favoriteDAO = new FavoriteDAO();
+    /**
+     * HANDLE FAVORITES BUTTON CLICK
+     */
+    private void handleFavorites() {
+        if (checkSessionOrPrompt()) {
+            Favourites favView = new Favourites();
+            new FavouriteController(favView);
+            favView.setVisible(true);
+            view.dispose(); // ✅ Clean disposal
+        }
+    }
 
-    new ProductDetailController(detailPanel, product, cartDAO, favoriteDAO);
+    /**
+     * HANDLE CART BUTTON CLICK
+     */
+    private void handleCart() {
+        if (checkSessionOrPrompt()) {
+            CartDAO cartDAO = new CartDAO();
+            CartView cartView = new CartView(cartDAO);
+            cartView.setLocationRelativeTo(view);
+            cartView.setVisible(true);
+            // ✅ Don't dispose - let user keep browsing
+        }
+    }
 
-    view.getProductContainer().removeAll();
-    view.getProductContainer().add(detailPanel);
-    view.getProductContainer().revalidate();
-    view.getProductContainer().repaint();
-}
+    /**
+     * HANDLE HELP BUTTON CLICK
+     */
+    private void handleHelp() {
+        HelpPage help = new HelpPage();
+        help.setLocationRelativeTo(view);
+        help.setVisible(true);
+        view.dispose(); // ✅ Clean disposal
+    }
 
-    // Search handling (also with safe capture fix)
+    /**
+     * HANDLE PRODUCT CARD CLICK
+     */
+    private void handleProductClick(AdminProductModel product) {
+        if (checkSessionOrPrompt()) {
+            openProductDetail(product);
+        }
+    }
+
+    /**
+     * OPEN PRODUCT DETAIL PAGE
+     */
+    private void openProductDetail(AdminProductModel product) {
+        ProductDetail detailPanel = new ProductDetail(product);
+        new ProductDetailController(detailPanel, product, new CartDAO(), new FavoriteDAO());
+        
+        view.clearProductDisplay();
+        view.getProductContainer().add(detailPanel);
+        view.refreshProductDisplay();
+    }
+
+    /**
+     * HANDLE SEARCH - ✅ FIXED: Use getSearchText() instead of direct getText()
+     */
     private void handleSearch() {
-        String searchTerm = view.getSearchField().getText().trim();
-        if (searchTerm.isEmpty() || searchTerm.equals("Search sneakers or brands")) {
-            JOptionPane.showMessageDialog(view, "Please enter a search term.", "Empty Search", JOptionPane.WARNING_MESSAGE);
+        String searchTerm = view.getSearchText(); // ✅ NEW: Excludes placeholder
+
+        if (searchTerm.isEmpty()) {
+            JOptionPane.showMessageDialog(view, 
+                "Please enter a sneaker name or brand.",
+                "Search",
+                JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
         try {
-            List<ProductModel> results = productDao.searchProducts(searchTerm);
-            view.getProductContainer().removeAll();
+            List<AdminProductModel> results = productDao.getProductsByBrand(searchTerm);
 
-            for (ProductModel p : results) {
-                ProductCardPanel card = view.addProductCard(p);
+            view.clearProductDisplay();
 
-                // Safe capture for search results too
-                ProductModel currentProduct = p;
-                card.setProductSelectionListener(selectedId -> handleProductClick(currentProduct));
+            if (results.isEmpty()) {
+                JLabel noResults = new JLabel("No products found for: " + searchTerm);
+                noResults.setFont(new java.awt.Font("Rockwell", java.awt.Font.BOLD, 18));
+                noResults.setForeground(java.awt.Color.WHITE);
+                noResults.setHorizontalAlignment(SwingConstants.CENTER);
+                view.getProductContainer().add(noResults);
+            } else {
+                for (AdminProductModel product : results) {
+                    ProductCardPanel card = view.addProductCard(product);
+                    card.setProductSelectionListener(selectedId -> handleProductClick(product));
+                }
             }
 
-            view.getProductContainer().revalidate();
-            view.getProductContainer().repaint();
+            view.refreshProductDisplay();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(view,
-                    "Search failed:\n" + e.getMessage(),
-                    "Search Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(view, 
+                "Error during search: " + e.getMessage(),
+                "Search Error",
+                JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
-
-    // Open Favorites page
-private void openFavorites() {
-    view.getProductContainer().removeAll();
-
-    FavoriteDAO favoriteDAO = new FavoriteDAO();
-    Favourites favouritesPanel = new Favourites(favoriteDAO);
-
-    view.getProductContainer().add(favouritesPanel);
-    view.getProductContainer().revalidate();
-    view.getProductContainer().repaint();
-}
-
-
-    // Cart placeholder
-private void openCart() {
-    view.getProductContainer().removeAll();
-
-    // Get current user ID
-    int userId = SessionManager.getCurrentUser().getUserId();
-    CartDAO cartDAO = new CartDAO();  // create DAO with the correct user
-    CartView cartView = new CartView(cartDAO); // pass DAO to CartView
-
-    new CartController(cartView); // controller loads cart items
-
-    view.getProductContainer().add(cartView);
-    view.getProductContainer().revalidate();
-    view.getProductContainer().repaint();
-}
-
-    // Help placeholder
-    private void openHelp() {
-        JOptionPane.showMessageDialog(view, "Help & Support coming soon!", "Info", JOptionPane.INFORMATION_MESSAGE);
+    
+    /**
+     * PUBLIC METHOD for ProductDetailController to trigger Buy Now flow
+     */
+    public void showOrderConfirm(AdminProductModel product) {
+        OrderConfirm orderConfirmView = new OrderConfirm(product);
+        
+        view.clearProductDisplay();
+        view.getProductContainer().add(orderConfirmView);
+        view.refreshProductDisplay();
     }
-
-    // Navigate to login
-    private void navigateToLogin() {
-        view.dispose();
-        new view.GraveRunLogin().setVisible(true);
-    }
-
-    // Navigate to signup
-    private void navigateToSignup() {
-
-    view.dispose();  // Remove this — we don't want to close dashboard
-GraveRunSignup signupView = new GraveRunSignup(view, true);
-// 'view' is your Dashboard1 frame, true = modal
-signupView.setLocationRelativeTo(view);  // Optional: center on dashboard
-signupView.setVisible(true);
 }
-    }

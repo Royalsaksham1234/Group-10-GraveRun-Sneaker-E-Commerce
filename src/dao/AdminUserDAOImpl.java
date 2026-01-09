@@ -183,7 +183,7 @@ public class AdminUserDAOImpl implements AdminUserDAO {
     
     @Override
     public boolean updatePassword(int userId, String newPasswordHash) {
-        String query = "UPDATE users SET password = ? WHERE id = ?";
+        String query = "UPDATE users SET password_hash = ? WHERE id = ?";
         
         try (
              PreparedStatement ps = db.openConnection().prepareStatement(query)) {

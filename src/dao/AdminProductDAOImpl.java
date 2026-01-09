@@ -12,6 +12,8 @@ public class AdminProductDAOImpl implements AdminProductDAO {
     
     @Override
     public boolean addProduct(AdminProductModel product) {
+        
+          
         String query = "INSERT INTO products (name, description, category, brand, price, " +
                       "stock_quantity, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
@@ -144,6 +146,8 @@ public class AdminProductDAOImpl implements AdminProductDAO {
     
     @Override
     public boolean updateProduct(AdminProductModel product) {
+      
+        
         String query = "UPDATE products SET name = ?, brand = ?, category = ?, " +
                    "description = ?, price = ?, image_url = ?, stock_quantity = ? " +
                    "WHERE product_id = ?";

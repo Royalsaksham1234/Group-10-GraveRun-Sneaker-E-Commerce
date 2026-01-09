@@ -9,9 +9,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.text.MaskFormatter;
-
+import java.math.RoundingMode;
 import model.CartItem;
-import model.ProductModel;
+import model.AdminProductModel;
 import util.SessionManager;
 
 
@@ -97,6 +97,7 @@ public CartView(CartDAO cartDAO) {
         Order.setText("Order Status");
         Order.setBorder(null);
         Order.setBorderPainted(false);
+        Order.addActionListener(this::OrderActionPerformed);
         Pop.add(Order);
 
         OUT.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
@@ -104,6 +105,7 @@ public CartView(CartDAO cartDAO) {
         OUT.setText("Log Out");
         OUT.setBorder(null);
         OUT.setBorderPainted(false);
+        OUT.addActionListener(this::OUTActionPerformed);
         Pop.add(OUT);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -197,13 +199,12 @@ public CartView(CartDAO cartDAO) {
         aboutus3.setForeground(new java.awt.Color(255, 255, 255));
         aboutus3.setText("An online shoe store that makes browsing and buying footwear easy.");
 
-        Help.setBackground(new java.awt.Color(0, 0, 0));
-        Help.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
+        Help.setBackground(new java.awt.Color(20, 20, 20));
+        Help.setFont(new java.awt.Font("Rockwell", 1, 20)); // NOI18N
         Help.setForeground(new java.awt.Color(255, 255, 255));
         Help.setText("Help");
-        Help.setBorder(null);
-        Help.setBorderPainted(false);
-        Help.setFocusPainted(false);
+        Help.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        Help.setMargin(new java.awt.Insets(10, 20, 10, 20));
         Help.addActionListener(this::HelpActionPerformed);
 
         Contact.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -223,7 +224,7 @@ public CartView(CartDAO cartDAO) {
         location.setText("Kathmandu, Nepal");
 
         Buy.setBackground(new java.awt.Color(0, 0, 0));
-        Buy.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        Buy.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
         Buy.setForeground(new java.awt.Color(255, 255, 255));
         Buy.setText("Buy All");
         Buy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 9, true));
@@ -360,7 +361,32 @@ public CartView(CartDAO cartDAO) {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void ProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProfileActionPerformed
+if (!SessionManager.isLoggedIn()) {
+        // User not logged in - ask to signup/login
+        int option = JOptionPane.showConfirmDialog(
+            this,
+            "You need to login or signup to access your profile.\nDo you want to signup now?",
+            "Login Required",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
 
+        if (option == JOptionPane.YES_OPTION) {
+            java.awt.Frame parentFrame = (java.awt.Frame) SwingUtilities.getWindowAncestor(this);
+            GraveRunSignup signup = new GraveRunSignup(parentFrame, true);
+            signup.setLocationRelativeTo(this);
+            signup.setVisible(true);
+            
+            // After signup dialog closes, check if they logged in
+            if (SessionManager.isLoggedIn()) {
+                // Now show the popup menu since they're logged in
+                Pop.show(Profile, 0, Profile.getHeight());
+            }
+        }
+    } else {
+        // User is logged in - show popup menu
+        Pop.show(Profile, 0, Profile.getHeight());
+    }
     }//GEN-LAST:event_ProfileActionPerformed
 
     private void HelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelpActionPerformed
@@ -401,7 +427,7 @@ try {
     java.awt.Desktop.getDesktop().browse(new java.net.URI(url));
 
     // 4️⃣ Save all items as an order in DB
-    int userId = util.SessionManager.getCurrentUser().getUserId();
+    int userId = util.SessionManager.getCurrentUser().getid();
     dao.OrderDAO orderDAO = new dao.OrderDAO(userId);
     int orderId = orderDAO.createOrder(cartItems, address, "Stripe", "StripePayment");
 
@@ -472,6 +498,38 @@ try {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_PhoneFocusLost
+
+    private void OrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OrderActionPerformed
+if (SessionManager.isLoggedIn()) {
+        Order_Tracking order = new Order_Tracking();
+        order.setLocationRelativeTo(null);
+        order.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }        // TODO add your handling code here:
+    }//GEN-LAST:event_OrderActionPerformed
+
+    private void OUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OUTActionPerformed
+ if (SessionManager.isLoggedIn()) {
+        int choice = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to log out?",
+            "Confirm Logout",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            SessionManager.logout();
+            
+            GraveRunLogin loginPage = new GraveRunLogin();
+            loginPage.setLocationRelativeTo(null);
+            loginPage.setVisible(true);
+            
+            this.dispose();
+        }        // TODO add your handling code here:
+ }
+    }//GEN-LAST:event_OUTActionPerformed
 
 
 
@@ -567,7 +625,7 @@ private BigDecimal calculateTotal() {
         total = total.add(item.getProduct().getPrice()
                         .multiply(BigDecimal.valueOf(item.getQuantity())));
     }
-    return total.setScale(2, BigDecimal.ROUND_HALF_UP);
+    return total.setScale(2, RoundingMode.HALF_UP);
 }
 
 private void updateTotal() {
