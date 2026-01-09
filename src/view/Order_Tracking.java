@@ -91,19 +91,19 @@ public class Order_Tracking extends javax.swing.JFrame {
 
         estimated_time.setText("ESTIMATED TIME:");
         panel.add(estimated_time);
-        estimated_time.setBounds(530, 30, 140, 40);
+        estimated_time.setBounds(530, 30, 360, 40);
 
         delivery.setText("DELIVERY:");
         panel.add(delivery);
-        delivery.setBounds(530, 100, 170, 40);
+        delivery.setBounds(530, 100, 350, 40);
 
         jLabel2.setText("PAYMENT:");
         panel.add(jLabel2);
-        jLabel2.setBounds(70, 110, 90, 30);
+        jLabel2.setBounds(70, 110, 270, 30);
 
         order.setText("ORDER:");
         panel.add(order);
-        order.setBounds(70, 30, 90, 40);
+        order.setBounds(70, 30, 250, 40);
 
         jPanel1.add(panel);
         panel.setBounds(0, 70, 1280, 210);

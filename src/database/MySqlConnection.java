@@ -13,14 +13,14 @@ import java.sql.*;
  *
  * @author srsro
  */
-public class Mysqlconnection implements Database {
+public class MySqlConnection implements Database {
 
     @Override
     public Connection openConnection() {
        try{
            String username = "root";
            String password = "Samridha19";
-           String database = "Sneakers";
+           String database = "sneakers";
            Connection connection;
            connection = DriverManager.getConnection(
            "jdbc:mysql://localhost:3306/" +database, username, password);

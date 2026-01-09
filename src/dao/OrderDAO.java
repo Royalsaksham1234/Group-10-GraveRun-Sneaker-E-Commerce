@@ -5,13 +5,13 @@
 package dao;
 
 import model.Order;
-import database.Mysqlconnection;
+import database.MySqlConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDAO {
-    private final Mysqlconnection mysql = new Mysqlconnection();
+    private final MySqlConnection mysql = new MySqlConnection();
     
     public Order getOrderById(String orderId) {
         Connection conn = mysql.openConnection();
@@ -62,11 +62,11 @@ public class OrderDAO {
     
     public List<String> getAllStatuses() {
         List<String> statuses = new ArrayList<>();
-        statuses.add("PLACED");
-        statuses.add("CONFIRMED");
-        statuses.add("PROCESSED");
-        statuses.add("READY");
-        statuses.add("CANCELLED");
+        statuses.add("Pending");
+        statuses.add("Processing");
+        statuses.add("Shipped");
+        statuses.add("Delivered");
+        statuses.add("Cancelled");
         return statuses;
     }
 }

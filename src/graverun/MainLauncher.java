@@ -13,7 +13,7 @@ public class MainLauncher {
                         new OrderTrackingController(view);
 
                 // MUST match DB exactly
-                controller.loadOrder("#2482011");
+                controller.loadOrder("#2482012");
 
                 controller.showScreen();
                 System.out.println("Order Tracking System Started!");
