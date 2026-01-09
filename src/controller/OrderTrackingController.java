@@ -5,7 +5,7 @@
 package controller;
 
 import view.Order_Tracking;
-import dao.OrderDAO;
+import dao.OrderTrackingDao;
 import model.Order;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class OrderTrackingController {
     private final Order_Tracking view;
-    private final OrderDAO orderDAO;
+    private final OrderTrackingDao orderDAO;
     private Order currentOrder;
     private final Color RED_ACTIVE = new Color(255, 50, 50);
     private final Color GRAY_INACTIVE = new Color(150, 150, 150);
@@ -22,7 +22,7 @@ public class OrderTrackingController {
     
     public OrderTrackingController(Order_Tracking view) {
         this.view = view;
-        this.orderDAO = new OrderDAO();
+        this.orderDAO = new OrderTrackingDao();
         setupEventListeners();
     }
     
